@@ -1,0 +1,36 @@
+{
+  "schema_version": "capx-fgsrp-claim-ledger-verifier-v2",
+  "claim_ledger": [
+    {
+      "chunk_id": "exact candidate chunk identifier",
+      "sentence_index": 0,
+      "sentence_text": "exact host-provided sentence text",
+      "claims": [
+        {
+          "original_claim": "exact atomic claim substring",
+          "disposition": "preserve_supported | preserve_compatible_or_undecidable | preserve_non_editable | replace_contradicted",
+          "replacement_claim": null,
+          "replacement_fact_ids": []
+        }
+      ]
+    }
+  ],
+  "repairs": [
+    {
+      "chunk_id": "exact candidate chunk identifier",
+      "original_claim": "exact replace_contradicted claim substring",
+      "replacement_claim": "minimal GT-entailed correction",
+      "replacement_fact_ids": [
+        "smallest sufficient authoritative evidence identifier"
+      ]
+    }
+  ],
+  "audit": {
+    "all_candidate_chunks_checked": true,
+    "every_sentence_listed_once": true,
+    "every_atomic_claim_classified": true,
+    "contradicted_claims_match_repairs": true,
+    "used_only_authoritative_catalog": true,
+    "contains_action_advice": false
+  }
+}

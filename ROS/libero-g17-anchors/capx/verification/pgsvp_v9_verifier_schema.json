@@ -1,0 +1,87 @@
+{
+  "schema_version": "pgsvp_v9_pt_gt_verifier_v2",
+  "private_verifier_audit": {
+    "authoritative_current_state_source": "privileged_simulator_state",
+    "candidate_pt_verified_field_by_field": true,
+    "used_student_text_only_for_stage_runtime_and_belief_tracking": true,
+    "public_object_mapping_performed_privately": true,
+    "task_relation": "qualitative public task relation",
+    "runtime_fact": "qualitative runtime fact or none",
+    "latest_code_block_stages_attempted": [
+      "perceive",
+      "acquire",
+      "carry_or_transport",
+      "align",
+      "release_or_settle",
+      "verify_or_finish"
+    ],
+    "attachment_facts": {
+      "robot_target_attachment": "empty/holding_target/holding_other/unknown",
+      "target_support": "table/goal_object/robot/unsupported/dropped/out_of_view/unknown",
+      "target_goal_contact": "contact/separated/unknown"
+    },
+    "axis_grounded_spatial_facts": {
+      "relative_x": "aligned/target_offset_positive_x/target_offset_negative_x/unknown",
+      "relative_y": "aligned/target_offset_positive_y/target_offset_negative_y/unknown",
+      "relative_z": "target_above_goal/target_below_goal/same_level/target_supported_by_goal/target_supported_by_table/unsupported/unknown",
+      "footprint": "target_center_inside_goal_footprint/target_center_outside_goal_footprint/unknown",
+      "contact_support": "target_contacting_goal/target_separated_from_goal/unknown",
+      "dominant_spatial_error": "qualitative GT fact or unknown"
+    },
+    "stage_postconditions": {
+      "perceive": "satisfied/absent/wrong/unknown",
+      "acquire": "satisfied/absent/wrong/unknown",
+      "carry_or_transport": "satisfied/absent/wrong/unknown",
+      "align": "satisfied/absent/wrong/unknown",
+      "release_or_settle": "satisfied/absent/wrong/unknown",
+      "verify_or_finish": "satisfied/absent/wrong/unknown"
+    },
+    "earliest_absent_postcondition": "qualitative public stage/postcondition",
+    "dominant_absent_fact": "single most important missing physical fact",
+    "false_beliefs_detected": [
+      "candidate PT belief contradicted by GT/runtime"
+    ],
+    "evidence_support": {
+      "attachment_supported_by_privileged_state": true,
+      "axis_grounded_spatial_facts_supported_by_privileged_state": true,
+      "stage_postconditions_supported_by_visible_trace_and_gt": true,
+      "runtime_supported_by_stdout_stderr": true
+    },
+    "self_check": {
+      "no_fact_inferred_only_from_student_code_or_pt": true,
+      "unknown_used_when_axis_direction_uncertain": true,
+      "no_public_advice": true,
+      "no_public_exact_numbers": true,
+      "no_hidden_identifiers_public": true
+    }
+  },
+  "public_student_guidance": {
+    "fields": {
+      "TASK_RELATION": "qualitative task relation",
+      "RUNTIME": "qualitative runtime fact or none",
+      "ATTACHMENT": "qualitative attachment fact",
+      "RELATIVE_X": "closed qualitative x relation",
+      "RELATIVE_Y": "closed qualitative y relation",
+      "RELATIVE_Z": "closed qualitative z relation",
+      "FOOTPRINT": "closed qualitative footprint relation",
+      "CONTACT_SUPPORT": "closed qualitative contact relation",
+      "STAGE_POSTCONDITIONS": "compact factual stage status",
+      "EARLIEST_ABSENT_POSTCONDITION": "qualitative absent postcondition",
+      "DOMINANT_ABSENT_FACT": "single qualitative missing fact",
+      "FALSE_BELIEFS": "compact corrected beliefs or none"
+    }
+  },
+  "leakage_audit": {
+    "safe_public_guidance": true,
+    "contains_exact_coordinates": false,
+    "contains_numeric_constants": false,
+    "contains_reward_value": false,
+    "contains_trial_id_or_seed": false,
+    "contains_hidden_object_id": false,
+    "contains_simulator_internal_api": false,
+    "contains_oracle_code": false,
+    "contains_action_advice": false,
+    "contains_repair_plan": false,
+    "contains_imperative_language": false
+  }
+}

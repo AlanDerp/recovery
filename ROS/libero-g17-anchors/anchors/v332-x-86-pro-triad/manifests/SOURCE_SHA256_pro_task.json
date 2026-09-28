@@ -1,0 +1,57 @@
+{
+  "composition": {
+    "RR": "v332 unchanged (On gate active on spatial_task)",
+    "X": "audited post-v332 ownership/router/regeneration bug fixes through v354",
+    "adaptive_GR_or_clean_C": false,
+    "base": "immutable v332 (82/100)",
+    "nonheld_endpoint_owner": "FG-informed native retry"
+  },
+  "created_at": "2026-08-29T20:56:56+0800",
+  "files": {
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/acquisition_extract.py": "5cc92ba5d8718b414b816f99adcf0e04d2b47ff579ca34d1000376d3bab8e02b",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/acquisition_ownership.py": "10581edb24992dbb6c0cd621466bbba9c779469d9d6f8e88e4521dc3abe87da2",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/fg_native_retry.py": "980dbf6fa997e8b6c8caaf00a5b99bc1c5ed0978a7949c56030d133a564a3326",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/grasp_recovery.py": "3f1042f0f1e749297bc461db7d08771269942602c5ee1ce497949f7cd047797a",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/libero.py": "e4b58f01d5f3acaebea40f6d36485ca2c07220a7f14da30ae54a7b378615cd20",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/postclose_acquisition.py": "ded061248f6da31e5b9fa6e426c3cfac5c2068073df8ba48e776a6f5bbac6874",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/integrations/franka/tip_xy_only.py": "8dd37d18d290688efd5d202fff81de220212d877ba4725f718f7ce1a01d0a9e9",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/capx/verification/libero_g17_takeover.py": "bbf6a7d1f50ac8ca22c760b240a8fe5391ca7d289fed045e3a9dc3cab07e0ffd",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/scripts/sbatch_libero_g17_v305_topaccess_spatial_10x10.sh": "6b05d9ef32e14ff8ecbdfbe3bdb4b130f64c530b81baee2087dc4ecbf8e78f83",
+    "/home/qshou/capx_g17_v359_v332_x_clean_c/scripts/submit_libero_g17_v332_x_native_retry_spatial_task_10x10.sh": "990405c166312e96acfb94a98cb518668f970c332cd9ec6fda277fb97cf8933d"
+  },
+  "harness_git_head": "ee9075a9a9e916e92c2b45b166c1289eb4087924",
+  "held_out": {
+    "anchor_score": "86/100",
+    "catalog_ref": "/project/peilab/qshou/cap-x-agilex/docs/libero-tasks.md",
+    "eval_family": "LIBERO-PRO spatial task perturbation",
+    "eval_suite": "libero_spatial_task",
+    "train_or_anchor_suite": "libero_spatial"
+  },
+  "method_anchor": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "protocol": {
+    "code_prefix_replay": false,
+    "comparison": "canonical spatial v332_x 86/100 vs PRO spatial_task",
+    "global_seed": 20260718,
+    "grasp_replay": false,
+    "scheduling": "10 parallel live task jobs",
+    "suite": "libero_spatial_task",
+    "tasks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "trials_per_task": 10
+  },
+  "schema": "capx_libero_g17_v332_x_native_retry_spatial_task_10x10_source_v1",
+  "spatial_final": {
+    "path": "/project/peilab/qshou/capx_g17_results/libero_g17_v332_x_native_retry_spatial_10x10_20260829/FINAL_100_TRIAL_SUMMARY.json",
+    "sha256": "f151f38ccfce8a1a6491f1c71e690c9a68651b907776f842ee21be32d5e0caff"
+  }
+}

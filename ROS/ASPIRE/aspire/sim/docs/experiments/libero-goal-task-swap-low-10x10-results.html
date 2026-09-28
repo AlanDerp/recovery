@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LIBERO-Pro Goal-Task &sol; Goal-Swap &#x5b9e;&#x9a8c;&#x7ed3;&#x679c;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <span id="markdown-mermaid" aria-hidden="true" data-config="{&quot;darkModeTheme&quot;:&quot;vscode&quot;,&quot;lightModeTheme&quot;:&quot;vscode&quot;,&quot;maxTextSize&quot;:50000,&quot;clickDrag&quot;:&quot;alt&quot;,&quot;showControls&quot;:&quot;onHoverOrFocus&quot;,&quot;resizable&quot;:true,&quot;maxHeight&quot;:&quot;&quot;}"></span>
+				<h1 id="libero-pro-goal-task--goal-swap-实验结果">LIBERO-Pro Goal-Task / Goal-Swap 实验结果</h1>
+<h2 id="1-实验概览">1. 实验概览</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Goal-Task</th>
+<th>Goal-Swap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Suite</td>
+<td><code>libero_goal_task</code></td>
+<td><code>libero_goal_swap</code></td>
+</tr>
+<tr>
+<td>基础提交</td>
+<td><code>0a36d7a02abad08943f2124146d783fb253677b7</code></td>
+<td><code>0a36d7a02abad08943f2124146d783fb253677b7</code></td>
+</tr>
+<tr>
+<td>模型</td>
+<td><code>deepseek-flash</code></td>
+<td><code>deepseek-flash</code></td>
+</tr>
+<tr>
+<td>Stage 1</td>
+<td>seeds 51–60，10 trials/task</td>
+<td>seeds 51–60，10 trials/task</td>
+</tr>
+<tr>
+<td>Stage 2</td>
+<td>seeds 1–10，10 held-out trials/task</td>
+<td>seeds 1–10，10 held-out trials/task</td>
+</tr>
+<tr>
+<td>任务数</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr>
+<td>GPU 拓扑</td>
+<td>GPU 0–2：感知/IK 服务；GPU 3–7：5 个任务槽</td>
+<td>GPU 0–2：感知/IK 服务；GPU 3–7：5 个任务槽</td>
+</tr>
+<tr>
+<td>Campaign 目录</td>
+<td><code>/mnt/nimloth/aspire_campaigns/libero_goal_task_main_10x10_20260923</code></td>
+<td><code>/mnt/nimloth/aspire_campaigns/libero_goal_swap_main_10x10_20260923</code></td>
+</tr>
+</tbody>
+</table>
+<p>Goal-Task 使用运行时 <code>env.handle.task_language</code> 作为唯一权威目标，不以 slot slug 推断任务。两个实验的 Stage 1 与 Stage 2 seed 分区严格隔离；Stage 2 仅在代码冻结后由协调器执行。</p>
+<h2 id="2-总体结果">2. 总体结果</h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th style="text-align:right">Stage 1 成功数</th>
+<th style="text-align:right">Stage 1 成功率</th>
+<th style="text-align:right">Stage 2 成功数</th>
+<th style="text-align:right">Stage 2 成功率</th>
+<th style="text-align:right">Stage 2 满分任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Goal-Task</td>
+<td style="text-align:right">58/100</td>
+<td style="text-align:right">58%</td>
+<td style="text-align:right"><strong>56/100</strong></td>
+<td style="text-align:right"><strong>56%</strong></td>
+<td style="text-align:right">4/10</td>
+</tr>
+<tr>
+<td>Goal-Swap</td>
+<td style="text-align:right">66/92</td>
+<td style="text-align:right">71.7%</td>
+<td style="text-align:right"><strong>69/100</strong></td>
+<td style="text-align:right"><strong>69%</strong></td>
+<td style="text-align:right">6/10</td>
+</tr>
+<tr>
+<td>合计</td>
+<td style="text-align:right">124/192</td>
+<td style="text-align:right">64.6%</td>
+<td style="text-align:right"><strong>125/200</strong></td>
+<td style="text-align:right"><strong>62.5%</strong></td>
+<td style="text-align:right">10/20</td>
+</tr>
+</tbody>
+</table>
+<p>Goal-Swap 的 held-out 成功率比 Goal-Task 高 <strong>13 个百分点</strong>（69% 对 56%）。</p>
+<h2 id="3-逐任务结果">3. 逐任务结果</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">#</th>
+<th>Slot / Task</th>
+<th>Goal-Task 运行时目标</th>
+<th style="text-align:right">Task S1</th>
+<th style="text-align:right">Task S2</th>
+<th style="text-align:right">Swap S1</th>
+<th style="text-align:right">Swap S2</th>
+<th style="text-align:right">S2 差值（Swap − Task）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>open middle drawer</td>
+<td>open bottom drawer of the cabinet</td>
+<td style="text-align:right">0/10</td>
+<td style="text-align:right"><strong>0/10</strong></td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">+10</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>put bowl on stove</td>
+<td>put plate on the stove</td>
+<td style="text-align:right">0/10</td>
+<td style="text-align:right"><strong>0/10</strong></td>
+<td style="text-align:right">0/5</td>
+<td style="text-align:right"><strong>0/10</strong></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>put wine bottle on cabinet</td>
+<td>put wine bottle in the bowl</td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>open top drawer and put bowl inside</td>
+<td>open top drawer and put cream cheese inside</td>
+<td style="text-align:right">6/10</td>
+<td style="text-align:right"><strong>6/10</strong></td>
+<td style="text-align:right">8/10</td>
+<td style="text-align:right"><strong>9/10</strong></td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td>put bowl on cabinet</td>
+<td>put plate on top of the drawer</td>
+<td style="text-align:right">0/10</td>
+<td style="text-align:right"><strong>0/10</strong></td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">+10</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td>push plate to front of stove</td>
+<td>push cream cheese to the front of the stove</td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">0/10</td>
+<td style="text-align:right"><strong>0/10</strong></td>
+<td style="text-align:right">−10</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td>put cream cheese in bowl</td>
+<td>put wine bottle in the bowl</td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">8/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td>turn on stove</td>
+<td>turn off the stove</td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>8/10</strong></td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td>put bowl on plate</td>
+<td>put wine bottle on the plate</td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">10/10</td>
+<td style="text-align:right"><strong>10/10</strong></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td>put wine bottle on rack</td>
+<td>put cream cheese on the rack</td>
+<td style="text-align:right">2/10</td>
+<td style="text-align:right"><strong>2/10</strong></td>
+<td style="text-align:right">0/7</td>
+<td style="text-align:right"><strong>0/10</strong></td>
+<td style="text-align:right">−2</td>
+</tr>
+<tr>
+<td style="text-align:right"></td>
+<td><strong>总计</strong></td>
+<td></td>
+<td style="text-align:right"><strong>58/100</strong></td>
+<td style="text-align:right"><strong>56/100</strong></td>
+<td style="text-align:right"><strong>66/92</strong></td>
+<td style="text-align:right"><strong>69/100</strong></td>
+<td style="text-align:right"><strong>+13</strong></td>
+</tr>
+</tbody>
+</table>
+
+            
+            
+        </body>
+        </html>

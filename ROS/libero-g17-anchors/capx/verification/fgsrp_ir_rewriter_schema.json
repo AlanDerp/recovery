@@ -1,0 +1,19 @@
+{
+  "schema_version": "capx-fgsrp-ir-rewriter-v1",
+  "repairs": [
+    {
+      "false_claim_index": 0,
+      "chunk_id": "exact candidate chunk identifier",
+      "original_claim": "exact false claim substring",
+      "replacement_claim": "minimal correction expressing only corrected facts",
+      "replacement_fact_ids": [
+        "host-supplied corrected evidence identifier"
+      ]
+    }
+  ],
+  "audit": {
+    "all_false_claims_rewritten_once": true,
+    "used_only_supplied_corrected_facts": true,
+    "contains_action_advice": false
+  }
+}

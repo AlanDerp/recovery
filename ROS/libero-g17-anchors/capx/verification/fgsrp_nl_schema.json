@@ -1,0 +1,18 @@
+{
+  "schema_version": "capx-fgsrp-nl-verifier-v1",
+  "decisions": [
+    {
+      "chunk_id": "exact chunk_id",
+      "original_span": "smallest exact report substring containing one claim",
+      "verdict": "KEEP | REPLACE | UNRESOLVED",
+      "replacement": null,
+      "evidence_quotes": []
+    }
+  ],
+  "audit": {
+    "all_candidate_chunks_checked": true,
+    "true_text_preserved": true,
+    "only_directly_contradicted_physical_claims_replaced": true,
+    "contains_action_advice": false
+  }
+}

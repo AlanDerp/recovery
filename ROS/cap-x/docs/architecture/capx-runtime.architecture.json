@@ -1,0 +1,394 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "CaP-X 运行时架构",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/capgym/cap-x",
+      "revision": "53e9966d7a8e2fa7494676772bccc35280f5c0ed"
+    },
+    "viewBox": [
+      1380,
+      630
+    ]
+  },
+  "components": [
+    {
+      "id": "launch-config",
+      "type": "backend",
+      "label": "配置与启动",
+      "sublabel": "launch.py · YAML",
+      "pos": [
+        32,
+        240
+      ],
+      "size": [
+        168,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/launch.py",
+          "line": 201
+        },
+        {
+          "path": "capx/envs/runner.py",
+          "line": 47
+        }
+      ]
+    },
+    {
+      "id": "trial-loop",
+      "type": "backend",
+      "label": "Trial 编排与反馈",
+      "sublabel": "CLI worker / Web 协程",
+      "pos": [
+        305,
+        240
+      ],
+      "size": [
+        185,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/trial.py",
+          "line": 629
+        },
+        {
+          "path": "capx/web/async_trial_runner.py",
+          "line": 78
+        },
+        {
+          "path": "capx/utils/parallel_eval.py",
+          "line": 227
+        }
+      ]
+    },
+    {
+      "id": "python-env",
+      "type": "backend",
+      "label": "代码执行环境",
+      "sublabel": "CodeExecutionEnvBase",
+      "tag": "进程内 exec · 持久命名空间",
+      "pos": [
+        594,
+        240
+      ],
+      "size": [
+        193,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/tasks/base.py",
+          "line": 86
+        },
+        {
+          "path": "capx/envs/tasks/base.py",
+          "line": 153
+        }
+      ]
+    },
+    {
+      "id": "robot-api",
+      "type": "backend",
+      "label": "机器人 API",
+      "sublabel": "Franka / R1Pro",
+      "tag": "感知、抓取、移动、夹爪",
+      "pos": [
+        891,
+        240
+      ],
+      "size": [
+        168,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/integrations/base_api.py",
+          "line": 113
+        },
+        {
+          "path": "capx/integrations/franka/control.py",
+          "line": 43
+        },
+        {
+          "path": "capx/integrations/r1pro/control.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "low-env",
+      "type": "backend",
+      "label": "底层环境适配器",
+      "sublabel": "仿真或 Franka 真机",
+      "pos": [
+        1163,
+        240
+      ],
+      "size": [
+        185,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/base.py",
+          "line": 11
+        },
+        {
+          "path": "capx/envs/simulators/robosuite_base.py",
+          "line": 1
+        },
+        {
+          "path": "capx/envs/simulators/franka_real.py",
+          "line": 104
+        }
+      ]
+    },
+    {
+      "id": "react-browser",
+      "type": "frontend",
+      "label": "浏览器",
+      "sublabel": "React · 聊天与可视化",
+      "pos": [
+        32,
+        50
+      ],
+      "size": [
+        168,
+        90
+      ],
+      "sources": [
+        {
+          "path": "web-ui/src/hooks/useWebSocket.ts",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "id": "web-session",
+      "type": "backend",
+      "label": "Web 会话服务",
+      "sublabel": "FastAPI :8200 · 内存会话",
+      "pos": [
+        305,
+        50
+      ],
+      "size": [
+        185,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/web/server.py",
+          "line": 70
+        },
+        {
+          "path": "capx/web/server.py",
+          "line": 353
+        },
+        {
+          "path": "capx/web/session_manager.py",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "id": "model-endpoint",
+      "type": "external",
+      "label": "LLM / VLM 服务",
+      "sublabel": "OpenRouter 代理 / vLLM",
+      "tag": "代码生成 · 可选视觉差分",
+      "pos": [
+        305,
+        460
+      ],
+      "size": [
+        185,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/llm/client.py",
+          "line": 180
+        },
+        {
+          "path": "capx/serving/openrouter_server.py",
+          "line": 73
+        },
+        {
+          "path": "capx/serving/vllm_server.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "trial-files",
+      "type": "database",
+      "label": "本地实验产物",
+      "sublabel": "outputs/ · 代码、日志、视频",
+      "pos": [
+        594,
+        460
+      ],
+      "size": [
+        193,
+        90
+      ],
+      "sources": [
+        {
+          "path": "capx/utils/launch_utils.py",
+          "line": 376
+        },
+        {
+          "path": "capx/envs/runner.py",
+          "line": 159
+        }
+      ]
+    },
+    {
+      "id": "gpu-services",
+      "type": "backend",
+      "label": "感知与规划服务",
+      "sublabel": "SAM3 / GraspNet / PyRoKi",
+      "tag": ":8114 / :8115 / :8116",
+      "pos": [
+        891,
+        460
+      ],
+      "size": [
+        201,
+        90
+      ],
+      "sources": [
+        {
+          "path": "env_configs/cube_stack/franka_robosuite_cube_stack_multiturn_vdm.yaml",
+          "line": 36
+        },
+        {
+          "path": "capx/integrations/vision/sam3.py",
+          "line": 65
+        },
+        {
+          "path": "capx/integrations/motion/pyroki.py",
+          "line": 43
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "dispatch-trials",
+      "from": "launch-config",
+      "to": "trial-loop",
+      "label": "分派试验",
+      "variant": "emphasis"
+    },
+    {
+      "id": "execute-code",
+      "from": "trial-loop",
+      "to": "python-env",
+      "label": "step(code)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "call-functions",
+      "from": "python-env",
+      "to": "robot-api",
+      "label": "函数调用",
+      "variant": "emphasis"
+    },
+    {
+      "id": "control-robot",
+      "from": "robot-api",
+      "to": "low-env",
+      "label": "动作 / 观测",
+      "variant": "emphasis"
+    },
+    {
+      "id": "browser-transport",
+      "from": "react-browser",
+      "to": "web-session",
+      "label": "HTTP / WS"
+    },
+    {
+      "id": "interactive-trial",
+      "from": "web-session",
+      "to": "trial-loop",
+      "label": "异步启动 / 事件",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        392,
+        180
+      ]
+    },
+    {
+      "id": "query-model",
+      "from": "trial-loop",
+      "to": "model-endpoint",
+      "label": "HTTP 请求 / 代码返回",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        397,
+        415
+      ]
+    },
+    {
+      "id": "save-artifacts",
+      "from": "trial-loop",
+      "to": "trial-files",
+      "label": "写入文件",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "id": "call-gpu",
+      "from": "robot-api",
+      "to": "gpu-services",
+      "label": "HTTP / JSON",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "step-feedback",
+      "from": "python-env",
+      "to": "trial-loop",
+      "label": "观测 / 奖励 / 错误",
+      "fromSide": "top",
+      "toSide": "top",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "运行与执行边界",
+      "items": [
+        "CLI 通过 spawn + 队列分派；每个 worker 复用环境。Web 使用协程与专用环境线程。",
+        "生成代码在环境进程内执行；API 函数直接绑定到命名空间。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "可替换后端与共享服务",
+      "items": [
+        "底层可选 Robosuite、LIBERO、BEHAVIOR；真机经 TCP :9000 交换 MsgPack 观测与动作。",
+        "YAML 自动启动或复用感知／规划服务；模型端点需单独启动，地址可配置。"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "多轮闭环与训练复用",
+      "items": [
+        "多轮根据执行反馈及可选图像／视频差分，再生成代码或 FINISH。",
+        "独立 GRPO 训练通过 compute_score 调用同类环境的 step，奖励回传 VeRL。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+RESTORED /project/peilab/qshou/cap-x-agilex/capx/third_party/libero_dependencies/robosuite/robosuite/macros.py <- /project/peilab/quanxin/cap-x/capx/third_party/libero_dependencies/robosuite/robosuite/macros.py
+RESTORED /project/peilab/qshou/cap-x-agilex/capx/integrations/vision/sam3.py <- /home/qshou/capx_g17_observation_integrity/capx/integrations/vision/sam3.py
+RESTORED /project/peilab/qshou/cap-x-agilex/capx/integrations/franka/observation_validity.py <- /home/qshou/capx_causal_ik_replay_81e0acb/capx/integrations/franka/observation_validity.py
+KEEP_EXISTING /project/peilab/qshou/cap-x-agilex/capx/integrations/franka/observation_validity.py
+OK /project/peilab/qshou/cap-x-agilex/capx/envs/runner.py
+OK /project/peilab/qshou/cap-x-agilex/capx/envs/simulators/libero.py
+OK /project/peilab/qshou/cap-x-agilex/capx/llm/client.py
+OK /project/peilab/qshou/cap-x-agilex/capx/integrations/vision/molmo.py
+OK /project/peilab/qshou/cap-x-agilex/capx/integrations/libero/__init__.py
+OK /project/peilab/qshou/cap-x-agilex/capx/integrations/franka/common.py
+OK /project/peilab/qshou/cap-x-agilex/capx/integrations/franka/libero.py
+FINGERPRINT_OK sbatch_libero_m3_3x10x10.sh 1728358749e5e2fe
+FINGERPRINT_OK franka_libero_m3.yaml befb7ff390ad619a
+FINGERPRINT_OK SEED_TABLE.json 4fec7669be41d3c6
+KEEP_EXISTING /home/qshou/capx_g17_observation_integrity/capx/integrations/franka/common.py
+KEEP_EXISTING /home/qshou/capx_g17_observation_integrity/capx/integrations/franka/libero.py
+RESTORED /home/qshou/capx_g17_observation_integrity/python_sitecustomize/sitecustomize.py <- /home/qshou/capx_causal_ik_replay_81e0acb/experiments/core_fg/runtime/python_sitecustomize/sitecustomize.py
+RESTORED_DIR /project/peilab/qshou/cap-x-agilex/capx/verification from /home/qshou/capx_causal_ik_replay_81e0acb
+COPIED_G17 libero_g17_adapter.py -> AG verification
+COPIED_G17 libero_g17_code_prefix_replay.py -> AG verification
+COPIED_G17 libero_g17_fg_lexicon.py -> AG verification
+COPIED_G17 libero_g17_fg_projection.py -> AG verification
+COPIED_G17 libero_g17_mechanism_contract.py -> AG verification
+COPIED_G17 libero_g17_public_iff.py -> AG verification
+COPIED_G17 libero_g17_takeover.py -> AG verification

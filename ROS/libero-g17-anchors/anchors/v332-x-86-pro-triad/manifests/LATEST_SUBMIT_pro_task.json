@@ -1,0 +1,37 @@
+{
+  "schema": "capx_libero_g17_v332_x_native_retry_spatial_task_10x10_submit_v1",
+  "method_anchor": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "harness_git_head": "ee9075a9a9e916e92c2b45b166c1289eb4087924",
+  "suite": "libero_spatial_task",
+  "tasks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "trials_per_task": 10,
+  "job_ids": [
+    "537205",
+    "537206",
+    "537207",
+    "537208",
+    "537209",
+    "537210",
+    "537211",
+    "537212",
+    "537213",
+    "537235"
+  ],
+  "partition": "normal",
+  "qos": "normal_qos",
+  "time_limit": "03:00:00",
+  "expt": "/project/peilab/qshou/capx_g17_results/libero_g17_v332_x_native_retry_spatial_task_10x10_20260829_retry",
+  "spatial_final": "/project/peilab/qshou/capx_g17_results/libero_g17_v332_x_native_retry_spatial_10x10_20260829/FINAL_100_TRIAL_SUMMARY.json",
+  "submitted_at": "2026-08-29T20:57:02+0800"
+}

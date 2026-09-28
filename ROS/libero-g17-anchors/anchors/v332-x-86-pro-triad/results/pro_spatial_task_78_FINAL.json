@@ -1,0 +1,40 @@
+{
+  "schema": "capx_libero_g17_v332_x_spatial_task_10x10_final_v1",
+  "suite": "libero_spatial_task",
+  "perturbation": "PRO Task",
+  "method_anchor": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "score": "78/100",
+  "successes": 78,
+  "trials": 100,
+  "per_task": {
+    "t00": 8,
+    "t01": 3,
+    "t02": 10,
+    "t03": 8,
+    "t04": 7,
+    "t05": 7,
+    "t06": 8,
+    "t07": 9,
+    "t08": 10,
+    "t09": 8
+  },
+  "jobs": {
+    "t00": "537205",
+    "t01": "537206",
+    "t02": "537207",
+    "t03": "537208",
+    "t04": "537209",
+    "t05": "537210",
+    "t06": "537211",
+    "t07": "537212",
+    "t08": "537213",
+    "t09": "537235"
+  },
+  "comparison": {
+    "spatial_swap_pos": "68/100",
+    "canonical_spatial": "86/100",
+    "object_canonical": "27/100"
+  },
+  "expt": "/project/peilab/qshou/capx_g17_results/libero_g17_v332_x_native_retry_spatial_task_10x10_20260829_retry",
+  "note": "Valid rerun after HF BDDL/init install; prior 0/100 void"
+}

@@ -1,0 +1,6 @@
+PGSVP MATERIALIZED STATE CONTRACT
+
+The assistant worksheet immediately above is the authoritative current factual
+state for this regeneration. It supersedes conflicting factual interpretations
+in earlier context. Use it as factual grounding, then independently decide the
+action. It contains no action, strategy, or control parameter.

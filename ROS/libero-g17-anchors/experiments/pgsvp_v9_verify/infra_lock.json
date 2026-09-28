@@ -1,0 +1,7 @@
+{
+  "infra_bundle_sha256": "c88eb73c4a0ac1ad04ae97e56055a2cb45431677c3256e1c3645c22235fe0250",
+  "python_executable_sha256": "314e91ce27b715282f4797428ba3ef6d1433561f4d57ebcc6556b99c2a3343b6",
+  "python_packages_sha256": "55137e474ffda8215a8ba50c8e55b667f51f735abf4950753dd3855d224cb2c6",
+  "python_version": "Python 3.10.19",
+  "schema": "capx_cube_infra_lock_v1"
+}

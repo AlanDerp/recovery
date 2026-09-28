@@ -1,0 +1,22 @@
+{
+  "diagram_type": "architecture",
+  "output": "/Users/ronald/Developer/ROS/cap-x/docs/architecture/capx-runtime.html",
+  "specification_sha256": "09ed60264cd3eab499c23eee5080498aa45042d55ef9b8565816a3c3b20cc46c",
+  "artifact_sha256": "ad1d1107bd074b966f43055358af5e5953eddde9a1ab8c592857a0d784d0270d",
+  "specification_bytes": 8364,
+  "artifact_bytes": 720652,
+  "validation": "9/9 showcase, 0 errors, 0 warnings",
+  "browser_evidence": "passed",
+  "visual_review": "passed",
+  "correction_rounds": 1,
+  "visual_review_scope": "图像复核四张交付后截图：1440×900 与 2048×1320 的浅色和深色主题；检查默认阅读视图、文字、连线、说明卡及桌面纵向平衡。未单独测试每项交互和导出功能。",
+  "browser_viewports": [
+    "1440x900",
+    "1600x1000",
+    "1920x1080",
+    "2048x1320"
+  ],
+  "repository_revision": "53e9966d7a8e2fa7494676772bccc35280f5c0ed",
+  "verified_source_references": 25,
+  "runtime_analysis": "基于当前仓库源码；未启动 GPU 仿真、模型服务或真机。"
+}

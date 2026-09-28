@@ -1,0 +1,77 @@
+{
+  "expected_summary": "1.000/0.599/5",
+  "full_replay_entries": 76,
+  "full_replay_sha256": "828776de9ed405b2de7b162fadc2f7fdda87e7d80bef24742ec789a29e7e3e50",
+  "global_seed": 20260718,
+  "initial_state_record_sha256": [
+    "5f5533dee0db97fd2c996686e9b543850c628ddb2a6c1afb21cb32d4f58f0cd9",
+    "b93914c8b3f64777bfe5fd2c241332f103b46740f6286a730aa52b02ece00e10",
+    "6c48f02e707984ab64b420ee26daa848de2039dc0c53f3664b47e48385e483de",
+    "e6265f37b50732e589fb3f29f690edd6e40548e1798020db1c0f16c123cbb36f",
+    "c4ec57e05dfa669ae441ab5742cffb39601d5bde9abe4df3f0db3a51e938d464",
+    "35147a297b601162b584514c375ea6423a841484ab0272d971f61b3044f7dd6f",
+    "f4de384eef303e49f5c878a6e9822d5fd72939e7ce827010e2718e0bd9cc9034",
+    "83cdc4489186e0257539e8d4998fecb6af0f6d862a21f67b5cc3b41f4d2f39aa",
+    "74c945ffde7d690f4b878a7ce1f102585906b2863d9c187c0a4ed0ce7050e2d1",
+    "8cede9fc6e1cf92a14b1d597b6f779513883ef870de01d5516357783b907eeaa"
+  ],
+  "native_mode": "M3",
+  "schema": "capx_frozen_a0_reference_v1",
+  "source_git_rev": "8c15b04a688cd662c4bba50ddd5ffcf7da703076",
+  "source_pair_job_id": "500242",
+  "source_pair_validation_sha256": "f27187ea333b3c18f22e4d4ad5d12c422574faecc9d57841287cf7fff4972fa4",
+  "task": "cube_stack",
+  "total_trials": 10,
+  "trials": {
+    "1": {
+      "reward": 1.0,
+      "sandbox_rc": 0,
+      "task_completed": true
+    },
+    "10": {
+      "reward": 0.0,
+      "sandbox_rc": 0,
+      "task_completed": false
+    },
+    "2": {
+      "reward": 1.0,
+      "sandbox_rc": 0,
+      "task_completed": true
+    },
+    "3": {
+      "reward": 0.003,
+      "sandbox_rc": 0,
+      "task_completed": false
+    },
+    "4": {
+      "reward": 0.239,
+      "sandbox_rc": 0,
+      "task_completed": false
+    },
+    "5": {
+      "reward": 0.698,
+      "sandbox_rc": 0,
+      "task_completed": false
+    },
+    "6": {
+      "reward": 1.0,
+      "sandbox_rc": 0,
+      "task_completed": true
+    },
+    "7": {
+      "reward": 0.054,
+      "sandbox_rc": 0,
+      "task_completed": false
+    },
+    "8": {
+      "reward": 1.0,
+      "sandbox_rc": 0,
+      "task_completed": true
+    },
+    "9": {
+      "reward": 1.0,
+      "sandbox_rc": 0,
+      "task_completed": true
+    }
+  }
+}

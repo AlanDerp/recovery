@@ -1,0 +1,36 @@
+{
+  "schema": "capx_frozen_a0_reference_v1",
+  "task": "cube_restack",
+  "global_seed": 20260718,
+  "total_trials": 10,
+  "source_git_rev": "b9fb2fea09cb455149c84e5da91275144ab67156",
+  "source_pair_job_id": "496713",
+  "source_pair_validation_sha256": "cd5a1adaff565657ec967e420f482111fd7c87f69189e00c9fd891307e96c801",
+  "full_replay_sha256": "224150bc012830c2b5f134bf2aefdd229b352e487171087a0b31464a84d19544",
+  "full_replay_entries": 41,
+  "expected_summary": "1.000/0.606/6",
+  "initial_state_record_sha256": [
+    "df4d59f6927be9323b86406a7d62fc241c60410856b80a97f4abb270a879c9d2",
+    "687b5377acb972f6b6d2e453e54c8c6ddbd13b0ce18666bf42d019d9f2939210",
+    "698fa34b33c701f21681c7ccbd8102977d98657bf591fd24c243edb8a99035b6",
+    "d985cfe9243d3daeb1e6349e98ac2f7ac9b457ef5c564be52ac009633cde6117",
+    "e6249ca7223c771c4233bc2019956f5673b15435cca1b5465d3674011ee64bb0",
+    "89bb5a9ffbed912e5434930da7c8de9de625352969347085d24bb368418abb25",
+    "40f6ed6f975db7a3d9ea19604d7d3a3c944ba98e4c01d835e112ceea3aa56f87",
+    "a4356ce794eed85a9eb42a73d40879ee0def0574502f05e123dfedaee1cff51e",
+    "f5c44b635614b5bda34d77330ce281d55fa245548aeecaca04d6fba7a5cc032c",
+    "14814a839aa4f4cb241e259b46e1cf3dbee7b842d324bbe33795816921556747"
+  ],
+  "trials": {
+    "1": {"sandbox_rc": 0, "reward": 1.0, "task_completed": true},
+    "2": {"sandbox_rc": 0, "reward": 0.015, "task_completed": false},
+    "3": {"sandbox_rc": 0, "reward": 0.003, "task_completed": false},
+    "4": {"sandbox_rc": 0, "reward": 0.029, "task_completed": false},
+    "5": {"sandbox_rc": 0, "reward": 1.0, "task_completed": true},
+    "6": {"sandbox_rc": 0, "reward": 1.0, "task_completed": true},
+    "7": {"sandbox_rc": 0, "reward": 1.0, "task_completed": true},
+    "8": {"sandbox_rc": 0, "reward": 1.0, "task_completed": true},
+    "9": {"sandbox_rc": 0, "reward": 0.009, "task_completed": false},
+    "10": {"sandbox_rc": 0, "reward": 1.0, "task_completed": true}
+  }
+}

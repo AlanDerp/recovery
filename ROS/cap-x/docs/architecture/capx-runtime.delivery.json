@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/ronald/Developer/ROS/cap-x/docs/architecture/capx-runtime.architecture.json",
+  "output": "/Users/ronald/Developer/ROS/cap-x/docs/architecture/capx-runtime.html",
+  "specification": {
+    "sha256": "09ed60264cd3eab499c23eee5080498aa45042d55ef9b8565816a3c3b20cc46c",
+    "bytes": 8364
+  },
+  "artifact": {
+    "sha256": "ad1d1107bd074b966f43055358af5e5953eddde9a1ab8c592857a0d784d0270d",
+    "bytes": 720652
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "evidence": {
+    "verified": true,
+    "repository": "https://github.com/capgym/cap-x",
+    "revision": "53e9966d7a8e2fa7494676772bccc35280f5c0ed",
+    "references": 25
+  }
+}

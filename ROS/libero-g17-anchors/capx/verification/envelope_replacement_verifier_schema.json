@@ -1,0 +1,18 @@
+{
+  "schema_version": "capx-envelope-repair-verifier-v1",
+  "repairs": [
+    {
+      "chunk_id": "exact candidate chunk identifier",
+      "original_claim": "exact smallest complete contradicted clause",
+      "replacement_claim": "minimal local correction in the same grammatical position",
+      "replacement_fact_ids": [
+        "smallest sufficient authoritative predicate identifier"
+      ]
+    }
+  ],
+  "audit": {
+    "all_candidate_chunks_checked": true,
+    "used_only_authoritative_catalog": true,
+    "contains_action_advice": false
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "capx_libero_g17_v332_x_spatial_swap_10x10_final_v1",
+  "suite": "libero_spatial_swap",
+  "perturbation": "PRO Pos / position",
+  "method_anchor": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "score": "68/100",
+  "successes": 68,
+  "trials": 100,
+  "per_task": {
+    "t00": 8,
+    "t01": 7,
+    "t02": 8,
+    "t03": 8,
+    "t04": 0,
+    "t05": 8,
+    "t06": 3,
+    "t07": 10,
+    "t08": 9,
+    "t09": 7
+  },
+  "jobs": {
+    "t00": 537017,
+    "t01": 537018,
+    "t02": 537019,
+    "t03": 537021,
+    "t04": 537022,
+    "t05": 537023,
+    "t06": 537024,
+    "t07": 537025,
+    "t08": 537026,
+    "t09": 537120
+  },
+  "comparison": {
+    "canonical_spatial": "86/100",
+    "object": "27/100"
+  }
+}

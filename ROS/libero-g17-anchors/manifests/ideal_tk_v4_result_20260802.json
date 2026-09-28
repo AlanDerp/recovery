@@ -1,0 +1,92 @@
+{
+  "schema": "capx_ideal_tk_v4_frozen_result_v1",
+  "recorded_date": "2026-08-02",
+  "method": "Ideal-TK-v4-canonical-delta",
+  "native_mode": "M3",
+  "model": "qwen3.7-plus",
+  "temperature": 0,
+  "num_workers": 1,
+  "global_seed": 20260718,
+  "treatment_git_rev": "a45176fad5c61f362ba4b0032c5023d5b38ac9f8",
+  "treatment_git_tag": "ideal-tk-v4-canonical-delta-v4.0.1",
+  "source_snapshot_sha256": "7bc52e183166e58087df76d80ec33f1ce43dfc8943eb4bb38d064f3186d4b7bd",
+  "infra_fingerprint_sha256": "06d5543c4947e6015195f461d0cea3bbbe8e6bf659cd595a06e50991a4276966",
+  "claim_status": "paper_candidate_with_one_p0_censored_restack_trial",
+  "tasks": {
+    "cube_stack": {
+      "slurm_job_id": 502911,
+      "pair_root": "/home/qshou/capx_paper_verifier_results/results/ideal_tk_v4_canonical_delta_v4_0_1_10trial_20260802/cube_stack/10trial_pair_run-502911",
+      "pair_validation_status": "valid",
+      "pair_validation_sha256": "5096ef05f14437b57bf6f7c2f13ea45ccbaa79e3a010959dcdc4c8b29fc67c73",
+      "summary_sha256": "0ba3d5a2585e760017775ec615e8998c288164913604d9542c1b313cce385c4e",
+      "qwen_proxy_audit_sha256": "0280e594ce6e194b74567709d355d448915e2b4c2a60c41f2edcbdb0a3261762",
+      "initial_replay_sha256": "0cdfabb9e12d35031089b744669737741e635a763de96d857b2c63fd230530ed",
+      "frozen_a0_reference_sha256": "0a7d2b2e5704255f583fce773250478956718f4136e7a283fe0b8524edc68626",
+      "baseline": {
+        "code_success_rate": 1.0,
+        "average_reward": 0.533,
+        "task_completed": 4,
+        "successful_trials": [1, 2, 6, 9]
+      },
+      "treatment": {
+        "code_success_rate": 1.0,
+        "average_reward": 0.802,
+        "task_completed": 8,
+        "successful_trials": [1, 3, 4, 6, 7, 8, 9, 10]
+      },
+      "recovered_trials": [3, 4, 7, 8, 10],
+      "harm_trials": [2],
+      "common_failures": [5],
+      "p0_censored_trials": []
+    },
+    "cube_restack": {
+      "slurm_job_id": 502915,
+      "pair_root": "/home/qshou/capx_paper_verifier_results/results/ideal_tk_v4_canonical_delta_v4_0_1_10trial_20260802/cube_restack/10trial_pair_run-502915",
+      "pair_validation_status": "validator_reported_valid_but_missed_trial_7_model_timeout",
+      "pair_validation_sha256": "1f95d863a44dee14b23d1126e1913144b78dd340a37dd1d90b9242716488e2f9",
+      "summary_sha256": "9c2a559a9a91b8bbd4cffc11ee222cc0054bb63bda003d4d5a729743a96dc44b",
+      "qwen_proxy_audit_sha256": "e860110bdb0284704b8a027d59663021e53e3370b9c064f576851124c5086b8a",
+      "initial_replay_sha256": "30727b15644032be88a4881df741bb30a0bffbdaf9881f02173f85587729e945",
+      "frozen_a0_reference_sha256": "d6817bbba99a1641c146d7a3dfed26442a17fd992d2d2d9d9ac68edcb95da329",
+      "baseline": {
+        "code_success_rate": 1.0,
+        "average_reward": 0.612,
+        "task_completed": 6,
+        "successful_trials": [1, 2, 4, 5, 6, 10]
+      },
+      "treatment_raw": {
+        "code_success_rate": 0.9,
+        "average_reward": 0.901,
+        "task_completed": 9,
+        "successful_trials": [1, 2, 3, 4, 5, 6, 8, 9, 10]
+      },
+      "recovered_trials": [3, 8, 9],
+      "harm_trials": [],
+      "common_failures": [],
+      "p0_censored_trials": [7],
+      "p0_evidence": {
+        "local_proxy_port": 9615,
+        "upstream_read_timeout_seconds": 900,
+        "outer_trial_timeout_seconds": 1800,
+        "environment_terminated": false,
+        "environment_truncated": false
+      }
+    }
+  },
+  "raw_combined_task_completion": {
+    "baseline": 10,
+    "treatment": 17,
+    "total_trials": 20,
+    "net_gain": 7
+  },
+  "interpretation": {
+    "supports_balanced_cross_task_gain": true,
+    "supports_strong_per_seed_no_worse": false,
+    "final_paper_grade_claim_ready": false,
+    "required_follow_up": [
+      "add fail-closed detection for missing model responses and proxy timeouts",
+      "rerun only cube_restack trial 7 under a predeclared frozen infra-retry policy",
+      "preserve commit a45176f as the immutable treatment implementation"
+    ]
+  }
+}

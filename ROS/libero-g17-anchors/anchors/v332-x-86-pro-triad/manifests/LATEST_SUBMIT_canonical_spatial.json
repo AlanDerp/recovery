@@ -1,0 +1,15 @@
+{
+  "schema": "capx_libero_g17_v332_x_native_retry_spatial_10x10_submit_v1",
+  "method_anchor": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "harness_git_head": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "tasks_submitted": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  "tasks_waiting_for_submit_slot": [9],
+  "trials_per_task": 10,
+  "job_ids": ["536708", "536709", "536710", "536711", "536712", "536713", "536714", "536715", "536716"],
+  "partition": "normal",
+  "qos": "normal_qos",
+  "time_limit": "03:00:00",
+  "expt": "/home/qshou/capx_g17_results/libero_g17_v332_x_native_retry_spatial_10x10_20260829",
+  "submit_status": "partial_due_to_QOSMaxSubmitJobPerUserLimit",
+  "submitted_at": "2026-08-29T09:38:41+08:00"
+}

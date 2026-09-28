@@ -1,0 +1,139 @@
+{
+  "global_seed": 20260718,
+  "notes": "Outcome-blind sandboxrc_0 CB0 freeze from the formal v305 live task; source job-526268; all trials 1..10.",
+  "schema": "capx_libero_g17_code_prefix_replay_v1",
+  "suite_name": "libero_spatial",
+  "task_id": 4,
+  "trials": {
+    "1": {
+      "code_block_sha256": [
+        "0f5aa7a30df1728ba9b370bb15bafff1f2a4cb2053169cec6ba73b5568509c35"
+      ],
+      "code_blocks": [
+        "# First, I need to locate the akita black bowl on the top layer of the wooden cabinet\n# Let me get the pose of the bowl on the top surface\n\nimport numpy as np\n\n# Get the grasp pose for the akita black bowl on the top layer\n# The bowl is described as being on the \"top layer\" or \"top surface\" of the cabinet\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita black bowl on top of wooden cabinet\")\n\nprint(f\"Grasp position: {grasp_pos}\")\nprint(f\"Grasp quaternion: {grasp_quat}\")\n\n# First, open the gripper\nopen_gripper()\n\n# Move to a position above the bowl with some z_approach for safe approach\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.15)\n\n# Now move down to grasp the bowl\ngoto_pose(grasp_pos, grasp_quat)\n\n# Close the gripper to pick up the bowl\nclose_gripper()\n\n# Lift the bowl up slightly to clear the cabinet\nlift_pos = grasp_pos.copy()\nlift_pos[2] += 0.15\ngoto_pose(lift_pos, grasp_quat)\n\n# Now get the position of the plate for placement\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\")\n\nprint(f\"Plate position: {plate_pos}\")\n\n# Move above the plate\nplace_pos = plate_pos.copy()\nplace_pos[2] += 0.15  # Above the plate\n\n# Use a standard downward orientation for placing (gripper facing down)\nplace_quat = np.array([0, 0, 1, 0])  # wxyz quaternion for gripper down\n\ngoto_pose(place_pos, place_quat)\n\n# Lower the bowl onto the plate\nplace_pos[2] -= 0.08  # Lower closer to the plate\ngoto_pose(place_pos, place_quat)\n\n# Open the gripper to release the bowl\nopen_gripper()\n\n# Lift up slightly after releasing\nplace_pos[2] += 0.1\ngoto_pose(place_pos, place_quat)"
+      ],
+      "init_state_idx": 0,
+      "init_state_sha256": "2e3f91b350eaef1b23c2d4ee14c513b2158a106bff7ed6c249b58e2cf89367f4",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_01_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "10": {
+      "code_block_sha256": [
+        "a5bf3e5e4327ba35a3e607b5988eab6b92fad5242e010d111fcb97e9496085b3"
+      ],
+      "code_blocks": [
+        "# First, I need to get the grasp pose for the akita black bowl in the top layer of the wooden cabinet\n# The object is described as \"akita black bowl\" and it's in the top layer/upper compartment\n\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita black bowl in top layer of wooden cabinet\")\n\n# Move to the grasp position with a z_approach to ensure safe approach\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.1)\n\n# Open the gripper before grasping\nopen_gripper()\n\n# Move to the exact grasp position\ngoto_pose(grasp_pos, grasp_quat)\n\n# Close the gripper to grasp the bowl\nclose_gripper()\n\n# Now I need to get the position of the plate to place the bowl on it\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\")\n\n# For placement, use a standard downward orientation (0, 0, 1, 0) wxyz as suggested in the API docs\nplace_quat = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Move above the plate first with some height offset\nplace_pos_above = plate_pos.copy()\nplace_pos_above[2] += 0.15  # Move 15cm above the plate\n\ngoto_pose(place_pos_above, place_quat)\n\n# Move down to place the bowl on the plate\ngoto_pose(plate_pos, place_quat)\n\n# Open the gripper to release the bowl\nopen_gripper()\n\n# Move up slightly after releasing\nplace_pos_up = plate_pos.copy()\nplace_pos_up[2] += 0.1\ngoto_pose(place_pos_up, place_quat)"
+      ],
+      "init_state_idx": 9,
+      "init_state_sha256": "6a71ea6e55326efc34ec666f301a018286ad06f19222511f0c3af44896801580",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_10_sandboxrc_0_reward_1.000_taskcompleted_1/code.py",
+      "source_job": "job-526268"
+    },
+    "2": {
+      "code_block_sha256": [
+        "dcc76d452041525e6565124e596ea6f037d4b8736aed6953cf035c64616121fe"
+      ],
+      "code_blocks": [
+        "# First, I need to identify the akita black bowl on top of the cabinet and get its grasp pose\n# The goal is to pick up the bowl from the top layer of the wooden cabinet and place it on the plate\n\n# Let me first sample a grasp pose for the akita black bowl on top of the cabinet\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita black bowl on top of cabinet\", use_multiview=True)\n\nprint(f\"Grasp position: {grasp_pos}\")\nprint(f\"Grasp quaternion: {grasp_quat}\")"
+      ],
+      "init_state_idx": 1,
+      "init_state_sha256": "d1f552d41794709fdcdccf886e4be6384f15a50c1d0e6227a99e08d86e19e23e",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_02_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "3": {
+      "code_block_sha256": [
+        "0854b0e23ec93b3a3c98076f58d13ea838e82f03353bd53177b603fc348a48ac"
+      ],
+      "code_blocks": [
+        "# First, I need to get the grasp pose for the akita black bowl on the top layer of the wooden cabinet\n# The bowl is described as \"akita black bowl\" and it's on the top layer (top surface) of the cabinet\n\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita black bowl on top of wooden cabinet\", use_multiview=True)\n\n# Move to the grasp position with a z_approach to ensure safe approach\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.1)\n\n# Open the gripper before grasping\nopen_gripper()\n\n# Move to the exact grasp position\ngoto_pose(grasp_pos, grasp_quat)\n\n# Close the gripper to grasp the bowl\nclose_gripper()\n\n# Now I need to get the position of the plate to place the bowl on it\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\", use_multiview=True)\n\n# Lift the bowl slightly after grasping\nlift_pos = grasp_pos.copy()\nlift_pos[2] += 0.15\ngoto_pose(lift_pos, grasp_quat)\n\n# Move to above the plate\nplace_pos = plate_pos.copy()\nplace_pos[2] += 0.15  # Above the plate\ngoto_pose(place_pos, grasp_quat)\n\n# Lower the bowl onto the plate\ngoto_pose(plate_pos, grasp_quat, z_approach=0.0)\n\n# Open the gripper to release the bowl\nopen_gripper()\n\n# Lift up slightly after releasing\nrelease_pos = plate_pos.copy()\nrelease_pos[2] += 0.1\ngoto_pose(release_pos, grasp_quat)"
+      ],
+      "init_state_idx": 2,
+      "init_state_sha256": "d5a2a728be37ce588fd1326df08b48cb9e1913b333c6719bb7059308783d4731",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_03_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "4": {
+      "code_block_sha256": [
+        "b3f6d135a2e93dc193fa64904cd899356c5f0ea16b1957c957420bb381cdb077"
+      ],
+      "code_blocks": [
+        "# First, I need to get the observation to understand the current state\nobs = get_observation()\n\n# Get the pose of the akita black bowl in the top layer of the cabinet\nbowl_pos, bowl_quat = get_object_pose(\"akita black bowl\")\n\n# If get_object_pose returns None, try with use_multiview=False or sample a grasp pose\nif bowl_pos is None:\n    print(\"get_object_pose returned None, trying sample_grasp_pose\")\n    bowl_pos, bowl_quat = sample_grasp_pose(\"akita black bowl\")\n\nprint(f\"Bowl position: {bowl_pos}\")\nprint(f\"Bowl quaternion: {bowl_quat}\")\n\n# Get the pose of the plate for placement\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\")\n\nif plate_pos is None:\n    print(\"Plate pose returned None, trying alternative description\")\n    plate_pos, plate_quat = get_object_pose(\"plate\")\n\nprint(f\"Plate position: {plate_pos}\")\n\n# First, open the gripper\nopen_gripper()\n\n# Move to a position above the bowl first (approach from above)\n# Use z_approach to come from above\ngoto_pose(bowl_pos, bowl_quat, z_approach=0.15)\n\n# Now move down to grasp the bowl\ngoto_pose(bowl_pos, bowl_quat)\n\n# Close the gripper to pick up the bowl\nclose_gripper()\n\n# Lift the bowl slightly to clear the cabinet\nlift_pos = bowl_pos.copy()\nlift_pos[2] += 0.1\ngoto_pose(lift_pos, bowl_quat)\n\n# Now move to above the plate for placement\n# Use plate orientation as (0, 0, 1, 0) for placing down\nplace_quat = np.array([0.0, 0.0, 1.0, 0.0])  # wxyz - gripper pointing down\n\n# Move to above the plate\nabove_plate_pos = plate_pos.copy()\nabove_plate_pos[2] += 0.15\ngoto_pose(above_plate_pos, place_quat)\n\n# Move down to place the bowl on the plate\ngoto_pose(plate_pos, place_quat)\n\n# Open the gripper to release the bowl\nopen_gripper()\n\n# Lift up slightly after releasing\nrelease_pos = plate_pos.copy()\nrelease_pos[2] += 0.1\ngoto_pose(release_pos, place_quat)"
+      ],
+      "init_state_idx": 3,
+      "init_state_sha256": "7e950b4903eb62f247605b60952d62aca17222446e05c299de3d8b615756a2fb",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_04_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "5": {
+      "code_block_sha256": [
+        "3d37abc66c3a3fe25254389d7312d9d6ef6953f0d986a05290d790dc054fb4d1"
+      ],
+      "code_blocks": [
+        "# First, I need to get the grasp pose for the akita black bowl that's on top of the cabinet (top layer)\n# The task says to pick the bowl in the \"top layer\" which is the one sitting on top of the closed upper section\n\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita black bowl\", use_multiview=True)\n\n# Move to the grasp position with a z_approach to ensure safe approach\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.1)\n\n# Open gripper before grasping\nopen_gripper()\n\n# Move to the exact grasp position\ngoto_pose(grasp_pos, grasp_quat)\n\n# Close gripper to grasp the bowl\nclose_gripper()\n\n# Now I need to get the position of the plate to place the bowl on it\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\")\n\n# For placement, use a standard downward orientation (gripper down)\n# Using quaternion (0, 0, 1, 0) wxyz as suggested for placement\nplace_quat = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Move above the plate first with some height offset\nplace_pos_above = plate_pos.copy()\nplace_pos_above[2] += 0.15  # 15cm above the plate\n\ngoto_pose(place_pos_above, place_quat)\n\n# Move down to place the bowl on the plate\ngoto_pose(plate_pos, place_quat)\n\n# Open gripper to release the bowl\nopen_gripper()\n\n# Move up slightly after releasing\nplace_pos_up = plate_pos.copy()\nplace_pos_up[2] += 0.1\ngoto_pose(place_pos_up, place_quat)"
+      ],
+      "init_state_idx": 4,
+      "init_state_sha256": "eacc257cf75be38a89bdf75e5300cded0aee0ec1d0a2ac4b91d4c4cdb11c763b",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_05_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "6": {
+      "code_block_sha256": [
+        "634cfe25b74628b49d34789d54314bef81e8469839358e887874b6e894263f80"
+      ],
+      "code_blocks": [
+        "# First, let me get the pose of the akita black bowl in the top layer of the wooden cabinet.\n# The task mentions there are two bowls - one on top of the closed upper section and one inside the open drawer.\n# The \"top layer\" likely refers to the bowl sitting on top of the cabinet (the upper section).\n# Let me try to get the object pose for the bowl on top of the cabinet.\n\nbowl_pos, bowl_quat = get_object_pose(\"akita black bowl on top of wooden cabinet\")\nprint(\"Bowl position:\", bowl_pos)\nprint(\"Bowl quaternion:\", bowl_quat)"
+      ],
+      "init_state_idx": 5,
+      "init_state_sha256": "b87346216738a7ce42130dcd154c43380035d684b66a383eaa412aa7d7295b7c",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_06_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "7": {
+      "code_block_sha256": [
+        "066714cc95722c8c047d83d91e3e7d6fd4a9c6000b477d135cf0f1ee97d13198"
+      ],
+      "code_blocks": [
+        "# First, I need to identify the akita black bowl on top of the cabinet (not the one inside the drawer)\n# Let me get the pose of the bowl on top of the cabinet\n\nimport numpy as np\n\n# Get the position of the akita black bowl on top of the cabinet\nbowl_pos, bowl_quat = get_object_pose(\"akita black bowl\")\n\nprint(f\"Bowl position: {bowl_pos}\")\nprint(f\"Bowl quaternion: {bowl_quat}\")\n\n# Also get the plate position for later placement\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\")\n\nprint(f\"Plate position: {plate_pos}\")\nprint(f\"Plate quaternion: {plate_quat}\")"
+      ],
+      "init_state_idx": 6,
+      "init_state_sha256": "58efbae8fa8cdf03edfa2542dbbda4caf806bdf5268b8320a00f1549b00bec95",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_07_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "8": {
+      "code_block_sha256": [
+        "fbce257870e893a51ea62bbfe5226e841915f3c035da2d53d35a3bdf262d25e9"
+      ],
+      "code_blocks": [
+        "# First, I need to identify the akita black bowl on top of the cabinet (not the one inside the drawer)\n# Let me get the pose of the bowl on top of the cabinet\n\nimport numpy as np\n\n# Get the pose of the akita black bowl that's on top of the cabinet\nposition, quaternion = get_object_pose(\"akita black bowl\")\n\nprint(f\"Bowl position: {position}\")\nprint(f\"Bowl quaternion: {quaternion}\")\n\n# Sample a grasp pose for the bowl\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita black bowl\")\n\nprint(f\"Grasp position: {grasp_pos}\")\nprint(f\"Grasp quaternion: {grasp_quat}\")\n\n# Open the gripper first\nopen_gripper()\n\n# Move to approach position above the bowl with z_approach\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.15)\n\n# Move down to grasp position\ngoto_pose(grasp_pos, grasp_quat)\n\n# Close gripper to pick up the bowl\nclose_gripper()\n\n# Lift the bowl slightly\nlift_pos = grasp_pos.copy()\nlift_pos[2] += 0.1\ngoto_pose(lift_pos, grasp_quat)\n\n# Now get the plate position to place the bowl on it\nplate_pos, plate_quat = get_object_pose(\"white plate with red stripes\")\n\nprint(f\"Plate position: {plate_pos}\")\n\n# Create a placement position above the plate\nplace_pos = plate_pos.copy()\nplace_pos[2] += 0.15  # Above the plate\n\n# Use a downward orientation for placing (gripper facing down)\nplace_quat = np.array([0, 0, 1, 0])  # wxyz quaternion for gripper down\n\n# Move to placement position above the plate\ngoto_pose(place_pos, place_quat)\n\n# Lower the bowl onto the plate\nlower_pos = place_pos.copy()\nlower_pos[2] -= 0.1\ngoto_pose(lower_pos, place_quat)\n\n# Open gripper to release the bowl\nopen_gripper()\n\n# Lift up slightly after releasing\nfinal_pos = lower_pos.copy()\nfinal_pos[2] += 0.1\ngoto_pose(final_pos, place_quat)"
+      ],
+      "init_state_idx": 7,
+      "init_state_sha256": "f90125fb43ad6d5983af928adc76f7ad7520f2ce624dbd25bb45e1888a5a9e56",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_08_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    },
+    "9": {
+      "code_block_sha256": [
+        "d4f9708db2757e3390db76b44311b05ebabf50e415e3fe4a30532795a3c57b20"
+      ],
+      "code_blocks": [
+        "# First, I need to get the observation and understand the current state\nobs = get_observation()\n\n# Get the pose of the akita black bowl in the top layer (drawer)\n# The task mentions \"top layer of the wooden cabinet\" which refers to the open drawer\nbowl_pos, bowl_quat = get_object_pose(\"akita_black_bowl\")\n\nprint(f\"Bowl position: {bowl_pos}\")\nprint(f\"Bowl quaternion: {bowl_quat}\")\n\n# Get a grasp pose for the bowl using the sample_grasp_pose function\ngrasp_pos, grasp_quat = sample_grasp_pose(\"akita_black_bowl\")\n\nprint(f\"Grasp position: {grasp_pos}\")\nprint(f\"Grasp quaternion: {grasp_quat}\")\n\n# Get the plate position for placement\nplate_pos, plate_quat = get_object_pose(\"white_plate_with_red_stripes\")\n\nprint(f\"Plate position: {plate_pos}\")"
+      ],
+      "init_state_idx": 8,
+      "init_state_sha256": "2b61811f6b6a9a61b89a236fd0b30a5b10539a70b67c34209624cfdf52af4e5a",
+      "n_prefix": 1,
+      "source_code_py": "/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_v305_topaccess_spatial_10x10_retry2_20260821/runs/libero_spatial/job-526268/libero_spatial_4/qwen3.7-plus/eval/trial_09_sandboxrc_0_reward_0.000_taskcompleted_0/code.py",
+      "source_job": "job-526268"
+    }
+  }
+}

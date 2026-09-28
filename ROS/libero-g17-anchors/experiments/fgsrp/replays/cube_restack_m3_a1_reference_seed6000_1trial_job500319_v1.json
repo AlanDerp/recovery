@@ -1,0 +1,34 @@
+{
+  "schema": "capx_frozen_a0_reference_v1",
+  "task": "cube_restack",
+  "native_mode": "M3",
+  "global_seed": 6000,
+  "total_trials": 1,
+  "source_git_rev": "ae21034eeb7075498eee8cddd68244f930654740",
+  "source_pair_job_id": "500319",
+  "source_pair_validation_sha256": "80511907bf411ffc015c5d9350bb92ed358db48171139fdb537fdbac05fef2b3",
+  "full_replay_sha256": "959b92db2021a3f0a30eeb97cb7ceb2e7f2764bb36218c0974e31608a3723dcf",
+  "full_replay_entries": 12,
+  "expected_summary": "1.000/0.025/0",
+  "initial_state_record_sha256": [
+    "df4d59f6927be9323b86406a7d62fc241c60410856b80a97f4abb270a879c9d2"
+  ],
+  "m3_semantic_transition_sha256": {
+    "1": {
+      "1": "2475e5ff6ef82e341a7bec7b19a700cb3f31ebef3e5bb5ab18a2d22bc3e6e6db",
+      "2": "444450da438bdfc17db164606b8c261a9ecac6cf600fa00ff65c15ad0161b0fe",
+      "3": "dbf7ede58bfc056187ca4da8095fa6984e974ff6015736d25340781406a6c32f",
+      "4": "b607a089617b759c0de9a3a8bd96bc55e1ca1ca75f8255ffc9501fc38601f708",
+      "5": "a3bfbe0d6c9ef862c7f1fbfe0802ffd21f1cd4ec607150ea6c2a71479bc50c04"
+    }
+  },
+  "m3_semantic_source_arm": "fgsrp",
+  "m3_semantic_source_repair_count": 0,
+  "trials": {
+    "1": {
+      "sandbox_rc": 0,
+      "reward": 0.025,
+      "task_completed": false
+    }
+  }
+}

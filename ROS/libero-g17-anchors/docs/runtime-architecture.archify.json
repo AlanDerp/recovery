@@ -1,0 +1,526 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "CaP-X 运行时架构",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/LiXinchen-ai/libero-g17-anchors",
+      "revision": "39acf8d47a64fcaf9137ba504bc739a4ffd9c9b9"
+    },
+    "views": [
+      {
+        "id": "entry",
+        "label": "启动入口",
+        "focus": [
+          "yaml",
+          "launch",
+          "runner",
+          "webui"
+        ],
+        "note": "YAML 经 launch.py 分发到无头 runner 或 Web UI。"
+      },
+      {
+        "id": "agent-loop",
+        "label": "代码生成循环",
+        "focus": [
+          "trial",
+          "llm",
+          "proxy",
+          "sandbox"
+        ],
+        "note": "模型产出代码，沙箱执行后再决定重生成或结束。"
+      },
+      {
+        "id": "sense-act",
+        "label": "感知与仿真",
+        "focus": [
+          "sandbox",
+          "perception",
+          "sim"
+        ],
+        "note": "生成代码经 HTTP 调用感知服务，再步进底层仿真。"
+      },
+      {
+        "id": "persist",
+        "label": "持久化与门控",
+        "focus": [
+          "trial",
+          "g17",
+          "outputs"
+        ],
+        "note": "产物写入 outputs/；G17 接管仅在环境变量开启时介入。"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "yaml",
+      "type": "database",
+      "label": "YAML 任务配置",
+      "sublabel": "env_configs/*.yaml",
+      "pos": [
+        30,
+        240
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "env_configs/libero/franka_libero_cap_agent0.yaml",
+          "line": 44,
+          "end_line": 62,
+          "label": "api_servers"
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "type": "backend",
+      "label": "launch.py",
+      "sublabel": "评估入口",
+      "pos": [
+        296,
+        240
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/launch.py",
+          "line": 203,
+          "end_line": 222,
+          "label": "main()"
+        }
+      ]
+    },
+    {
+      "id": "runner",
+      "type": "backend",
+      "label": "runner.py",
+      "sublabel": "无头试验编排",
+      "pos": [
+        562,
+        240
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/runner.py",
+          "line": 200,
+          "end_line": 262,
+          "label": "headless"
+        },
+        {
+          "path": "capx/envs/runner.py",
+          "line": 103,
+          "end_line": 170,
+          "label": "api servers"
+        }
+      ]
+    },
+    {
+      "id": "trial",
+      "type": "backend",
+      "label": "试验循环",
+      "sublabel": "trial.py",
+      "pos": [
+        828,
+        240
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/trial.py",
+          "line": 1001,
+          "end_line": 1060,
+          "label": "single trial"
+        },
+        {
+          "path": "capx/web/async_trial_runner.py",
+          "line": 78,
+          "end_line": 100,
+          "label": "web async"
+        }
+      ]
+    },
+    {
+      "id": "sandbox",
+      "type": "backend",
+      "label": "代码沙箱",
+      "sublabel": "代码执行环境",
+      "pos": [
+        1094,
+        240
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/tasks/base.py",
+          "line": 277,
+          "end_line": 310,
+          "label": "env.step"
+        }
+      ]
+    },
+    {
+      "id": "webui",
+      "type": "frontend",
+      "label": "Web UI",
+      "sublabel": "FastAPI :8200",
+      "pos": [
+        296,
+        70
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/web/server.py",
+          "line": 70,
+          "end_line": 88,
+          "label": "create_app"
+        }
+      ]
+    },
+    {
+      "id": "proxy",
+      "type": "external",
+      "label": "LLM 代理",
+      "sublabel": "OpenRouter / vLLM",
+      "pos": [
+        562,
+        70
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/serving/openrouter_server.py",
+          "line": 104,
+          "label": "OpenRouter"
+        },
+        {
+          "path": "capx/serving/vllm_server.py",
+          "line": 34,
+          "label": "vLLM"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "backend",
+      "label": "llm.client",
+      "sublabel": "query_model",
+      "pos": [
+        828,
+        70
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/llm/client.py",
+          "line": 181,
+          "end_line": 214,
+          "label": "query_model"
+        }
+      ]
+    },
+    {
+      "id": "g17",
+      "type": "security",
+      "label": "G17 验证层",
+      "sublabel": "takeover / FG",
+      "pos": [
+        1094,
+        70
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/verification/libero_g17_takeover.py",
+          "line": 3,
+          "label": "env gate"
+        },
+        {
+          "path": "capx/envs/simulators/libero.py",
+          "line": 486,
+          "end_line": 496,
+          "label": "sim sample"
+        }
+      ],
+      "tag": "默认关闭"
+    },
+    {
+      "id": "outputs",
+      "type": "database",
+      "label": "outputs/",
+      "sublabel": "trial_NN 产物目录",
+      "pos": [
+        562,
+        410
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/utils/launch_utils.py",
+          "line": 451,
+          "end_line": 480,
+          "label": "artifacts"
+        }
+      ]
+    },
+    {
+      "id": "perception",
+      "type": "cloud",
+      "label": "感知服务",
+      "sublabel": "SAM3 · GraspNet · PyRoKi",
+      "pos": [
+        828,
+        410
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/serving/launch_servers.py",
+          "line": 49,
+          "end_line": 96,
+          "label": "registry"
+        },
+        {
+          "path": "capx/serving/launch_servers.py",
+          "line": 103,
+          "end_line": 120,
+          "label": "profiles"
+        }
+      ]
+    },
+    {
+      "id": "sim",
+      "type": "external",
+      "label": "仿真器",
+      "sublabel": "LIBERO / robosuite / B1K",
+      "pos": [
+        1094,
+        410
+      ],
+      "size": [
+        176,
+        62
+      ],
+      "sources": [
+        {
+          "path": "capx/envs/simulators/libero.py",
+          "line": 36,
+          "label": "FrankaLiberoEnv"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "评估进程（含 worker 子进程）",
+      "wraps": [
+        "launch",
+        "runner",
+        "trial",
+        "sandbox"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "G17 门控：需环境变量显式开启",
+      "wraps": [
+        "g17"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "region",
+      "label": "本地感知子进程",
+      "wraps": [
+        "perception"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "id": "yaml-launch",
+      "from": "yaml",
+      "to": "launch",
+      "label": "加载配置"
+    },
+    {
+      "id": "launch-webui",
+      "from": "launch",
+      "to": "webui",
+      "label": "--web-ui",
+      "variant": "dashed",
+      "labelDy": -16
+    },
+    {
+      "id": "launch-runner",
+      "from": "launch",
+      "to": "runner",
+      "label": "无头模式",
+      "variant": "emphasis"
+    },
+    {
+      "id": "launch-perception",
+      "from": "launch",
+      "to": "perception",
+      "label": "启动感知子进程",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          384,
+          536
+        ],
+        [
+          916,
+          536
+        ]
+      ]
+    },
+    {
+      "id": "webui-trial",
+      "from": "webui",
+      "to": "trial",
+      "label": "run_trial_async",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "runner-trial",
+      "from": "runner",
+      "to": "trial",
+      "label": "worker 池"
+    },
+    {
+      "id": "trial-llm",
+      "from": "trial",
+      "to": "llm",
+      "label": "prompt+图像",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -22,
+      "labelDx": -56
+    },
+    {
+      "id": "llm-proxy",
+      "from": "llm",
+      "to": "proxy",
+      "label": ":8110 /chat"
+    },
+    {
+      "id": "trial-g17",
+      "from": "trial",
+      "to": "g17",
+      "label": "可选接管",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "trial-sandbox",
+      "from": "trial",
+      "to": "sandbox",
+      "label": "step(code)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "trial-outputs",
+      "from": "trial",
+      "to": "outputs",
+      "label": "产物落盘",
+      "variant": "dashed"
+    },
+    {
+      "id": "sandbox-perception",
+      "from": "sandbox",
+      "to": "perception",
+      "label": "HTTP :8114-8116",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "id": "sandbox-sim",
+      "from": "sandbox",
+      "to": "sim",
+      "label": "低层 step",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 60,
+      "labelDx": 20
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "启动入口",
+      "items": [
+        "uv run capx/envs/launch.py --config-path <yaml>；--web-ui True 打开 :8200",
+        "感知服务由 YAML api_servers 自动拉起，或 launch_servers.py --profile 预启动"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "评估路径",
+      "items": [
+        "runner 按 num_workers 复用环境；Web UI 走 async_trial_runner.py，是另一条路径",
+        "experiments/ 与 scripts/sbatch_*.sh 只是同一入口的批作业包装"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "持久化边界",
+      "items": [
+        "仅当 output_dir 存在才落盘：code.py / summary.txt / all_responses.json / MP4",
+        "目录名编码结果 trial_NN_sandboxrc_*_reward_*；结束后写 aaa_done_flag/"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "证据与不确定项",
+      "items": [
+        "G17 默认关闭：takeover 与仿真内采样都要求 CAPX_LIBERO_G17_FG=1",
+        "OWL-ViT / SAM2 / cuRobo 仅在 full profile；CaP-RL 用独立 .venv-rl，未画入"
+      ]
+    }
+  ]
+}

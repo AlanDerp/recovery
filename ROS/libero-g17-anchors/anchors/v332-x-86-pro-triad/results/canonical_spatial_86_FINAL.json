@@ -1,0 +1,40 @@
+{
+  "schema": "capx_libero_g17_v332_x_native_retry_spatial_10x10_final_v1",
+  "suite": "libero_spatial",
+  "method_anchor": "e20e2ea930bf2a751d07af1f83dc951e0681280d",
+  "successes": 86,
+  "trials": 100,
+  "task_scores": {
+    "0": 9,
+    "1": 9,
+    "2": 8,
+    "3": 10,
+    "4": 4,
+    "5": 9,
+    "6": 8,
+    "7": 10,
+    "8": 10,
+    "9": 9
+  },
+  "job_ids": {
+    "0": "536708",
+    "1": "536709",
+    "2": "536710",
+    "3": "536711",
+    "4": "536712",
+    "5": "536713",
+    "6": "536714",
+    "7": "536715",
+    "8": "536716",
+    "9": "536796"
+  },
+  "code_prefix_replay": false,
+  "grasp_replay": false,
+  "composition": {
+    "base": "immutable v332 (82/100)",
+    "X": "audited post-v332 ownership/router/regeneration through v354",
+    "adaptive_GR_or_clean_C": false,
+    "nonheld_endpoint_owner": "FG-informed native retry"
+  },
+  "expt": "/project/peilab/qshou/capx_g17_results/libero_g17_v332_x_native_retry_spatial_10x10_20260829"
+}

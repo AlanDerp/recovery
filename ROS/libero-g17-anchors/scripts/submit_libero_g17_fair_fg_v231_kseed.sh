@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+# Submit v231 v223 ordinal FG + stock keep-one (XY_LOCK off) K replicates.
+# Reuses frozen fair-FG baseline + v24 K=5 (early positive arm); does not re-run them.
+# Skips v231 reps that already have a valid LATEST_SUMMARY.
+# Usage: K=5 ./scripts/submit_libero_g17_fair_fg_v231_kseed.sh
+set -euo pipefail
+
+K=${K:-5}
+G17=/home/qshou/capx_g17_observation_integrity
+SCRIPT="$G17/scripts/sbatch_smoke_libero_g17_fair_fg_v231.sh"
+EXPT=/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_fair_fg_v231_20260816
+BASELINE_FAIR=/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_fair_fg_20260815
+PKG=/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_prefix_replay_20260815/code_prefix_replay_v1.json
+SHA=/project/peilab/qshou/cap-x-agilex/outputs/libero_g17_prefix_replay_20260815/PACKAGE_SHA256.txt
+PYTHON=/project/peilab/qshou/cap-x-agilex/.venv-libero/bin/python
+
+if ! [[ "$K" =~ ^[1-9][0-9]*$ ]]; then
+  echo "K must be a positive integer, got: $K" >&2
+  exit 2
+fi
+
+[[ -f "$SCRIPT" && -f "$PKG" && -f "$SHA" ]]
+mkdir -p "$EXPT/logs" "$EXPT/arms/v231" "$EXPT/manifests"
+
+# Dry-run + freeze gates (baseline + early positive v24).
+PYTHONPATH="$G17" "$PYTHON" "$G17/scripts/dry_run_libero_g17_placement_precision_groups.py"
+PYTHONPATH="$G17" "$PYTHON" "$G17/scripts/dry_run_libero_g17_interaction_referents.py"
+python3 - <<PY
+import hashlib, json
+from pathlib import Path
+
+want = Path("$SHA").read_text().strip()
+got = hashlib.sha256(Path("$PKG").read_bytes()).hexdigest()
+assert got == want, (got, want)
+
+def n_valid(arm: str) -> int:
+    root = Path("$BASELINE_FAIR") / "arms" / arm
+    n = 0
+    for p in root.glob("rep-*/LATEST_SUMMARY.json"):
+        s = json.loads(p.read_text())
+        if s.get("validity") == "valid_prefix_arm":
+            n += 1
+    return n
+
+nb, nv24 = n_valid("baseline"), n_valid("v24")
+assert nb == 5, nb
+assert nv24 == 5, nv24
+print("reuse_baseline_ok", nb)
+print("reuse_v24_early_positive_ok", nv24)
+print("prefix_sha_ok", got)
+PY
+
+jobs_tmp=$(mktemp)
+echo "[]" >"$jobs_tmp"
+skipped_tmp=$(mktemp)
+echo "[]" >"$skipped_tmp"
+
+for ((rep=0; rep<K; rep++)); do
+  latest="$EXPT/arms/v231/rep-$(printf '%02d' "$rep")/LATEST_SUMMARY.json"
+  if [[ -f "$latest" ]]; then
+    valid=$(python3 - <<PY
+import json
+from pathlib import Path
+s=json.loads(Path("$latest").read_text())
+print("1" if s.get("validity")=="valid_prefix_arm" else "0")
+PY
+)
+    if [[ "$valid" == "1" ]]; then
+      echo "skip arm=v231 replicate=$rep (valid LATEST_SUMMARY exists)"
+      python3 - <<PY
+import json
+from pathlib import Path
+path=Path("$skipped_tmp")
+rows=json.loads(path.read_text())
+rows.append({"arm":"v231","replicate":int("$rep"),"reason":"reuse_valid_summary","path":"$latest"})
+path.write_text(json.dumps(rows))
+PY
+      continue
+    fi
+  fi
+  jname=$(printf 'libero-g17-v231-r%02d' "$rep")
+  jid=$(sbatch --export=ALL,ARM=v231,REPLICATE="$rep" --job-name="$jname" "$SCRIPT" | awk '{print $4}')
+  echo "submitted arm=v231 replicate=$rep job=$jid name=$jname"
+  python3 - <<PY
+import json
+from pathlib import Path
+path=Path("$jobs_tmp")
+rows=json.loads(path.read_text())
+rows.append({"arm":"v231","replicate":int("$rep"),"job_id":"$jid","job_name":"$jname"})
+path.write_text(json.dumps(rows))
+PY
+done
+
+python3 - <<PY
+import hashlib, json, time
+from pathlib import Path
+pkg=Path("$PKG")
+data={
+  "mode":"libero_g17_fair_fg_v231_k5_frozen_triple",
+  "K":int("$K"),
+  "arms":["baseline","v24","v231"],
+  "reuse_baseline_from":"$BASELINE_FAIR/arms/baseline",
+  "reuse_early_positive_from":"$BASELINE_FAIR/arms/v24",
+  "early_positive_note":"v24 is the first fair-FG K=5 treatment with clear joint-positive gain; v26 was weaker on joint/t2",
+  "schema":"capx-libero-g17-fg-takeover-v2.29-same-name-xy-logic",
+  "xy_lock":False,
+  "skill_relxy_which":False,
+  "segmenter_lock":False,
+  "mechanism":"stock Molmo+SAM3 max(score) keep-one; FG ordinal judgment only; XY_LOCK=0",
+  "goal_referent_takeover":False,
+  "prefix_sha256":hashlib.sha256(pkg.read_bytes()).hexdigest(),
+  "submitted_at":time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+  "jobs":json.loads(Path("$jobs_tmp").read_text()),
+  "skipped":json.loads(Path("$skipped_tmp").read_text()),
+}
+out=Path("$EXPT/manifests")
+out.mkdir(parents=True, exist_ok=True)
+p=out/f"submit_K{data['K']}_{time.strftime('%Y%m%d_%H%M%S')}.json"
+p.write_text(json.dumps(data, indent=2)+"\n")
+(out/"LATEST_SUBMIT.json").write_text(json.dumps(data, indent=2)+"\n")
+print("manifest", p)
+print("n_submitted", len(data["jobs"]))
+print("n_skipped", len(data["skipped"]))
+PY
+rm -f "$jobs_tmp" "$skipped_tmp"

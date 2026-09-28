@@ -1,0 +1,20 @@
+{
+  "schema_version": "capx-fgsrp-contradiction-gate-v1",
+  "decisions": [
+    {
+      "repair_index": 0,
+      "chunk_id": "exact candidate chunk identifier",
+      "original_claim": "exact proposed claim",
+      "replacement_claim": "exact proposed local correction",
+      "relation": "contradicted | supported_or_equivalent | compatible | not_decidable",
+      "span_is_smallest_complete_clause": true,
+      "selected_facts_entail_claim_negation": true,
+      "replacement_claim_entailed_by_selected_facts": true,
+      "replacement_preserves_all_other_meaning": true
+    }
+  ],
+  "audit": {
+    "all_proposals_checked": true,
+    "used_only_supplied_text_and_catalog": true
+  }
+}
