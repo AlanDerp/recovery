@@ -1,0 +1,100 @@
+# Usage: uv run capx/envs/launch.py --config-path env_configs/agilex/agilex_real.yaml
+
+env:
+  _target_: capx.envs.tasks.base.CodeExecutionEnvBase
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: capx.envs.simulators.agilex_real.AgilexRealLowLevel
+      control_backend: direct
+      camera_backend: ros
+      host: 0.0.0.0
+      port: 9010
+      start_server: false
+      wait_for_observation: true
+      arm_channel: can_left
+      bitrate: 1000000
+      robot: piper
+      speed_pct: 50
+      max_linear_vel: 1.0
+      max_angular_vel: 0.1
+      max_linear_acc: 0.4
+      max_angular_acc: 0.05
+      gripper_max_width: 0.1
+      gripper_force: 1.0
+      img_front_topic: /camera_h/color/image_raw
+      img_front_depth_topic: /camera_h/depth/image_raw
+      img_front_camera_info_topic: /camera_h/color/camera_info
+      use_depth_image: true
+      ros_sync_wait_timeout: 0.5
+      camera_pose_mats:
+        main:
+          - [0.008196609, -0.653211585, 0.757131060, -0.008343308]
+          - [-0.998766246, -0.042432800, -0.025796194, -0.207671973]
+          - [0.048977564, -0.755985505, -0.652753487, 0.462050699]
+          - [0.000000000, 0.000000000, 0.000000000, 1.000000000]
+      agilex_ik_urdf_path: capx/envs/assets/agilex/piper_ik_clean.urdf
+      # link6_tcp is a fixed child of link6 with +Z forward, +X right, +Y down.
+      agilex_ik_target_link_name: link6_tcp
+      base_pose_wxyz_xyz: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      agilex_tcp_offset: [0.0, 0.0, 0.0]
+      sam3_service_url: http://127.0.0.1:8114
+      sam3_checkpoint_path: /home/agilex/checkpoints/sam3
+      sam3_device: cuda
+      graspnet_service_url: http://127.0.0.1:8115
+      use_graspnet_grasp_pose: true
+      graspnet_frame_offset: [0.0, 0.0, 0.0]
+      # Fixed base/world-frame offset applied after GraspNet. Base +Y is left.
+      graspnet_world_offset: [0.0, 0.05, 0.0]
+      graspnet_rotation_correction_rpy: [0.0, 0.0, 1.5707963]
+      graspnet_prefer_top_down: false
+      graspnet_approach_axis: z
+      graspnet_top_down_threshold: 0.65
+      graspnet_forward_passes: 1
+      graspnet_max_retries: 7
+      graspnet_local_regions: true
+      graspnet_filter_grasps: false
+      graspnet_fallback_to_topdown: false
+      graspnet_max_full_points: 20000
+      graspnet_max_segment_points: 10000
+      object_depth_clip_range: [0.05, 2.0]
+      object_min_points: 50
+      default_grasp_quaternion_wxyz: [0.0, 0.0, 1.0, 0.0]
+      grasp_z_offset: 0.03
+      grasp_ik_z_offsets: [0.0, 0.03, 0.06, 0.1]
+      joint_limit_margin: 0.01
+      ik_rest_cost_weight: 0.05
+      max_joint_step: 0.02
+      reset_on_env_reset: true
+      reset_joint_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      reset_gripper_width: 0.05
+      reset_interpolation_steps: 50
+    privileged: false
+    apis:
+      - AgilexControlApi
+    task_only_prompt: "Control the Agilex/Piper robot arm to complete the requested task."
+    prompt: |
+      You are controlling an Agilex/Piper robot arm with the APIs described below.
+      The robot has six joint dimensions plus one gripper command.
+      The robot provides one RGB-D camera named main.
+      Write ONLY executable Python code. Do not write code fences.
+
+api_servers:
+  - _target_: capx.serving.launch_sam3_server.main
+    device: cuda
+    port: 8114
+    host: 127.0.0.1
+    checkpoint_path: /home/agilex/checkpoints/sam3
+
+  - _target_: capx.serving.launch_contact_graspnet_server.main
+    device: cuda
+    port: 8115
+    host: 127.0.0.1
+
+record_video: true
+output_dir: ./outputs/agilex_real
+debug: true
+web_ui: true
+
+trials: 1
+num_workers: 1

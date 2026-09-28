@@ -1,0 +1,9 @@
+export ANTHROPIC_BASE_URL="https://www.sotamodel.net"
+export ANTHROPIC_AUTH_TOKEN="sk-QZ8Asdgp15sBByteYHDjPksyvwos7JuO0txISSME8Ng0w84y"
+export ANTHROPIC_MODEL="claude-fable-5-max"
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-fable-5-max"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-fable-5-max"
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-fable-5-max"
+export CLAUDE_CODE_SUBAGENT_MODEL="claude-fable-5-max"
+
+sudo -H python2 -m pip install -U pip

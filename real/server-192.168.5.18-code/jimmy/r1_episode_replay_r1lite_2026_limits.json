@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-08-21T18:00:00+08:00",
+  "robot": {
+    "name": "r1lite",
+    "serial": "R2026B63T0A9900010",
+    "description_path": "/home/nvidia/galaxea/install/r1lite_urdf/share/r1lite_urdf/urdf/r1lite_2026.urdf",
+    "description_sha256": "f5f9381b0dab6701bce58b7c8d7a800492c5c536bb8b3d28c3c6abe6df208952"
+  },
+  "controller": {
+    "config_path": "/home/nvidia/galaxea/install/moca_adapter/share/moca_adapter/config/moca_main_r1lite.toml",
+    "config_sha256": "86871138bc12e06d3460c42b722dca89286cde7b34cb87af6e2cecd346523559",
+    "command_rate_hz": 200.0,
+    "self_collision_check": false,
+    "workspace_margin_m": 0.05,
+    "max_workspace_radius_m": 1.5
+  },
+  "topics": {
+    "/motion_target/target_joint_state_arm_left": {
+      "feedback_topic": "/hdas/feedback_arm_left",
+      "low_level_topic": "/motion_control/control_arm_left",
+      "joint_names": [
+        "left_arm_joint1",
+        "left_arm_joint2",
+        "left_arm_joint3",
+        "left_arm_joint4",
+        "left_arm_joint5",
+        "left_arm_joint6"
+      ],
+      "position_min": [-2.86234670748, 0.01745329252, -3.29864670748, -1.55334670748, -1.55334670748, -2.86234670748],
+      "position_max": [2.86234670748, 3.12414670748, -0.01745329252, 1.55334670748, 1.55334670748, 2.86234670748],
+      "controller_max_velocity": [3.0, 3.0, 3.0, 4.0, 4.0, 4.0],
+      "command_velocity": [0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
+      "position_margin_rad": 0.01,
+      "controller_input_clamp_tolerance_rad": 0.03
+    },
+    "/motion_target/target_joint_state_arm_right": {
+      "feedback_topic": "/hdas/feedback_arm_right",
+      "low_level_topic": "/motion_control/control_arm_right",
+      "joint_names": [
+        "right_arm_joint1",
+        "right_arm_joint2",
+        "right_arm_joint3",
+        "right_arm_joint4",
+        "right_arm_joint5",
+        "right_arm_joint6"
+      ],
+      "position_min": [-2.86234670748, 0.01745329252, -3.29864670748, -1.55334670748, -1.55334670748, -2.86234670748],
+      "position_max": [2.86234670748, 3.12414670748, -0.01745329252, 1.55334670748, 1.55334670748, 2.86234670748],
+      "controller_max_velocity": [3.0, 3.0, 3.0, 4.0, 4.0, 4.0],
+      "command_velocity": [0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
+      "position_margin_rad": 0.01,
+      "controller_input_clamp_tolerance_rad": 0.03
+    }
+  }
+}

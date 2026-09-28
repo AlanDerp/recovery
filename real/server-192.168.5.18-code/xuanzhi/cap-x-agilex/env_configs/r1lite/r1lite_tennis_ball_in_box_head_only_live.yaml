@@ -1,0 +1,432 @@
+# Auto-generated head-camera-only variant for R1 Lite real-robot test.
+env:
+  _target_: capx.envs.tasks.base.CodeExecutionEnvBase
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: capx.envs.simulators.r1lite_real.R1LiteRealLowLevel
+      arm_target_topic: /capx/motion_target/target_joint_state_arm_right
+      gripper_target_topic: /capx/motion_target/target_position_gripper_right
+      lazy_moca_start_command:
+      - /home/nvidia/xuanzhi/cap-x-agilex/scripts/start_r1lite_moca_on_target.sh
+      lazy_moca_stop_command:
+      - /home/nvidia/xuanzhi/cap-x-agilex/scripts/stop_r1lite_moca_isolated.sh
+      reset_motion_enabled: false
+      right_arm_j2_feedback_upper_limit_rad: 3.05
+      right_arm_j2_command_lower_limit_rad: 0.01745329252
+      right_arm_j2_command_upper_limit_rad: 3.05
+      safe_joint_home:
+      - 0.010470
+      - 0.222985
+      - -0.022772
+      - 0.008466
+      - 0.035299
+      - 0.006095
+      safe_joint_home_feedback:
+      - 0.027234
+      - 0.448298
+      - -0.005745
+      - 0.028936
+      - 0.058085
+      - 0.032340
+      gripper_open_position: 100.0
+      gripper_close_position: 0.0
+      gripper_feedback_tolerance: 6.0
+      gripper_min_response: 2.0
+      gripper_empty_close_feedback: 5.5
+      arm_min_motion_rad: 0.005
+      arm_motion_timeout_s: 2.0
+      arm_joint_tolerance_rad: 0.025
+      adaptive_joint_tolerance_rad: 0.012
+      adaptive_correction_fraction: 0.15
+      adaptive_probe_step_rad: 0.006
+      adaptive_probe_steps_rad:
+      - 0.006
+      - 0.006
+      - 0.01
+      - 0.006
+      - 0.006
+      - 0.006
+      adaptive_max_command_excursion_rad: 0.12
+      adaptive_max_target_step_rad: 0.1
+      adaptive_max_measured_step_rad: 0.25
+      adaptive_settle_s: 0.8
+      adaptive_feedback_stability_s: 0.3
+      adaptive_feedback_stability_rad: 0.003
+      adaptive_feedback_settle_timeout_s: 6.0
+      moca_startup_stability_timeout_s: 18.0
+      moca_startup_command_tolerance_rad: 0.03
+      adaptive_feedback_min_samples: 4
+      adaptive_max_iterations: 36
+      adaptive_max_stalled_iterations: 14
+      adaptive_min_progress_rad: 0.0005
+      pose_position_tolerance_m: 0.02
+      adaptive_log_path: outputs/r1lite/adaptive_joint_history.jsonl
+      max_joint_step: 0.1
+      goto_pose_joint_waypoint_step_rad: 0.1
+      publish_rate_hz: 20.0
+      command_duration_s: 3.0
+      feedback_timeout_s: 5.0
+      startup_timeout_s: 30.0
+      startup_required_feedback:
+      - arm
+      - gripper
+      - torso
+      - rgb
+      - camera_info
+      - head_left_rgb
+      - head_right_rgb
+      - head_left_rect_rgb
+      - head_left_depth
+      - head_left_camera_info
+      - relaxed_ik_ee_pose
+      startup_required_command_subscribers:
+      - relaxed_ik_pose
+      wrist_rgb_topic: /hdas/camera_wrist_right/color/image_raw
+      wrist_depth_topic: /hdas/camera_wrist_right/aligned_depth_to_color/image_raw
+      wrist_camera_info_topic: /hdas/camera_wrist_right/color/camera_info
+      wrist_camera_enabled: false
+      head_left_rgb_topic: /hdas/camera_head/left_raw/image_raw_color/compressed
+      head_right_rgb_topic: /hdas/camera_head/right_raw/image_raw_color/compressed
+      head_left_rect_rgb_topic: /capx/head_stereo/left/image_rect
+      head_left_depth_topic: /capx/head_stereo/aligned_depth_to_left/image_raw
+      head_left_camera_info_topic: /capx/head_stereo/aligned_depth_to_left/camera_info
+      visual_feedback_max_width: 640
+      sam3_service_url: http://127.0.0.1:8114
+      graspnet_service_url: http://127.0.0.1:8117
+      graspnet_input_mode: depth_segmap
+      graspnet_forward_passes: 3
+      graspnet_max_retries: 3
+      graspnet_request_timeout_s: 420.0
+      graspnet_local_regions: true
+      graspnet_filter_grasps: true
+      graspnet_max_candidates: 16
+      graspnet_max_full_points: 20000
+      graspnet_max_segment_points: 10000
+      graspnet_min_segment_points: 30
+      graspnet_depth_range:
+      - 0.2
+      - 2.0
+      graspnet_segment_depth_filter_enabled: false
+      graspnet_segment_depth_anchor_percentile: 10.0
+      graspnet_segment_depth_lower_margin_m: 0.02
+      graspnet_segment_depth_band_m: 0.12
+      graspnet_prefer_top_down: true
+      graspnet_approach_axis: z
+      graspnet_top_down_threshold: 0.30
+      graspnet_pregrasp_distance_m: 0.12
+      graspnet_table_clearance_m: 0.02
+      graspnet_ee_from_grasp:
+      - - -0.0195338347
+        - 0.9988972306
+        - 0.042693699
+        - -0.0001330996
+      - - -0.9994677185
+        - -0.0183933949
+        - -0.0269436937
+        - 0.0033081059
+      - - -0.0261286989
+        - -0.0431972876
+        - 0.9987248297
+        - -0.0044863947
+      - - 0.0
+        - 0.0
+        - 0.0
+        - 1.0
+      graspnet_observation_joints:
+      - 0.6427379251
+      - 0.6626796722
+      - -0.4936418235
+      - -0.2546408176
+      - -0.0546304397
+      - 0.0475534052
+      graspnet_observation_feedback_joints:
+      - 0.6536170213
+      - 0.9119148936
+      - -0.4765957447
+      - -0.2282978723
+      - -0.0327659574
+      - 0.0734042553
+      wrist_tf_base_frame: base_link
+      wrist_tf_timeout_s: 2.0
+      head_tf_max_skew_s: 3.0
+      wrist_rgbd_max_age_s: 1.0
+      wrist_rgbd_max_skew_s: 0.15
+      wrist_hand_eye_calibration_path: outputs/r1lite/right_touch_hand_eye_calibration/T_ee_camera.yaml
+      wrist_observation_reference_ee_position:
+      - 0.3525683308
+      - -0.3324156074
+      - 0.9682924921
+      wrist_observation_reference_ee_quaternion_xyzw:
+      - 0.019904164
+      - 0.4067369727
+      - 0.0151234425
+      - 0.9132032308
+      wrist_observation_distance_m: 0.15
+      wrist_observation_max_translation_m: 0.45
+      wrist_observation_max_joint_delta_rad: 1.45
+      wrist_observation_roll_candidates_deg:
+      - -20.0
+      - -25.0
+      - -30.0
+      - -35.0
+      - -40.0
+      - -45.0
+      wrist_observation_transit_clearance_candidates_m:
+      - 0.05
+      - 0.08
+      - 0.12
+      - 0.16
+      wrist_ball_coarse_max_error_m: 0.12
+      wrist_ball_center_margin_ratio: 0.25
+      wrist_observation_settle_s: 0.6
+      object_prompts:
+        tennis ball: yellow tennis ball
+        cardboard box: open cardboard box
+      tennis_ball_radius_m: 0.034
+      box_drop_z_offset_m: 0.1
+      head_plane_calibration_path: outputs/r1lite/head_plane_calibration.json
+      head_stereo_rectified_calibration_path: outputs/r1lite/head_stereo_rectified_plane_calibration.json
+      head_rgbd_median_sample_count: 30
+      workspace_x_limits:
+      - 0.0
+      - 0.95
+      workspace_y_limits:
+      - -0.65
+      - 0.4
+      workspace_z_limits:
+      - 0.3
+      - 1.35
+      ee_pose_publish_hz: 30.0
+      relaxed_ik_probe_enabled: true
+      relaxed_ik_target_topic: /capx/relaxed_ik_target_pose_arm_right
+      relaxed_ik_solution_topic: /relaxed_ik/isolated_target_joint_state_arm_right
+      depth_scale: 0.001
+    privileged: false
+    apis:
+    - R1LiteControlApi
+    task_only_prompt: Pick up one tennis ball and place it into the cardboard box.
+    prompt: |
+      You are controlling a real Galaxea/Xinghaitu R1 Lite right arm.
+      Pick up one tennis ball and place it into the cardboard box.
+
+      Follow the original Cap-X sequence:
+      1. Observe the box before moving and compute the release position.
+      2. Call plan_tennis_graspnet(camera="head"). It selects GraspNet scores.argmax().
+      3. Move directly to the returned pregrasp pose, then directly to the grasp pose.
+      4. Close the gripper and lift vertically.
+      5. Move above the box, move directly to the release pose, and open the gripper.
+      6. Retract upward and verify the result.
+
+      Reuse the selected grasp quaternion until release. Pick exactly one tennis ball.
+      Output only one complete executable Python program with no Markdown fences.
+    multi_turn_prompt: 'The following code blocks were just executed:
+
+      ```python
+
+      {executed_code}
+
+      ```
+
+      The current console stdout is:
+
+      ```
+
+      {console_stdout}
+
+      ```
+
+      The current console stderr is:
+
+      ```
+
+      {console_stderr}
+
+      ```
+
+      If stderr is non-empty or execution failed, you MUST analyze the traceback and
+      respond with REGENERATE plus a complete corrected Python program.
+
+      Important real-robot state note: a failed execution may physically move the
+      tennis ball, box, or arm. Any previous object coordinates or grasp quaternion
+      may now be wrong. In regenerated code, start from the current scene: open the
+      gripper if safe, re-perceive the cardboard box, recompute drop_pos, call get_object_pose("tennis
+      ball") again, and then plan from the current robot/object state.
+
+      Common R1 Lite failures to fix:
+
+      - RuntimeError from get_object_pose -> SAM3 or head-plane calibration missing;
+      save_head_rgb and print the reason
+
+      - moca_adapter unavailable -> do not bypass goto_pose; report the error and
+      stop safely
+
+      - Workspace bounds errors -> choose a smaller safe_z or re-perceive objects
+      before moving
+
+      - Gripper too tight/loose -> keep open_gripper at 14.5 and close_gripper at
+      5.5 unless stderr suggests otherwise
+
+      If execution succeeded with empty stderr and verify_tennis_in_box() reports
+      success, respond FINISH.
+
+      Please respond with EXACTLY ONE of the following:
+
+      - The word ''REGENERATE'' followed immediately by new Python code in a fenced
+      code block (```python...```) if you want to modify the code. Inside the fence,
+      include only executable Python, with no prose.
+
+      - The word ''FINISH'' if the task appears complete and stderr is empty
+
+      '
+    oracle_code: |
+      import time
+
+      import numpy as np
+
+
+      obs = get_observation()
+
+      print("Initial observation:", obs)
+
+      saved_head = save_head_rgb("outputs/r1lite/tennis_task_head_left_rgb.png")
+
+      saved_stereo = save_head_stereo_rgb("outputs/r1lite/tennis_task_head_stereo_left_rgb.png")
+
+      print("Saved head RGB:", saved_head, "Saved stereo RGB:", saved_stereo)
+
+
+      def recover_to_initial(attempt, reason):
+          print("Grasp attempt", attempt, "failed:", reason)
+          open_gripper()
+          home_result = return_home()
+          print("Returned to initial position:", home_result)
+          time.sleep(1.0)
+
+
+      open_gripper()
+
+      box_pos, _ = get_object_pose("cardboard box")
+
+      drop_pos = box_pos + np.array([0.0, 0.0, 0.10])
+
+      print("box_pos:", box_pos, "drop_pos:", drop_pos)
+
+      initial_ball_pos, _ = get_object_pose("tennis ball")
+
+      print("INITIAL_TENNIS_POSITION_BASE:", initial_ball_pos.tolist())
+
+
+      grasp_plan = None
+
+      grasp_pos = None
+
+      grasp_quat = None
+
+      grasp_verified = False
+
+      grasp_failure = None
+
+      for attempt in range(1, 3):
+          try:
+              print("Starting fresh head localization and IK planning for attempt", attempt)
+
+              grasp_plan = plan_tennis_graspnet(
+                  camera="head",
+                  confirm_head=True,
+                  save_debug=True,
+              )
+
+              selected = grasp_plan["selected"]
+
+              grasp_pos = np.asarray(selected["grasp_position"], dtype=float)
+
+              pre_grasp_pos = np.asarray(selected["pregrasp_position"], dtype=float)
+
+              grasp_quat = np.asarray(selected["grasp_quaternion_xyzw"], dtype=float)
+
+              print("graspnet selected:", {
+                  "attempt": attempt,
+                  "camera": grasp_plan.get("camera"),
+                  "frame_id": grasp_plan.get("frame_id"),
+                  "score": selected.get("score"),
+                  "selection_policy": grasp_plan.get("selection_policy"),
+                  "grasp_pos": grasp_pos.tolist(),
+                  "pre_grasp_pos": pre_grasp_pos.tolist(),
+              })
+
+              goto_pose(pre_grasp_pos, grasp_quat, gripper=100.0)
+
+              goto_pose(grasp_pos, grasp_quat, gripper=100.0)
+
+              close_gripper()
+
+              time.sleep(1.0)
+
+              grasp_verified, grasp_details = verify_grasp(save_debug=True)
+
+              print("verify_grasp:", grasp_verified, grasp_details)
+              if not grasp_verified:
+                  print("Grasp verification failed; continuing the full place trajectory")
+              break
+          except Exception as exc:
+              grasp_failure = repr(exc)
+              recover_to_initial(attempt, grasp_failure)
+              if attempt == 2:
+                  raise RuntimeError("Grasp failed after one retry: " + grasp_failure)
+
+
+      if grasp_pos is None or grasp_quat is None:
+          raise RuntimeError("No executable grasp pose was produced: " + repr(grasp_failure))
+
+
+      lift_pos = grasp_pos + np.array([0.0, 0.0, 0.18])
+
+      goto_pose(lift_pos, grasp_quat, gripper=0.0)
+
+      safe_z = max(lift_pos[2], drop_pos[2] + 0.12)
+
+      goto_pose(np.array([lift_pos[0], lift_pos[1], safe_z]), grasp_quat, gripper=0.0)
+
+      goto_pose(np.array([drop_pos[0], drop_pos[1], safe_z]), grasp_quat, gripper=0.0)
+
+
+      pre_drop_pos = drop_pos + np.array([0.0, 0.0, 0.10])
+
+      goto_pose(pre_drop_pos, grasp_quat, gripper=0.0)
+
+      goto_pose(drop_pos, grasp_quat, gripper=0.0)
+
+      open_gripper()
+
+      time.sleep(0.5)
+
+      goto_pose(drop_pos + np.array([0.0, 0.0, 0.10]), grasp_quat)
+
+
+      success, details = verify_tennis_in_box()
+
+      print("verify_tennis_in_box:", success, details)
+
+      RESULT = {"success": success, "details": details, "grasp_plan": grasp_plan}
+
+record_video: false
+r1lite_staged_tennis_execution: false
+r1lite_perception_attempts: 3
+r1lite_workspace_margin_m: 0.03
+r1lite_min_grasp_gap: 2.0
+r1lite_wrist_max_age_s: 1.0
+r1lite_wrist_min_tennis_pixels: 30
+r1lite_graspnet_mandatory: true
+r1lite_graspnet_allow_fallback: false
+r1lite_graspnet_approach_steps: 12
+output_dir: ./outputs/r1lite_tennis_ball_in_box_head_only
+debug: true
+web_ui: false
+use_visual_feedback: false
+use_wrist_camera: false
+save_multiturn_prompts: true
+trials: 1
+total_trials: 1
+num_workers: 1
+use_oracle_code: false

@@ -1,0 +1,115 @@
+# Usage: UV_CACHE_DIR=/tmp/uv-cache uv run --no-sync --active capx/envs/launch.py --config-path env_configs/agilex/agilex_real_pink_cup_lift_single_turn.yaml
+
+env:
+  _target_: capx.envs.tasks.base.CodeExecutionEnvBase
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: capx.envs.simulators.agilex_real.AgilexRealLowLevel
+      # Use ros when Piper driver is running (start_piper_left.sh). direct
+      # opens CAN itself and conflicts with the Piper ROS node on can_left.
+      control_backend: ros
+      master_joint_topic: /master/joint_left
+      puppet_joint_topic: /puppet/joint_left
+      camera_backend: ros
+      host: 0.0.0.0
+      port: 9010
+      start_server: false
+      wait_for_observation: true
+      arm_channel: can_left
+      bitrate: 1000000
+      robot: piper
+      speed_pct: 50
+      max_linear_vel: 1.0
+      max_angular_vel: 0.1
+      max_linear_acc: 0.4
+      max_angular_acc: 0.05
+      gripper_max_width: 0.1
+      gripper_force: 1.0
+      img_front_topic: /camera_h/color/image_raw
+      img_front_depth_topic: /camera_h/depth/image_raw
+      img_front_camera_info_topic: /camera_h/color/camera_info
+      use_depth_image: true
+      ros_sync_wait_timeout: 0.5
+      # Camera is 30 cm in -Y, 40 cm up. Optical +Z is flipped; XY axes are unchanged.
+      # Replace with calibrated values before real grasp execution.
+      camera_pose_mats:
+        main:
+          - [-0.905610094, 0.038534342, -0.422357031, 0.459743168]
+          - [-0.281641141, 0.689932682, 0.666836683, -0.754770822]
+          - [0.317094032, 0.722847148, -0.613957145, 0.452487314]
+          - [0.000000000, 0.000000000, 0.000000000, 1.000000000]
+      agilex_ik_urdf_path: capx/envs/assets/agilex/piper_ik_clean.urdf
+      # link6_tcp is a fixed child of link6 with +Z forward, +X right, +Y down.
+      agilex_ik_target_link_name: link6_tcp
+      base_pose_wxyz_xyz: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      agilex_tcp_offset: [0.0, 0.0, 0.0]
+      sam3_service_url: http://127.0.0.1:8114
+      sam3_checkpoint_path: /home/agilex/checkpoints/sam3
+      sam3_device: cuda
+      graspnet_service_url: http://127.0.0.1:8115
+      use_graspnet_grasp_pose: false
+      graspnet_frame_offset: [0.0, 0.0, 0.0]
+      # Fixed base/world-frame offset applied after GraspNet. Base +Y is left.
+      graspnet_world_offset: [0.0, 0.0, 0.0]
+      graspnet_rotation_correction_rpy: [0.0, 0.0, 0.0]
+      graspnet_prefer_top_down: True
+      graspnet_approach_axis: z
+      graspnet_top_down_threshold: 0.65
+      graspnet_forward_passes: 1
+      graspnet_max_retries: 7
+      graspnet_local_regions: true
+      graspnet_filter_grasps: false
+      graspnet_fallback_to_topdown: false
+      graspnet_max_full_points: 20000
+      graspnet_max_segment_points: 10000
+      object_depth_clip_range: [0.05, 2.0]
+      object_min_points: 50
+      default_grasp_quaternion_wxyz: [0.0, 0.0, 1.0, 0.0]
+      grasp_z_offset: 0.03
+      grasp_ik_z_offsets: [0.0, 0.03, 0.06, 0.1]
+      joint_limit_margin: 0.1
+      ik_rest_cost_weight: 0.05
+      max_joint_step: 0.02
+      reset_on_env_reset: true
+      reset_joint_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      reset_gripper_width: 0.05
+      reset_interpolation_steps: 50
+      reset_joint_tolerance: 0.03
+    privileged: false
+    apis:
+      - AgilexControlApi
+    task_only_prompt: "Pick up the green apple from the table and lift it."
+    prompt: |
+      You are controlling a single Agilex/Piper robot arm with the API described below.
+      Goal: pick up the green apple from the table and lift it.
+      The robot has six joint dimensions plus one gripper command.
+      The robot provides one RGB-D camera named main.
+      Use sample_grasp_pose("green apple") to get the grasp position and quaternion before grasping.
+      First move to a pre-grasp pose at least 8 cm above the sampled grasp position, then descend vertically in small steps.
+      Never move directly from the current pose to the final grasp pose when the target is far away.
+      Do not invent a grasp quaternion from get_object_pose(); get_object_pose is only for inspection.
+      Write one complete executable Python program for this task.
+      You may write python code comments for reasoning but ONLY write the executable Python code and do not write it in code fences.
+      The functions below are already imported to the environment. If you want to use numpy, you need to import it explicitly.
+
+api_servers:
+  - _target_: capx.serving.launch_sam3_server.main
+    device: cuda
+    port: 8114
+    host: 127.0.0.1
+    checkpoint_path: /home/agilex/checkpoints/sam3
+
+  - _target_: capx.serving.launch_contact_graspnet_server.main
+    device: cuda
+    port: 8115
+    host: 127.0.0.1
+
+record_video: true
+output_dir: ./outputs/agilex_real_green_apple_lift_single_turn
+use_img_differencing: false
+debug: true
+web_ui: false
+
+trials: 1
+num_workers: 1

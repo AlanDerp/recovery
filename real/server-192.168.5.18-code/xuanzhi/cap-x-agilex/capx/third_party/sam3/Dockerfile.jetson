@@ -1,0 +1,15 @@
+FROM nvcr.io/nvidia/pytorch:25.04-py3-igpu
+
+WORKDIR /opt/sam3
+COPY . /opt/sam3
+
+RUN python -m pip install --no-cache-dir \
+    -e /opt/sam3 \
+    fastapi \
+    "uvicorn[standard]" \
+    einops \
+    pillow \
+    pydantic \
+    tyro
+
+ENV PYTHONUNBUFFERED=1

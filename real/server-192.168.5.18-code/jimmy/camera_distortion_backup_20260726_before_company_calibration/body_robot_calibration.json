@@ -1,0 +1,294 @@
+{
+    "IMU": [
+        {
+            "acc_bias": [
+                0,
+                0,
+                0
+            ],
+            "calibration_info": null,
+            "extrinsic_param": {
+                "rotation": [
+                    -3.1415927,
+                    0.0,
+                    -0.0215
+                ],
+                "translation": [
+                    -0.0018,
+                    0,
+                    0.25135
+                ]
+            },
+            "gyro_bias": [
+                0,
+                0,
+                0
+            ],
+            "name": "imu_chassis"
+        }
+    ],
+    "cameras": [
+        {
+            "extrinsic_param": {
+                "relative_frame": "torso_link3",
+                "rotation": [
+                    -1.5770610255453048,
+                    1.5918154714541022,
+                    -0.906467070164422
+                ],
+                "translation": [
+                    0.055,
+                    0.031,
+                    0.632
+                ]
+            },
+            "fov": 90.0,
+            "intrinsic_param": {
+                "camera_height": 1536,
+                "camera_matrix": [
+                    [
+                        1014.84231174894,
+                        0.0,
+                        957.0951102175613
+                    ],
+                    [
+                        0.0,
+                        1014.2669795323595,
+                        770.5612000460184
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                ],
+                "camera_model": 3,
+                "camera_width": 1920,
+                "distortion_coeffcients": [
+                    -0.1963958483023333,
+                    -0.41569707443855136,
+                    -4.8119482312227196e-05,
+                    6.417054438642863e-06,
+                    -0.02179796385434774,
+                    0.1970163347565359,
+                    -0.5880907561522044,
+                    -0.12304098976326949
+                ],
+                "distortion_model": "opencv elements"
+            },
+            "name": "camera_head_left"
+        },
+        {
+            "extrinsic_param": {
+                "relative_frame": "torso_link3",
+                "rotation": [
+                    -1.5832803,
+                    1.5858673,
+                    -0.9132319
+                ],
+                "translation": [
+                    0.055,
+                    -0.034,
+                    0.632
+                ]
+            },
+            "fov": 90.0,
+            "intrinsic_param": {
+                "camera_height": 1536,
+                "camera_matrix": [
+                    [
+                        1015.4672415242494,
+                        0.0,
+                        958.6957642455247
+                    ],
+                    [
+                        0.0,
+                        1014.894936869708,
+                        767.2887407926268
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                ],
+                "camera_model": 3,
+                "camera_width": 1920,
+                "distortion_coeffcients": [
+                    -0.28932288905481074,
+                    -0.5250270562337249,
+                    -1.226350060936733e-05,
+                    -1.2397167255784033e-05,
+                    -0.0309638586405206,
+                    0.10433999070589317,
+                    -0.7356086973952438,
+                    -0.1634682762369445
+                ],
+                "distortion_model": "opencv elements"
+            },
+            "name": "camera_head_right"
+        },
+        {
+            "extrinsic_param": {
+                "relative_frame": "left_gripper_link",
+                "rotation": [
+                    -1.7212431134213613,
+                    1.695552080783623,
+                    -0.7907411368929498
+                ],
+                "translation": [
+                    -0.02929587846143941,
+                    -0.007424388432363847,
+                    0.06601647826317199
+                ]
+            },
+            "fov": 120.0,
+            "intrinsic_param": {
+                "camera_width": 1280,
+                "camera_height": 720,
+                "camera_matrix": [
+                    [
+                        667.23678,
+                        0.0,
+                        644.48097
+                    ],
+                    [
+                        0.0,
+                        662.15708,
+                        347.35448
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                ],
+                "camera_model": 3,
+                "distortion_coeffcients": [
+                    -0.01343,
+                    0.048711,
+                    -0.003266,
+                    0.007389,
+                    0.0
+                ],
+                "distortion_model": "opencv elements"
+            },
+            "name": "arm_left"
+        },
+        {
+            "extrinsic_param": {
+                "relative_frame": "right_gripper_link",
+                "rotation": [
+                    -1.7250753150099365,
+                    1.7155670236060216,
+                    -0.7938995188869501
+                ],
+                "translation": [
+                    -0.033896764201166225,
+                    0.015613302667641658,
+                    0.04604920637837081
+                ]
+            },
+            "fov": 120.0,
+            "intrinsic_param": {
+                "camera_width": 1280,
+                "camera_height": 720,
+                "camera_matrix": [
+                    [
+                        656.26559,
+                        0.0,
+                        613.03249
+                    ],
+                    [
+                        0.0,
+                        653.09668,
+                        344.76632
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                ],
+                "camera_model": 3,
+                "distortion_coeffcients": [
+                    -0.033634,
+                    0.051747,
+                    -0.014532,
+                    -0.012836,
+                    0.0
+                ],
+                "distortion_model": "opencv elements"
+            },
+            "name": "arm_right"
+        }
+    ],
+    "joint_bias": {
+        "left_arm_bias": {
+            "joint1": -0.009450281680225934,
+            "joint2": 0.0026124549990201506,
+            "joint3": -0.01062025840152514,
+            "joint4": 0.020373228545085102,
+            "joint5": 0.004760637508461774,
+            "joint6": -6.733992931808855e-06
+        },
+        "name": "joint_bias",
+        "right_arm_bias": {
+            "joint1": -0.016847943745809748,
+            "joint2": 0.0030440687721803405,
+            "joint3": -0.007202968771480464,
+            "joint4": 0.001501542244731223,
+            "joint5": 0.02481112067273425,
+            "joint6": -1.587778894112502e-05
+        },
+        "torso_bias": {
+            "joint1": 0.00353748047414036,
+            "joint2": 0.027467128882011686,
+            "joint3": 0.01607943187921079
+        }
+    },
+    "lidars": [
+        {
+            "calibration_info": {
+                "algo_version": "mso:a63142f2cd-dirty/develop/rcommon:953331a",
+                "calibration_details": "calibrated by mso",
+                "date": "2025-01-15-21-52-00"
+            },
+            "extrinsic_param": {
+                "rotation": [
+                    -0.006661378441716847,
+                    -0.006695197571315291,
+                    0.019790657193650474
+                ],
+                "translation": [
+                    0.165,
+                    0.233,
+                    0.29465
+                ]
+            },
+            "name": "lidar_front_left"
+        }
+    ],
+    "wheels": [
+        {
+            "extrinsic_param": {
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "translation": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "intrinsic_param": [
+                0.16897,
+                0.28,
+                0.32733
+            ],
+            "name": "wheel"
+        }
+    ]
+}

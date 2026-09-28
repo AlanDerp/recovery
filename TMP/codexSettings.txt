@@ -1,0 +1,161 @@
+model_provider = "custom"
+model = "gpt-astra-latest"
+disable_response_storage = true
+model_reasoning_effort = "high"
+personality = "pragmatic"
+notify = ["/Users/ronald/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
+[model_providers.custom]
+name = "openrouter"
+base_url = "https://openrouter.ai/api/v1"
+wire_api = "responses"
+requires_openai_auth = false
+experimental_bearer_token = "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"
+
+[marketplaces.openai-bundled]
+last_updated = "2026-06-22T05:27:26Z"
+source_type = "local"
+source = "/Users/ronald/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-06-22T05:22:58Z"
+source_type = "local"
+source = "/Users/ronald/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."notion@openai-curated"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[projects."/Users/ronald/Developer/Codes/2_QuantResearch"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Coding/Codes/6000_Dorabot"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/1_AcademicResearch/6000QMultiAgent/6000_Dorabot"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/1_AcademicResearch/5021_RL4Finance/SuperTicTactoe/super_ttt_rl"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Documents/New project"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/1_AcademicResearch/5010_ImageProcessing/Assignment3"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/1_AcademicResearch/6000QMultiAgent"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/1_AcademicResearch/5010_ImageProcessing/PPT&Note"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/1_AcademicResearch/5010_ImageProcessing"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/image"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Documents/Codex/2026-06-06/files-mentioned-by-the-user-jiankun"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Documents/Codex/2026-06-09/tool-use-agentic-programming"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Documents/WaterReflaction"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/AcademicResearch/6000QMultiAgent/lerobot"]
+trust_level = "trusted"
+
+[projects."/Users/ronald/Developer/Codes/AcademicResearch/6000QMultiAgent"]
+trust_level = "trusted"
+
+[features]
+memories = true
+js_repl = false
+
+[memories]
+generate_memories = true
+use_memories = true
+
+[desktop]
+preventSleepWhileRunning = true
+keepRemoteControlAwakeWhilePluggedIn = true
+appearanceLightCodeThemeId = "codex"
+git-show-sidebar-pr-icons = true
+appearanceDarkCodeThemeId = "codex"
+
+[desktop.open-in-target-preferences]
+global = "vscode"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/ronald/Developer/Codes/1_AcademicResearch/5010_ImageProcessing" = "vscode"
+"/Users/ronald/Developer/Codes/1_AcademicResearch/6000QMultiAgent/6000_Dorabot" = "vscode"
+"/Users/ronald/Documents/New project" = "xcode"
+
+[desktop.appearanceLightChromeTheme]
+accent = "#0169cc"
+contrast = 100
+ink = "#0d0d0d"
+opaqueWindows = false
+surface = "#ffffff"
+
+[desktop.appearanceLightChromeTheme.fonts]
+
+[desktop.appearanceLightChromeTheme.semanticColors]
+diffAdded = "#00a240"
+diffRemoved = "#e02e2a"
+skill = "#751ed9"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#0169cc"
+contrast = 60
+ink = "#fcfcfc"
+opaqueWindows = false
+surface = "#111111"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#00a240"
+diffRemoved = "#e02e2a"
+skill = "#b06dff"
+
+[mcp_servers]
+
+[mcp_servers.node_repl]
+type = "stdio"
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.616.51431"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+CODEX_HOME = "/Users/ronald/.codex"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "2c20141b13bec5a64cd2874d8e2df011430d5b1a70e4f5425aa10d01743311a8"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/ronald/.codex"

@@ -1,0 +1,10 @@
+{
+  "created_at": "2026-08-21T19:01:44+08:00",
+  "error": "/motion_target/target_joint_state_arm_left message 0 joint 2=-0.000000 is outside [0.027453, 3.114147]",
+  "mode": "inspect",
+  "safety_config": "/home/nvidia/jimmy/r1_episode_replay_r1lite_2026_limits.json",
+  "schema_version": 1,
+  "source_mcap": "/home/nvidia/GalaxeaDataset/20260821/R2026B63T0A9900010_20260821185416067_RAW/R2026B63T0A9900010_20260821185416067_RAW.mcap",
+  "status": "failed",
+  "updated_at": "2026-08-21T19:01:46+08:00"
+}

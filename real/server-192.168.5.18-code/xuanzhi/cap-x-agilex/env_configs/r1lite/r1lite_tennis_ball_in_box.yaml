@@ -1,0 +1,286 @@
+# Usage:
+#   bash scripts/run_r1lite_tennis_ball_in_box_pipeline.sh
+#   # or oracle validation only:
+#   source /opt/ros/humble/setup.bash
+#   export PYTHONPATH="/home/nvidia/xuanzhi/cap-x-agilex:${PYTHONPATH:-}"
+#   python3 capx/envs/launch.py \
+#     --config-path env_configs/r1lite/r1lite_tennis_ball_in_box.yaml \
+#     --use-oracle-code
+#
+# Prerequisites:
+#   - Robot stack running: bash ~/start_r1_teleop_ready.sh
+#   - Head plane calibration: outputs/r1lite/head_plane_calibration.json
+#   - SAM3 server on 127.0.0.1:8114
+
+env:
+  _target_: capx.envs.tasks.base.CodeExecutionEnvBase
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: capx.envs.simulators.r1lite_real.R1LiteRealLowLevel
+      arm_target_topic: /capx/motion_target/target_joint_state_arm_right
+      gripper_target_topic: /capx/motion_target/target_position_gripper_right
+      reset_motion_enabled: false
+      safe_joint_home: [0.010470, 0.222985, -0.022772, 0.008466, 0.035299, 0.006095]
+      safe_joint_home_feedback: [0.027234, 0.448298, -0.005745, 0.028936, 0.058085, 0.032340]
+      gripper_open_position: 100.0
+      gripper_close_position: 0.0
+      gripper_feedback_tolerance: 6.0
+      gripper_min_response: 2.0
+      gripper_empty_close_feedback: 5.5
+      arm_min_motion_rad: 0.005
+      arm_motion_timeout_s: 2.0
+      arm_joint_tolerance_rad: 0.025
+      # Adaptive joint execution (online command/feedback correction).
+      # Relaxed for long wrist-observation IK paths; joint-2 excursion previously
+      # failed at ~0.037 rad with the default 0.035 limit.
+      adaptive_joint_tolerance_rad: 0.012
+      adaptive_probe_step_rad: 0.006
+      # Joint 3 needs the larger, MIT-mode-validated pulse to overcome its
+      # local deadband; all other joints retain the conservative probe.
+      adaptive_probe_steps_rad: [0.006, 0.006, 0.010, 0.006, 0.006, 0.006]
+      adaptive_max_command_excursion_rad: 0.100
+      adaptive_max_target_step_rad: 0.025
+      adaptive_max_measured_step_rad: 0.080
+      adaptive_settle_s: 1.0
+      # Ignore transient MOCA/RML motion by requiring feedback newer than the
+      # command hold and stable across a complete window before direction gates.
+      adaptive_feedback_stability_s: 0.30
+      adaptive_feedback_stability_rad: 0.005
+      adaptive_feedback_settle_timeout_s: 10.0
+      adaptive_feedback_min_samples: 4
+      adaptive_max_iterations: 48
+      adaptive_max_stalled_iterations: 20
+      adaptive_min_progress_rad: 0.0003
+      pose_position_tolerance_m: 0.020
+      adaptive_log_path: outputs/r1lite/adaptive_joint_history.jsonl
+      max_joint_step: 0.03
+      publish_rate_hz: 20.0
+      command_duration_s: 3.0
+      feedback_timeout_s: 15.0
+      wrist_rgb_topic: /hdas/camera_wrist_right/color/image_raw
+      wrist_depth_topic: /hdas/camera_wrist_right/aligned_depth_to_color/image_raw
+      wrist_camera_info_topic: /hdas/camera_wrist_right/color/camera_info
+      head_left_rgb_topic: /hdas/camera_head/left_raw/image_raw_color/compressed
+      head_right_rgb_topic: /hdas/camera_head/right_raw/image_raw_color/compressed
+      visual_feedback_max_width: 640
+      sam3_service_url: http://127.0.0.1:8114
+      graspnet_service_url: http://127.0.0.1:8117
+      graspnet_forward_passes: 3
+      graspnet_max_retries: 3
+      graspnet_request_timeout_s: 420.0
+      graspnet_local_regions: true
+      graspnet_filter_grasps: false
+      graspnet_max_full_points: 20000
+      graspnet_max_segment_points: 10000
+      graspnet_min_segment_points: 30
+      graspnet_depth_range: [0.05, 2.0]
+      graspnet_max_candidates: 16
+      graspnet_min_score: 0.0
+      graspnet_prefer_top_down: true
+      graspnet_approach_axis: z
+      graspnet_top_down_threshold: 0.30
+      graspnet_pregrasp_distance_m: 0.08
+      # Calibration expressed in right_gripper_tool_z. The planner executes
+      # T_base_tool = T_base_camera @ T_camera_grasp @ inv(T_tool_grasp).
+      # Calibrated from symmetric fingertip touches at gripper feedback 98.8.
+      # Full result: outputs/r1lite/graspnet_tool_calibration/T_ee_grasp.yaml
+      graspnet_ee_from_grasp:
+        - [-0.0195338347, 0.9988972306, 0.0426936990, -0.0001330996]
+        - [-0.9994677185, -0.0183933949, -0.0269436937, 0.0033081059]
+        - [-0.0261286989, -0.0431972876, 0.9987248297, -0.0044863947]
+        - [0.0, 0.0, 0.0, 1.0]
+      # Safe wrist RGB-D observation pose captured on 2026-07-14.
+      # Command and measured feedback are paired because this arm has fixed bias.
+      graspnet_observation_joints:
+        [0.6427379251, 0.6626796722, -0.4936418235, -0.2546408176, -0.0546304397, 0.0475534052]
+      graspnet_observation_feedback_joints:
+        [0.6536170213, 0.9119148936, -0.4765957447, -0.2282978723, -0.0327659574, 0.0734042553]
+      graspnet_max_joint_delta_rad: 1.20
+      graspnet_max_approach_joint_delta_rad: 0.35
+      graspnet_approach_validation_steps: 12
+      wrist_tf_base_frame: base_link
+      wrist_tf_timeout_s: 2.0
+      wrist_rgbd_max_age_s: 1.0
+      wrist_rgbd_max_skew_s: 0.15
+      wrist_hand_eye_calibration_path: outputs/r1lite/right_touch_hand_eye_calibration/T_ee_camera.yaml
+      # Reference measured at the calibrated safe wrist-view pose. Dynamic
+      # observation keeps this orientation and only translates toward the
+      # head-camera ball estimate.
+      wrist_observation_reference_ee_position: [0.3525683308, -0.3324156074, 0.9682924921]
+      wrist_observation_reference_ee_quaternion_xyzw: [0.0199041640, 0.4067369727, 0.0151234425, 0.9132032308]
+      wrist_observation_distance_m: 0.15
+      wrist_observation_max_translation_m: 0.45
+      wrist_observation_max_joint_delta_rad: 1.55
+      r1lite_ik_harness_enabled: false
+      r1lite_motion_validation_enabled: false
+      r1lite_adaptive_joint_control_enabled: false
+      wrist_observation_roll_candidates_deg: [-20.0, -25.0, -30.0, -35.0, -40.0, -45.0]
+      wrist_observation_transit_clearance_candidates_m: [0.05, 0.08, 0.12, 0.16]
+      wrist_ball_coarse_max_error_m: 0.12
+      wrist_ball_center_margin_ratio: 0.25
+      wrist_observation_settle_s: 0.60
+      r1lite_wrist_observation_skip_feedback_settle: true
+      object_prompts:
+        tennis ball: yellow tennis ball
+        cardboard box: open cardboard box
+      tennis_ball_radius_m: 0.034
+      head_stereo_tennis_z_offset_m: -0.013
+      box_drop_z_offset_m: 0.10
+      head_plane_calibration_path: outputs/r1lite/head_plane_calibration.json
+      head_stereo_rectified_calibration_path: outputs/r1lite/head_stereo_rectified_plane_calibration.json
+      workspace_x_limits: [0.0, 0.85]
+      workspace_y_limits: [-0.65, 0.40]
+      workspace_z_limits: [0.30, 1.35]
+      ee_pose_publish_hz: 30.0
+      relaxed_ik_probe_enabled: true
+      depth_scale: 0.001
+    privileged: false
+    apis:
+      - R1LiteControlApi
+    task_only_prompt: "Pick up one tennis ball and place it into the cardboard box."
+    prompt: |
+      You are controlling a real Galaxea/Xinghaitu R1 Lite right arm.
+      Goal: pick up one tennis ball and place it into the cardboard box.
+      Import numpy as np and time.
+
+      Vision:
+      - get_head_rgb("left") is the Cap-X primary scene image.
+      - save_head_rgb(path) saves the head-left image for debugging.
+      - locate_object_head(name) uses SAM3 on the head-left camera.
+      - get_object_pose(name) maps a detected object to base_link using
+        outputs/r1lite/head_plane_calibration.json.
+
+      Motion:
+      - open_gripper() publishes the vendor R1 target 100.
+      - close_gripper() publishes the vendor R1 target 0.
+      - goto_pose(position, quaternion_xyzw, gripper=None, hold_sec=1.2)
+        publishes interpolated right-arm end-effector targets through moca_adapter.
+      - descend_z_in_steps(target_position, quaternion_xyzw, num_steps=10, gripper=None)
+        descends vertically while keeping XY fixed.
+      - move_joints_safe() remains available for small joint-space recovery moves.
+
+      Phase 0 - perceive the box BEFORE moving:
+      - Call open_gripper() first.
+      - Call box_pos, grasp_quat = get_object_pose("cardboard box") immediately.
+      - Compute drop_pos = box_pos + np.array([0.0, 0.0, 0.10])
+      - Do NOT call get_object_pose("cardboard box") again during the task.
+
+      Pick-and-place sequence:
+      1. grasp_pos, grasp_quat = get_object_pose("tennis ball")
+      2. pre_grasp_pos = grasp_pos + np.array([0.0, 0.0, 0.12])
+      3. goto_pose(pre_grasp_pos, grasp_quat, gripper=14.5)
+      4. descend_z_in_steps(grasp_pos, grasp_quat, num_steps=10, gripper=14.5)
+      5. close_gripper(), then time.sleep(1.0)
+      6. lift_pos = grasp_pos + np.array([0.0, 0.0, 0.18]); goto_pose(lift_pos, grasp_quat, gripper=5.5)
+      7. safe_z = max(lift_pos[2], drop_pos[2] + 0.12)
+      8. goto_pose(np.array([lift_pos[0], lift_pos[1], safe_z]), grasp_quat, gripper=5.5)
+      9. goto_pose(np.array([drop_pos[0], drop_pos[1], safe_z]), grasp_quat, gripper=5.5)
+      10. pre_drop_pos = drop_pos + np.array([0.0, 0.0, 0.10]); goto_pose(pre_drop_pos, grasp_quat, gripper=5.5)
+      11. descend_z_in_steps(drop_pos, grasp_quat, start_z=pre_drop_pos[2], num_steps=10, gripper=5.5)
+      12. open_gripper(), time.sleep(0.5)
+      13. Retreat: goto_pose(drop_pos + np.array([0.0, 0.0, 0.15]), grasp_quat)
+      14. success, details = verify_tennis_in_box(); print(details)
+
+      Rules:
+      - Pick and place exactly one tennis ball total.
+      - Do NOT loop over multiple objects.
+      - NEVER move diagonally from lift_pos directly to pre_drop_pos in one goto_pose.
+      - NEVER change X and Y while descending.
+      - NEVER call get_object_pose after the task has started moving.
+      - Keep grasp_quat from the first tennis-ball detection until release.
+      - Use gripper=5.5 on every goto_pose while carrying the tennis ball.
+
+      Write one complete executable Python program for this task.
+      Output ONLY executable Python. Do not include Markdown fences.
+      The functions below are already imported to the environment.
+
+    multi_turn_prompt: |
+      The following code blocks were just executed:
+      ```python
+      {executed_code}
+      ```
+      The current console stdout is:
+      ```
+      {console_stdout}
+      ```
+      The current console stderr is:
+      ```
+      {console_stderr}
+      ```
+      If stderr is non-empty or execution failed, you MUST analyze the traceback and respond with REGENERATE plus a complete corrected Python program.
+      Important real-robot state note: a failed execution may physically move the tennis ball, box, or arm. Any previous object coordinates or grasp quaternion may now be wrong. In regenerated code, start from the current scene: open the gripper if safe, re-perceive the cardboard box, recompute drop_pos, call get_object_pose("tennis ball") again, and then plan from the current robot/object state.
+      Common R1 Lite failures to fix:
+      - RuntimeError from get_object_pose -> SAM3 or head-plane calibration missing; save_head_rgb and print the reason
+      - moca_adapter unavailable -> do not bypass goto_pose; report the error and stop safely
+      - Workspace bounds errors -> choose a smaller safe_z or re-perceive objects before moving
+      - Gripper too tight/loose -> keep open_gripper at 14.5 and close_gripper at 5.5 unless stderr suggests otherwise
+      If execution succeeded with empty stderr and verify_tennis_in_box() reports success, respond FINISH.
+      Please respond with EXACTLY ONE of the following:
+      - The word 'REGENERATE' followed immediately by new Python code in a fenced code block (```python...```) if you want to modify the code. Inside the fence, include only executable Python, with no prose.
+      - The word 'FINISH' if the task appears complete and stderr is empty
+
+    oracle_code: |
+      import time
+      import numpy as np
+
+      obs = get_observation()
+      print("Initial observation:", obs)
+      saved_head = save_head_rgb("outputs/r1lite/tennis_task_head_left_rgb.png")
+      print("Saved head RGB:", saved_head)
+
+      open_gripper()
+      box_pos, grasp_quat = get_object_pose("cardboard box")
+      drop_pos = box_pos + np.array([0.0, 0.0, 0.10])
+      print("box_pos:", box_pos, "drop_pos:", drop_pos)
+
+      grasp_pos, grasp_quat = get_object_pose("tennis ball")
+      pre_grasp_pos = grasp_pos + np.array([0.0, 0.0, 0.12])
+      print("grasp_pos:", grasp_pos, "pre_grasp_pos:", pre_grasp_pos)
+
+      goto_pose(pre_grasp_pos, grasp_quat, gripper=100.0)
+      descend_z_in_steps(grasp_pos, grasp_quat, num_steps=10, gripper=100.0)
+      close_gripper()
+      time.sleep(1.0)
+
+      lift_pos = grasp_pos + np.array([0.0, 0.0, 0.18])
+      goto_pose(lift_pos, grasp_quat, gripper=0.0)
+      safe_z = max(lift_pos[2], drop_pos[2] + 0.12)
+      goto_pose(np.array([lift_pos[0], lift_pos[1], safe_z]), grasp_quat, gripper=0.0)
+      goto_pose(np.array([drop_pos[0], drop_pos[1], safe_z]), grasp_quat, gripper=0.0)
+
+      pre_drop_pos = drop_pos + np.array([0.0, 0.0, 0.10])
+      goto_pose(pre_drop_pos, grasp_quat, gripper=0.0)
+      descend_z_in_steps(drop_pos, grasp_quat, start_z=pre_drop_pos[2], num_steps=10, gripper=0.0)
+      open_gripper()
+      time.sleep(0.5)
+      goto_pose(drop_pos + np.array([0.0, 0.0, 0.10]), grasp_quat)
+
+      success, details = verify_tennis_in_box()
+      print("verify_tennis_in_box:", success, details)
+      RESULT = {"success": success, "details": details}
+
+record_video: false
+# ROS2 R1 Lite safety mode: plan fixed stages and require a grasp gate before
+# any transfer to the box. This bypasses the legacy one-shot program prompt.
+r1lite_staged_tennis_execution: true
+r1lite_staged_use_fixed_plan: true
+r1lite_perception_attempts: 3
+r1lite_workspace_margin_m: 0.03
+r1lite_min_grasp_gap: 2.0
+r1lite_wrist_max_age_s: 1.0
+r1lite_wrist_min_tennis_pixels: 30
+r1lite_graspnet_mandatory: true
+r1lite_graspnet_allow_fallback: false
+r1lite_graspnet_approach_steps: 12
+output_dir: ./outputs/r1lite_tennis_ball_in_box
+debug: true
+web_ui: false
+use_visual_feedback: true
+use_wrist_camera: true
+save_multiturn_prompts: true
+
+trials: 1
+total_trials: 1
+num_workers: 1
+use_oracle_code: false

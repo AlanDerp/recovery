@@ -1,0 +1,697 @@
+
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2027_conference,times}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+
+
+%%%%%%%% New %%%%%%%%%
+\usepackage{wrapfig}
+\usepackage{booktabs}
+% \usepackage{floatflt}
+% \usepackage{caption}
+\usepackage{graphicx}
+\usepackage{multirow}
+% \usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+% \usepackage[margin=1in]{geometry}
+\usepackage{caption}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xcolor}
+\usepackage{wrapfig}
+
+\definecolor{mainbar}{RGB}{85, 107, 47}
+\definecolor{overallbar}{RGB}{60, 80, 100}
+\definecolor{gridgray}{RGB}{230, 230, 230}
+
+
+%这是工程用，请勿删除
+\usepackage{xcolor}
+\newcommand{\rev}[1]{\textcolor{red}{#1}}
+\title{META-Robot: Self Congnition and Capability Scaling in Agentic Robots}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the \iclrfinalcopy macro remains commented out below.
+% Non-anonymous submissions will be rejected without review.
+
+\author{Antiquus S.~Hippocampus, Natalia Cerebro \& Amelie P. Amygdale \thanks{ Use footnote for providing further information
+about author (webpage, alternative address)---\emph{not} for acknowledging
+funding agencies.  Funding acknowledgements go at the end of the paper.} \\
+Department of Computer Science\\
+Cranberry-Lemon University\\
+Pittsburgh, PA 15213, USA \\
+\texttt{\{hippo,brain,jen\}@cs.cranberry-lemon.edu} \\
+\And
+Ji Q. Ren \& Yevgeny LeNet \\
+Department of Computational Neuroscience \\
+University of the Witwatersrand \\
+Joburg, South Africa \\
+\texttt{\{robot,net\}@wits.ac.za} \\
+\AND
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email}
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+%\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+
+\maketitle
+% abs 更新于2026.9.24 14：07 by zeyu
+\begin{abstract}
+LLM-based robotic agent systems can generate programs to control robot, but their reliance on advanced scaffolds limit their meta-level generalization to a new task.
+Scaling addresses these through perviou knowledge scaling, but suffers from fixed evaluation and unstructured skill scaling limits their cognitive and capability scaling. 
+META-Robot focuses on scaling action-level evaluation metrics that guide the structural scaling of skills and adapet more proprioceptive signals. 
+Crucially, META-Robot uses action-level predicates as evaluation criteria, leveraging LLM reasoning to identify limits of system itself and scale more related criteria easily. 
+Extensive experiments in simulation and real-robot settings demonstrate that META-Robot (i) achieves stronger overall performance, (ii) exhibits emergent behaviors, \textit{e.g.}, skill and evalution criteria scaling, (iii)  demonstrates robust generalization 
+and lifelong learning capabilities, and (iv) The ability to utilize non-visual proprioceptive signals.
+
+
+
+% Existing robot agents primarily improve their capabilities by refining policies, programs, or skills through interaction. However, when new tasks exceed existing observation, verification, or control mechanisms, modifying execution programs alone is often insufficient. We introduce META-Robot, a self-evolving robotic system that extends capability evolution toward the co-evolution of self-observation, self-understanding, and self-capability. META-Robot jointly evolves observation, verification, and execution through three components: (1) an FG-guided closed-loop execution agent, where Factual Ground Truth (FG) represents action-level conditions verifiable from execution evidence for progress assessment, failure localization, and repair; (2) coupled FG and Skill Libraries that accumulate reusable evaluation criteria and execution knowledge; and (3) a proprioceptive signal orchestration mechanism that incorporates embodiment-specific signals, such as joint torques and gripper states, when visual observations are insufficient. As experience accumulates, META-Robot expands not only its executable skills but also what it can observe and evaluate. On LIBERO-Pro, it reaches 83.0\% and 95.8\% on Spatial-Pos and Spatial-Task, outperforming previous SOTA by 32.0 and 35.8 percentage points. On the real-world Galaxea R1 Lite, it achieves 78.6\% overall success and up to 40.2\% zero-shot success on LIBERO-Pro Long without additional debugging or library updates.
+\end{abstract}
+
+\section{Introduction}
+ Robotics agent have emerged as a promising paradigm for general-purpose robotic manipulation recently with generated code as control policy \cite{kumar2026act,xiao2026enpire}. While  these systems can adapt to new tasks without training to some extent, their scalability remains limited. When tasks require evaluation criteria, feedback modalities, or skills beyond predefined scaffolds, agents cannot revise these system-level limitations, leading to repeated strategy switching and compounding ineffective modifications that make meta-level task generalization or reliable recovery nearly impossible.
+
+predicate scaling offers a natural solution by allowing agents to retain and reuse them acquired from previous tasks. This accumulation can improve transfer and reduce the need of more predefine. However, scaling predicates alone cannot overcome fixed system scaffolding, as systems cannot have explicite congnition of task and its own capbility limits. Recent efforts to improve scalability follow a primary strategy: replacing fixed predicates accumulation with validated, agent-discovered skills distilled from execution process~\cite{zhang2026playful,lu2026aspire}. This reduces manual engineering and allows past repairs to guide future tasks. However, these skills are accumulated without structured links to their  expected effects, and required evidence. Consequently, the skill library may continue to grow while the system’s understanding of the task and its own capabilities remains unchanged, limiting substantive capability scaling.
+
+The emergence of Neuro-Symbolic Predicates (NSPs)~\cite{liang2025visualpredicator} presents a compelling foundation for scaling robot  agent system cognition beyond fixed mechnism\. By combining neural perceptual queries with programmatic logic, NSPs can construcabstractions forevalution, offering a path toward adaptive of new evalution criteria, . Nevertheless, extending predicate invzention to self cognition and capability scaling robot agent system remains challenging. Predicates must assess not only whether task goals are satisfied, but also whether the current system has sufficient observations, evalution criteria, and executable skills. We argue that grounding predicates with physical evidence in action-level is crucial, as it allows the agent to exploit available proprioceptive signals when vision is insufficient, construct corresponding skills and evaluation criteria, and integrate them into control and verification, effectively coupling congnitive and capability scaling with evidence-grounded assessment.
+
+To this end, we propose META-Robot, as illustrated in Fig.~\ref{fig:overview}, a self  congnition and capability scaling system that grounds robotic meta-generalization in evidence-based, action-level predicates for both system self-assessment and task evaluation. By recording predicates transitions around skill executions, coupling validated predicates with reusable skills, and orchestrating proprioceptive feedback, META-Robot creates a scalable system for jointly scaling  robotic congnition and capabilities.
+
+META-Robot incorporates several key innovations. First, to mitigate the ambiguity between coarse execution logs and actual task-state changes, we introduce a closed-loop execution agent that evaluates each action execution through action-level predicate transitions. The agent records observations, inputs, outputs, and pre- and post-execution predicate, associating program behavior with changes in robot action. When an error is detected, it performs targeted local repair and re-execution, followed by full-task validation of the revised program. Second, fixed evaluation criteria make failures beyond existing system coverage difficult to diagnose and can lead to unstructured skill accumulation. To address this, META-Robot maintains coupled predicate and Skill Libraries that expand through validated execution experience. While this design supports continual knowledge scaling, it also requires precise alignment among two different libraries. META-Robot establishes explicit predicate--skill associations to support grounded skill retrieval, composition, and expansion.
+% \rev{Recent advances in the reasoning and code-generation capabilities of Large Language Models (LLMs) have made it possible to translate natural language instructions into executable robot programs\cite{kumar2026act,xiao2026enpire,zhang2026playful}. "Code-as-policy" systems leverage these capabilities to invoke various tool sets and generate task-specific behaviors, enabling robots to execute previously unseen instructions through programming \cite{meng2025embodied,chen2026few}. This paradigm supports training-free adaptation to new tasks; unlike end-to-end models, it eliminates the need to collect large-scale, task-specific demonstration datasets or train model parameters, thereby allowing for the generation and execution of new tasks at minimal cost, which offers a highly promising pathway toward achieving true embodied intelligence.}
+%大型语言模型（LLM）在推理和代码生成能力方面的最新进展，使得将自然语言指令转化为可执行的机器人程序成为可能。“代码即策略”（Code-as-policy）系统利用这些能力，调用不同工具组生成针对特定任务的行为，从而使机器人能够通过程序,在train-free的情况下来执行此前未见过的指令[],为实现真正的具身智能提供了一条极具前景的途径
+
+% \rev{However, Existing robotic agents fail to generalize to new tasks from "meta-level" prompts alone, suffering poor completion rates without manually designed scaffolding\cite{chen2026show,fu2026cap}. Inspired by Muriel Lezak’s dichotomy of cognition and execution, we analyze this problem drawing on the human process of performing new tasks. Humans can adapt to new tasks starting from a meta-level, because they can continuously break the boundaries of task cognition, accurately assess both themselves and the external task, and thereby guide the improvement of execution capabilities and break boundaries of the of execution capabilities to complete the task. In robotic systems, cognitive capability corresponds to using observation and evaluation mechanisms to represent task states, assess outcomes, and identify when skills apply; execution capability corresponds to planning, constructing, and invoking skills to complete tasks. Evaluation guides skill scaling, while new skills create demands for additional feedback and revised evaluation criteria. }
+
+% Existing research on robotic self-improvement has advanced this goal from different perspectives: Cap-X optimizes executable programs through multiple candidate programs and visual feedback, ASPIRE distills and reuses skills from interaction histories, and GaP further focuses on planning and program organization. These approaches progressively expand a robot’s execution capability. However, the execution evidence and evaluation criteria used to guide such improvements are often fixed and coarse-grained. As a result, when a task falls beyond the coverage of existing observation and evaluation mechanisms, the robot is constrained by its cognitive limitations, making it difficult to identify what is missing and, consequently, to further improve its execution capability.
+
+% Meta-level task generalization therefore requires the evidence and evaluation criteria that support capability improvement to be extensible as well. Finer-grained execution evidence and continually evolving evaluation criteria enable the robot to better understand its own execution state and identify the boundaries of its capabilities. This, in turn, provides a stronger basis for improving execution capability and adapting to more challenging novel tasks.
+
+% To enable robots to adapt to novel tasks from meta-level descriptions—transcending cognitive and capability boundaries—we introduce META-Robot. This self-evolving system generates execution frameworks and evaluation criteria from meta-level specifications, just as shown fig \ref{fig:Overview of META-Robot}. It comprises three components. First, a recurrent execution agent uses state-transition trajectories grounded in "Factual Ground Truth" (FG), which comprises a set of action-level truth predicates designed within a neuro-symbolic framework\cite{liang2025visualpredicator}, to enhance fine-grained process cognition beyond traditional execution logs. For each skill invocation, pre/post-execution FG states and so on, correlating program behavior with task condition changes. These fine-grained trajectories allow the agent to assess progress, localize faults, and perform partial re-executions to verify repairs before full-task validation. Secondly, META-Robot maintains expanding FG and skill libraries that embody its cognitive capabilities. The FG library integrates verified action conditions—user-provided or model-generated—as explicit constraints for policy generation. When existing FGs insufficiently describe the task context, the system generates new ones during planning, overcoming prior cognitive limits. Meanwhile, the skill library creates task-specific skills and converts verified repairs into reusable knowledge for future execution. Thirdly, META-Robot coordinates proprioceptive signals to complement vision-only data. When vision cannot reliably confirm interactions like grasping, the agent interprets joint torques for program generation and repair. This overcomes vision-exclusive limitations, deepening the system's understanding of its embodiment and enhancing its use of proprioceptive feedback.Thirdly, in order to have more information sources to assist the sacling of META-Robot's cognition and capabilities, META-Robot coordinates proprioceptive signals to complement vision-only data. When vision cannot reliably confirm interactions like grasping, the agent interprets joint torques for program generation and repair. This overcomes vision-exclusive limitations, deepening the system's understanding of its embodiment and enhancing its use of proprioceptive feedback.
+
+% Like humans, these components jointly set the system’s cognitive and capability boundaries for itself and external tasks, yielding a robotic system that continuously evolves beyond its inherent limits. As META‑Robot handles more tasks, its FG and skill libraries accumulate reusable constraints and procedural knowledge, enabling efficient adaptation to novel tasks, long‑horizon behaviors, and physically‑feedback‑driven operations.
+
+We conduct extensive experiments in both simulation environments [23] and real-world environments
+to validate the effectiveness of META-Robot. (i) achieves stronger overall performance than prior methods, reaching 95.8\% success on LIBERO-Pro Spatial--Task compared with ASPIRE's 60.0\%. Crucially, we observe (ii) emergent congnition and capbility including the scaling of reusable skills and their corresponding evaluation criteria from validated execution experience. We further demonstrate (iii) robust generalization through zero-shot transfer to held-out long-horizon tasks without additional debugging and successful deployment across diverse real-robot tasks. Together with the ablation results, these findings establish META-Robot as a scalable framework for jointly expanding robotic cognition and capability. This paper makes the following contributions:
+
+%然而，现有的机器人编程智能体（robotic coding agents）系统尚不能从自然语言任务描述或少量示例来开始,完全Meta适应新的任务,仍然依赖于人工设计的“脚手架”（scaffolding）,否则任务完成率很差[][]。我们受到 Muriel Lezak[]认知与执行的二元划分启发,参考人类执行新任务的过程,对该问题进行了分析.人类之所以能够从Meta开始,仅依靠任务描述适应一个新任务,是因为人类能够不断突破自己对任务的认知边界,更准确评估自身与外在任务,进而指导相关执行能力的提高,突破能力边界完成任务.具体而言，在执行任务的过程中，人类会基于自己的认知和任务的执行情况来不断修正自己的预期与任务计划，以保证任务高效完成.在任务完成之后，人类会对自己的执行能力和这类任务都有了更深的认知,进而学习突破自己人认知边界和能力边界.对任务更强的认知能力和执行能力有助于面对另一个新任务时,更快速准确地对任务进行评估和执行.
+
+%但在robotics agent领域中,现在的系统难以突破从自己的认知边界和能力边界[][],有部分工作通过将过往任务的skill沉淀以达到更好的表现[][].但这种沉淀单纯只是经验累积,缺乏对skill和任务联系更细粒度的,结构化的认知,本质上,系统的认知能力没有任何进步,对系统本身和任务能的评估不能进化得更细致全面,进而导致能力提升也有限,难以从Meta开始,完成新任务的适应.
+
+%为了让机器人系统仅依靠任务信息描述,从Meta开始,突破认知和能力的边界,适应新任务.我们推出了 META-Robot，这是一个能够根据元级（meta-level）规范生成任务执行框架和评估标准的自演化机器人系统；图1展示了META-Robot的概览。META-Robot由三个组件构成。首先，一个循环机器人执行智能体系统（agent）利用基于动作执行“事实真值”（Factual Ground Truth, FG）的状态转换轨迹，在传统的执行日志的基础上增强系统对整个执行过程细粒度的认知。针对每一次技能调用，智能体都会记录观测数据、输入、输出以及执行前后的FG状态，从而将程序行为与任务条件的变化关联起来。这些细粒度的状态变化轨迹使智能体能够评估执行进度、定位故障，并在通过全任务验证之前，先进行局部重新执行以验证针对性的修复方案。
+
+%其次，META-Robot维护着不断扩充的FG库和技能库,这是系统认知能力的具体体现。FG库整合了由用户提供或由模型联想生成的已验证动作条件，提供明确的约束以指导策略生成.当现有FG Library里面的动作真值不足以描述任务执行情况,系统会在新一轮plan阶段,思考生成新的FG,突破之前的认知壁垒 。技能库则是会根据任务生成可适配skill, 同时会将已验证的修复方案转化为结构化、可复用的机器人知识，从而指导未来的任务执行。
+
+%第三，META-Robot集成了一种本体感知信号协同机制，利用可用的物理反馈来补充相机单一的观测信息。当视觉信息无法可靠地确认接触、抓取成功或其他交互状态时，智能体会获取并解读关节力矩等信号，以此辅助程序生成与修复，从而突破仅靠视觉信息获取的局限，进一步帮助系统深入对机器人本体的认知,提升运用更多本体信号的能力。像人类一样,这些组件共同构成了一个关于自我和外界任务的认知边界和能力边界,不断自我突破进化的机器人系统。随着META-Robot处理的任务增多，其FG库和技能库将积累更多可复用的约束条件与程序性知识，从而支持更高效地适应新任务、执行长程行为，以及应对需要物理交互反馈的操作任务。
+
+% %认知边界的局限导致针对同一任务，系统缺乏选择和修订这选择方案的一致性标准，智能体在面对失败时可能会不断切换策略并反复重启搜索过程，而无法针对性地积累改进成果。同时,面对更具挑战性等任务时,认知的局限导致系统只能利用人为预先设定好的信号或输入做参考,难以充分利用任务执行过程中自身本体存在的信号变化,修复状态表征不完整、验证标准不恰当或缺乏反馈来源等深层次的缺陷。仅仅修改动作程序无法解决这些深层次的缺陷.例如，许多现有系统主要依赖基于摄像头的观测，而更具挑战性的操作任务则需要物理交互信息——这是仅靠视觉无法可靠提供的.在这种情况下,仅依赖预定义死的“脚手架”,系统始终无法突破认知的边界,试图拥有评估和修改更广泛执行系统的能力，包括构建接口以获取和解读可用的非视觉信号等。
+
+%%由于认知边界的局限,系统自然难以突破自己的能力边界.虽然现在,存在部分工作能够将过往任务处理中的经验以Skill等形式沉淀下来,以便以后复用.但这种沉淀单纯只是经验累积,缺乏对skill和任务联系更细粒度的,结构化的认知,所以在面对新的任务时,常常随机选择skill,切换策略,进一步地说,面对更具挑战的新任务时很难新的突破现有边界的skill边界,从现有的经验生成新的skill.同样以需要物理交互信息的任务为例,仅依赖预定义死的“脚手架”,系统无法认知到需要其它信号辅助,更不可能从以往的skill中去生成调用分析相关信号的skill. 因此，面对新任务,LLM仅凭自然语言任务描述或少量示例来构建可靠的执行系统，依然是一项艰巨的挑战。
+
+%%(然而，从自然语言任务描述或少量示例出发，自主构建适应新任务的机器人执行系统，仍然具有挑战性。现有机器人编程智能体通常依赖人工设计的脚手架，包括预定义的感知、运动规划和逆运动学原语，以及支撑执行的观测接口与验证机制。这样的脚手架为程序生成提供了基础，但也可能限制系统能够利用的信息与实现的行为。本文所关注的元级适配，要求智能体能够根据任务需求描述进化出可靠的执行系统。当新任务所需的状态条件、反馈来源或操作技能超出现有系统的覆盖范围时，仅修改任务程序本身,而不修改固定接口,便不足以完成适配。因此，我们将这一挑战归纳为两类相互关联的边界：认知边界，即智能体对系统本身哪些部分进行评估修改,能表征哪些任务条件、解释哪些执行证据并据此作出判断；能力边界，即智能体能够构建、执行和验证哪些操作与技能。
+
+%%认知边界的局限体现在策略迭代与信息获取两个方面。同一任务可能对应多种运动表示、控制方法和动作分解。缺乏明确的任务约束与一致的验证标准时，智能体难以判断失败究竟要求局部修正还是策略替换，因而可能反复切换方案、重启搜索，而无法积累有针对性的改进。同时，预先固定的观测接口可能使任务所需的关键信息始终处于系统的表征之外。例如，视觉可以支持物体定位，却未必能够可靠判断接触是否发生或夹持是否成功；这些判断可能需要结合关节力矩、夹爪反馈等本体信号。如果智能体无法识别缺失的证据、扩展状态表征并修订相应的验证机制，那么反复修改动作程序仍无法消除这些信息缺口。
+
+%%能力边界与上述认知局限密切相关。尽管已有系统能够将成功经验与修复方案沉淀为可复用技能，但技能数量的增长并不必然带来能力范围的扩展。有效迁移还需要明确技能的适用条件、预期效果及所依赖的反馈，使智能体能够判断何时复用、如何组合，以及何处需要生成新的实现。如果缺乏这些结构化联系，技能检索与策略修订便可能缺少充分依据，尤其难以应对超出现有技能覆盖范围的新任务。对于依赖物理交互反馈的操作，识别视觉信息不足只是第一步；系统还需要构建读取和解释可用本体信号的接口，并将其整合进动作控制与执行验证。因此，从稀疏任务描述实现可靠的元级适配，需要系统协同扩展任务表征、反馈机制与可执行技能，使经验积累能够转化为处理新任务的实际能力。翻译并学术润色)
+
+%%我们推出了 META-Robot，这是一个能够根据元级（meta-level）规范生成任务执行框架的自演化机器人系统；该系统能够额外利用本体信号，协同优化其任务策略与支撑系统
+%图1展示了META-Robot的概览。META-Robot由三个组件构成。首先，一个循环机器人执行智能体系统（agent）利用基于“事实真值”（Factual Ground Truth, FG）的状态转换轨迹，在传统的执行日志的基础上增强系统对整个执行过程细粒度的认知。针对每一次技能调用，智能体都会记录观测数据、输入、输出以及执行前后的FG状态，从而将程序行为与任务条件的变化关联起来。这些细粒度的状态变化轨迹使智能体能够评估执行进度、定位故障，并在通过全任务执行验证修改后的程序之前，先进行局部重新执行以验证针对性的修复方案。
+
+%%其次，META-Robot维护着不断扩充的FG库和技能库。FG库整合了由用户提供或由模型生成的已验证动作条件，提供明确的约束以指导策略选择、抑制不合理的策略切换，并支持持续的优化.当现有FG Library里面的动作真值不足以描述任务执行情况,系统会在新一轮plan阶段,思考生成新的FG,突破之前的认知壁垒 。技能库则是会根据任务生成可适配skill, 同时会将已验证的修复方案转化为结构化、可复用的机器人知识，从而指导未来的任务执行。第三，META-Robot集成了一种本体感知信号协同机制，利用可用的物理反馈来补充相机单一的观测信息。当视觉信息无法可靠地确认接触、抓取成功或其他交互状态时，智能体会获取并解读关节力矩等信号，以此辅助程序生成与修复，从而突破仅靠视觉信息获取的局限，实现更深层次的性能提升。这些组件共同构成了一个能够突破认知边界,能力边界,不断自我进化的机器人系统。随着META-Robot处理的任务增多，其FG库和技能库将积累更多可复用的约束条件与程序性知识，从而支持更高效地适应新任务、执行长程行为，以及应对需要物理交互反馈的操作任务。
+\begin{itemize}
+    \item We introduce META-Robot, which extends its cognitive and capability boundaries by jointly evolving task policies and supporting system itself through FG-guided self-assessment.
+
+    \item We develop coupled FG and skill libraries that support continual refinement of evaluation criteria and policies, as well as the generation of new structured criteria and skills beyond the existing repertoire.
+
+    \item We propose a proprioceptive signal orchestration mechanism that expands the system's capacity for perception, evaluation, and control.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{Fig1.png}
+    \caption{Overview of META-Robot. FG-guided execution, coupled FG and skill libraries, and proprioceptive feedback jointly expand the system’s cognitive and capability boundaries for new tasks.
+}
+    \label{fig:Overview of META-Robot}
+\end{figure}
+\section{Related Work}
+Our results show that META-Robot (i) achieves stronger overall performance than prior methods, reaching 95.8\% success on LIBERO-Pro Spatial--Task compared with ASPIRE's 60.0\%. Crucially, we observe (ii) emergent system-level adaptation, including the expansion of reusable skills and their corresponding evaluation criteria from validated execution experience. We further demonstrate (iii) robust generalization through zero-shot transfer to held-out long-horizon tasks without additional debugging and successful deployment across diverse real-robot tasks. Together with the ablation results, these findings establish META-Robot as a scalable framework for jointly expanding robotic cognition and capability.
+
+\textbf{Skill-Scaling Robotic Agents.}
+Skill-scaling robotic agents seek to improve future behavior by retaining and adapting knowledge acquired through interaction. Existing approaches can be broadly categorized into two directions. The first reuses prior programs or experiences as memory. Memory Transfer Planning ~\cite{kagaya2025memorytransfer} retrieves successful code and adapts it to new environments; Growing with Your Embodied Agent incorporates human feedback into lifelong code generation~\cite{yang2025growing}; and DAHLIA ~\cite{ghiadini2025dahlia} incrementally updates few-shot context during closed-loop execution. Reflective agents such as EEAgent ~\cite{chen2026eeagent} instead consolidate lessons from past failures into prompt-level experience. The second direction expands the executable repertoire itself. Playful ~\cite{zhang2026playful} discovers reusable skills through self-directed interaction, ASPIRE ~\cite{lu2026aspire} distills validated repairs from fine-grained execution traces, and RHO ~\cite{elmaaroufi2026rho} searches repository-level neuro-symbolic policies. EmbodiedSkills ~\cite{wang2026embodiedskills} organizes executable skills with structured trajectories, while ALRM~\cite{yang2026alrm} and AOR~\cite{kumar2026aor} expose broader tools and controller modifications. However, capability growth is typically separated from the evolution of evaluation criteria and evidence requirements,preventing the system from developing a correspondingly richer congnition of itself. META-Robot instead couples hierarchical skills with action-level predicates and more kinds signal feedback channels, allowing reusable capabilities and the mechanisms used to assess them to scale together.
+\section{Method}
+We introduce META-Robot, a novel framework for meta-level generalization to a new task. The META-Robot framework is grounded in the scaling of cognition and capability, where evaluation criteria, feedback acquisition, avaliable signal, and executable skills are jointly expanded, thereby without dependence on pre-defined scaffolding. META-Robot operates directly on  action-level predicates during the whole process, instead of coarse execution outcomes, which better connects program behavior with changes in task conditions. Specifically, the closed-loop execution agent records observations, inputs, outputs, and pre- and post-execution predicate states for every skill invocation and subtask end. predicate states trace enables the system to consistently assess progress, attribute failures, and verify targeted repairs through local re-execution before full-task validation. We also introduce coupled action-level predicate and Skill Libraries and a proprioceptive signal orchestration mechanism to overcome the limitations of unstructured skill accumulation and vision-only verification. With these components, META-Robot can enrich its task evidence and congnition, consolidate validated repairs as reusable skills, and acquire additional physical evidence when existing observations are insufficient, progressively expanding both system cognition and capability. Fig.~2 illustrates an overview of the META-Robot framework.
+ %Meta- Robot是为能够仅从任务相关的描述,zero shot 出发,不断突破系统的认知边界和能力边界,持续开放地学习而设计.Meta- robot具体由三个组件构成,如图2所示:1. 一个循环机器人执行智能体系统,用FG记录任务的执行过和系统本身对该任务的评估以保障策略的一致性,方便后续故障归因修复2.FG 和SKill Library,FG Library代表了系统的认知水平,SKill Lirary代表了系统的能力水平,通过不断丰富FG,结构化的沉淀技能,突破系统对任务的认知和执行能力3.一种本体感知信号协同机制,突破视觉这一单一信号的局限,让系统中的LLM大脑能够更加理解机器人身体上其它不同的感官,更多远准确地提升FG和SKill的累积. 
+\subsection{loop execution agent system}
+Inspired by software coding agents, we treat evaluation of the execution system itself as a key component of scaling, just as shown in Fig.\ref{fig:Loop Robot Execution Agent System}. Existing robotic agents often focus on task outcomes or intermediate execution feedback, with limited assessment of the mechanisms responsible for observation and evaluation. When failures arise beyond these mechanisms’ coverage—the system’s cognition and capability boundaries—repeated iteration alone may be insufficient.  To solve this problem, META-Robot’s loop execution agent system uses action-level predicates to assess every action execution outcome . Given a task description, dense semantic injection enriches its specification and decomposes it into a subtask trace. For each subtask, the agent generate action-level predicates, from description and LLM own reasoning , establishing explicit criteria for execution assessment. These predicates are evaluated after each skill invocation and at subtask completion, providing fine-grained evidence of whether the intended action conditions have been satisfied.
+
+To recover from an unsatisfied action-level condition, we initiate a bounded local repair loop whenever a required FG predicate evaluates to False. To restore the expected state transition within a limited number of turns, the repair agent revises the code surrounding the failed action or applies iterative refinement procedures, like Picard iteration and multi-directional approach search. To preserve diagnostic evidence when the failure cannot be localized or resolved locally, we record the latest FG state and continue the remaining execution. To support task-level failure attribution, we consolidate all evaluations into an FG transition chain. If the overall task fails, a global repair agent analyzes this trace together with execution logs and auxiliary evidence, formulates diagnostic hypotheses, and revises the task program or its supporting observation and verification mechanisms. To validate these system-level modifications, we re-execute the complete task, enabling improvements beyond isolated action-level repairs.
+%参考codex,Claude code 等系统在编程领域的成功案例,对系统的评估是系统自进化的重要一环. 但是,现有Robotics agent系统往往只对任务执行结果进行评估,然后修改,少部分会对任务执行过程进行评估,进行process reward,忽略了对系统本身的评估.所以面对一些超出系统评估和执行边界,即认知和能力边界的任务或错误,这类系统不论经过多少次交互和迭代,都很难迎来自己的Aha moment,甚至会在不停的尝试失败中,不断变换策略,累积冗余的上下文,导致出现幻觉等现象.
+
+%为了能够实现对系统本身对评估,META-Robot的loop robot execution agent system选用FG作为评估的标准,在(动作的细粒度)上分析评测任务的执行情况.具体来说,当任务描述被输入进system后,通过密集语义注入(Steer[]),丰富任务描述并将其拆分位为多个子任务,形成子任务trace,Agent会根据每个子任务的描述,结合FG few example生成多个FG作为子任务的检验标准.在后续的执行过程中,会在子任务结束后,通过FG判断相关动作执行是否到位.除了在子任务结束时,我们会进行一次评估,在每次调用skill后,我们也会进行FG评估,确保每次skill调用后,动作执行到位.
+
+%如果发现(某一动作对应的FG=False),那么我们会启动局部修复循环agent,在有限的turn内,试图调整(动作的对应的上下游code)或者采取一套多角度逼近程序,系统中采用最多是Picard逼近,来保证动作执行完成预期目标.倘若是一个长线累积导致的错误,无法在有限turn内完成定位修复,系统则会记录最后的FG状态,继续接下来的执行.最后,每一次的FG record都会被记录成FG 转移chain,如果任务没成功,FG 转移chain会被输入进最后的修复agent.修复agent会呈现包含FG chain在内的相关证据并验证经修正的程序，从而支持智能体分析生成的日志、提出假设并做出针对性的修复决策并重新生成.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Loop Robot Execution Agent System.png}
+    \caption{Loop Robot Execution Agent System: META-Robot generates executable programs and action-level FG criteria from only tasks related discriptions. It tracks FG transitions to assess progress, localize failures, and trigger targeted repair. Validated skills and predicates are consolidated into the Libraries for reuse.}
+    \label{fig:Loop Robot Execution Agent System}
+\end{figure}
+%Program failures recur across multiple tasks, yet reusable cognition and skills seldom constitute a complete task program. FG library的边界和Skill library的边界分别代表了META-Robot的认知边界和能力边界. META-Robto的技能库存储了异构 的认知标准:...;在任务伊始,agent 会根据任务描述联想推理出,整个执行过程中需要满足的动作条件,人类也可以提供样例FG辅助生成.我们不会预先定义taxonomy ,修复agent会根据记录的FG chain,沉淀出有效的FG标准,在任务不成功时,补充更多的细节验证.如果任务最终结果成功,则会删除那些依旧为False,冗余的标准,保证FG library的准确性和高效性(FG library的特点写一段,FG指导 Skill library的进化写一段 )
+%Principle 为导向,区别任务为导向
+% META-Robot’s skill library stores reusable execution knowledge distilled from validated repairs, including perception refinements, grasping constraints, recovery strategies, motion adaptations, and signal-dependent interaction rules. Unlike a flat repository of isolated fixes, META-Robot organizes related repairs into hierarchical skill trees. The taxonomy is not predefined: after a failure is diagnosed and a repair is validated, the model compares it with existing skills by failure signature, applicability conditions, execution intent, and corrective mechanism, and either merges it into an existing branch or creates a new one.
+% Each skill records compact structured guidance, including when it applies, the repair strategy, relevant constraints, and, when useful, a representative implementation. Higher-level nodes capture general repair principles, while lower-level nodes specialize them to particular tasks, objects, sensing conditions, or embodiments. This hierarchy allows future agents to reuse exact fixes when available and otherwise instantiate broader repair patterns for new failures. As validated repairs accumulate and consolidate into increasingly general skills, the library turns task-specific debugging experience into persistent executable capabilities, progressively expanding META-Robot’s capability boundary rather than repeatedly rediscovering solutions at test time.%(感觉还是需要加上父子节点的描述)
+\subsection{Action-level predicate Library \& Skill Library}
+\label{sec:skill_library}
+META-Robot maintains two coupled libraries: a Skill Library that stores reusable execution knowledge distilled from validated repairs, and an action-level predicate library that stores verifiable action predicate. Skills specify how to execute or repair an interaction, while associatedpredicates specify the conditions to be satisfied after execution. FG and Skill are connected with each other: each skill can associate with multiple predicates, and different skills may share the same predicate.
+
+\paragraph{Formal representation.}
+To couple reusable skills with action-level evaluation criteria, we represent the Skill Library as a forest
+$\mathcal{L}_{S}=(\mathcal{V},\mathcal{E})$, where edges encode parent--child specialization. Each skill is defined as
+\begin{equation}
+s_v=
+\left(
+f_v,\mathcal{C}_v,g_v,r_v,
+\mathcal{Q}_v,\pi_v,\mathcal{D}_v
+\right),
+\end{equation}
+where $(f_v,\mathcal{C}_v,g_v,r_v)$ specify its failure signature, applicability, intent, and repair mechanism, while $(\mathcal{Q}_v,\pi_v,\mathcal{D}_v)$ record its feedback requirements, implementation, and validation evidence.
+
+To organize evaluation criteria consistently, the Predicate Library contains shared action-level predicates
+$\mathcal{P}=\{\phi_j\}_{j=1}^{M}$ and follows the same categorization as the Skill Library. Their correspondence is
+\begin{equation}
+\Gamma(v)\subseteq\mathcal{P},
+\qquad
+\mathcal{R}
+=
+\{(v,\phi_j)\mid\phi_j\in\Gamma(v)\},
+\label{eq:skill_predicate_relation}
+\end{equation}
+allowing each skill to use multiple predicates and each predicate to be shared across skills.
+
+To capture the effects of a skill invocation, the agent records
+\begin{equation}
+\mathbf{z}_{v,t}^{-}
+=
+[\phi_j(e_t^{-})]_{\phi_j\in\Gamma(v)},
+\qquad
+\mathbf{z}_{v,t}^{+}
+=
+[\phi_j(e_t^{+})]_{\phi_j\in\Gamma(v)},
+\label{eq:skill_predicate_transition}
+\end{equation}
+where $e_t^{-}$ and $e_t^{+}$ denote evidence collected before and after execution. These transitions associate reusable skills with explicit changes in task conditions.
+\paragraph{Parent--child organization and shared predicate indexing.}
+To generalize validated repairs without imposing a predefined taxonomy, META-Robot organizes skills into parent--child relations. Parent nodes capture general repair principles, while child nodes specialize them to particular tasks, objects, sensing conditions, or embodiments. Let $\mathcal{A}(v)$ denote the contexts satisfying $\mathcal{C}_v$. A parent $p$ and child $c$ satisfy
+\begin{equation}
+\mathcal{A}(c)\subseteq\mathcal{A}(p),
+\qquad
+r_c=\operatorname{Specialize}(r_p;\delta_c),
+\label{eq:skill_specialization}
+\end{equation}
+where $\delta_c$ introduces additional conditions or implementation details. This relation represents semantic specialization rather than guaranteed success over the entire parent domain.
+
+To align evaluation criteria with skill specialization, the Predicate Library is indexed by the same hierarchy. For a skill category $b$,
+\begin{equation}
+\mathcal{P}_{b}
+=
+\bigcup_{v\in\operatorname{Subtree}(b)}\Gamma(v).
+\label{eq:predicate_category}
+\end{equation}
+To avoid duplication, predicates with identical semantics and evidence requirements are shared across skills and branches. A specialized skill inherits applicable predicates and introduces new ones only when the existing predicate set cannot characterize the interaction. For example, torque-guided thin-towel grasping may specialize contact-aware grasping, reuse contact detected, and introduce cloth elevated and grasp verified. Contact and successful acquisition remain separate predicates because they describe distinct physical conditions.
+\paragraph{Incremental consolidation.}
+To convert validated repairs into reusable capabilities, the agent distills each repair $\rho$ into a candidate skill $\hat{s}$ and compares its failure signature, applicability conditions, execution intent, and corrective mechanism with related library entries. Equivalent repairs are merged, specialized repairs become child nodes, and distinct mechanisms create new branches. Changes to applicability or implementation semantics are revalidated before admission.
+
+To preserve consistent evaluation, the agent jointly consolidates the predicates associated with the new skill. Existing predicates are reused when their semantics and evidence requirements match; otherwise, new predicates are proposed, validated, and added to $\mathcal{P}$. The corresponding mapping $\Gamma(v)$ is then updated. Reorganizing the skill hierarchy changes only predicate indexing, while shared predicate identities remain unchanged.
+
+To transfer validated knowledge to a new context $x$, the agent retrieves the most specific applicable skill whose feedback requirements are available:
+\begin{equation}
+v^\star \in
+\arg\max_{\substack{
+v\in\mathcal{V}\\
+x\in\mathcal{A}(v)\\
+\mathcal{Q}_v\subseteq\mathcal{Q}(x)
+}}
+\operatorname{depth}(v).
+\label{eq:skill_retrieval}
+\end{equation}
+The selected skill is retrieved together with $\Gamma(v^\star)$, providing both execution guidance and action-level evaluation criteria. If no specialized skill applies, a compatible parent guides the generation and validation of a new implementation.
+\subsection{proprioceptive signal orchestration mechanism  }
+To enable the agent to reason about the robot's own perceptual capabilities, META-Robot introduces a mechanism for the synergistic use of proprioceptive signals. Instead of relying on fixed observation interfaces, the system identifies available proprioceptive signals—such as joint states, motor currents, force/torque measurements, and contact-related feedback—by examining specifications tied to the robot's embodiment (e.g., simulator configurations, controller parameters, and robot description files like URDF). The system then associates these signals with their physical semantics and utilizes them as actionable sources of evidence during execution.
+
+When a task indicates that visual information alone is insufficient to achieve the goal, the system incorporates these identified signals into the execution and verification processes. Validated proprioceptive applications are refined and categorized within the skill library (e.g., contact-aware grasping, slip detection, or force-sensitive manipulation), while the predication library is expanded to include corresponding action-level criteria that define the state conditions required before and after an interaction. For instance, the assessment of a grasping action is no longer limited to a visual check of the gripper's closed state; it can also be determined based on contact conditions, motor load, or force stability. This is particularly crucial for failure cases that are visually ambiguous (such as "near-miss" grasps) or for tasks involving deformable and thin objects (like folding a towel, just as shown in Fig.\ref{fig:PROPRIOCEPTIVE SIGNAL ORCHESTRATION MECHANISM Example}), where image evidence alone often fails to confirm whether stable contact or effective manipulation has been achieved.
+
+Through this process, META-Robot moves beyond treating proprioception merely as a static auxiliary input; instead, it continuously explores how embodiment-specific signals can support novel execution strategies and verification criteria, thereby improving the congnition and capbility of system. As these signal-based skills and FG criteria accumulate, the system gains access to interaction state information that is difficult to infer visually, leading to significant improvements more complicated task meta generalization.
+
+%META-Robot 引入了一种协同利用本体感知信号的机制，使智能体能够对机器人自身的感知能力进行推理。该系统不依赖固定的观测接口，而是通过检查与机器人物理形态相关的规范（如仿真器配置、控制器参数及 URDF 等机器人描述文件）来识别可用的本体感知信号——例如关节状态、电机电流、力/力矩测量值、末端执行器（夹爪）状态以及接触相关的反馈信息。随后，智能体将这些信号与其物理语义相关联，并在执行过程中将其作为可利用的证据来源。(确认下在仿真环境中得到本体信号的方式)
+
+%当任务表明仅靠视觉信息不足以实现目标时，智能体会将这些已识别的信号纳入执行与验证流程中。经由验证的本体感知应用会被提炼并归类至技能库（例如：接触感知抓取、打滑检测或力敏感操作），同时“事实基础”（FG）库也会进行扩展，纳入相应的动作级准则，以定义交互前后所需的状态条件。例如，对抓取动作的评估不再局限于通过视觉检查夹爪的闭合状态，还可以基于接触条件、电机负载或力的稳定性来进行判断。这一点对于视觉上难以明确判定的失败案例（如“险些抓取成功”的情况）或涉及可变形及薄型物体（如折叠毛巾）的任务尤为关键，因为在这些场景下，仅凭图像证据往往无法确认是否实现了稳定的接触或有效的操作。(可能需要再详细下怎么从力矩相关的skill建立到FG的扩展)
+
+%通过这一过程，META-Robot 不再仅仅将本体感知视为一种静态的辅助输入；相反，它不断探索如何利用特定于机器人形态的信号来支持创新的执行策略与验证准则，从而将此前未被充分利用的感知通道转化为可复用的技能和基于事实的动作标准。随着这些基于信号的技能与 FG 准则的不断积累，系统能够获取那些难以通过视觉推断的交互状态信息，进而显著提升其执行能力以及对任务进展的推理能力.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{PROPRIOCEPTIVE SIGNAL ORCHESTRATION MECHANISM Example（1）.png}
+    \caption{PROPRIOCEPTIVE SIGNAL ORCHESTRATION MECHANISM Example: in thin-towel grasping, torque change provides a contact cue , while gripper feedback and a lift check verify successful acquisition to supply insufficent vision information on execution and verfication. Validated signal usage is then consolidated into a reusable skill together with corresponding FG predicates, jointly expanding sensing, execution, and verification capabilities.}
+    \label{fig:PROPRIOCEPTIVE SIGNAL ORCHESTRATION MECHANISM Example}
+\end{figure}
+
+
+\section{Experiment}
+\subsection{Experiment Settings}
+We evaluate META-Robot on LIBERO-Pro in simulation and on the Galaxea R1 Lite platform in real-world experiments. For simulation, we use GPT-6-Astr a and DeepSeek-v4-flash as coding agents. Given a natural-language task description and few-shot FG examples, the agent generates executable Python programs and iteratively refines them using FG state-transition traces. The FG and skill libraries provide reusable action conditions and implementations to support policy generation and repair.
+
+For real-world experiments, we use GPT-5.6-sol on R1 Lite. Our tasks cover basic pick-and-place, sequential multi-object manipulation, instruction following, precise plug insertion, thin-towel folding, and breakfast-item stacking. We additionally consider identifying an empty bottle among three visually identical opaque bottles containing different amounts of water, using joint-torque feedback to distinguish their loads. The system combines head-mounted camera observations with available proprioceptive signals, including joint torques and gripper feedback. These signals support interaction judgments that are difficult to establish visually, such as detecting contact with the tabletop when grasping a thin towel. Across both settings, META-Robot evaluates execution through FG checks after skill calls and subtasks, attempts bounded local repairs, and uses accumulated FG traces to guide system-level revision and full-task re-execution. Adaptation is performed through program and library updates without model parameter training.
+
+\subsection{Main Evaluation Results}
+Tab. ~\ref{tab:libero_pro_results} compares META-Robot with prior methods across the Object, Goal, and Spatial suites under position and task perturbations. META-Robot achieves its largest gains on Spatial, where the GPT-6 variant reaches 89.25\% on Pos and 95.8\% on Task, outperforming ASPIRE by 38.25 and 35.8 percentage points, respectively. On Goal--Task, DeepSeek V4.1-flash and GPT-6 achieve 64.6\% and 69.8\%, compared with ASPIRE's 45.0\%. Performance also remains strong on Object, with GPT-6 reaching 99.6\% on Pos and 99.0\% on Task. The gains are not uniform: ASPIRE remains slightly higher on Goal--Pos, achieving 81.0\% versus GPT-6's 79.8\%. Overall, both META-Robot variants perform competitively across the benchmark, while GPT-6 consistently achieves the stronger results, particularly on spatial perturbations and Goal--Task. Per-task success rates are reported in the appendix.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=1\linewidth]{META-Robot_LIBERO-Pro_Merged (2).pdf}
+%     \caption{META-Robot on Libero pro: macro-averaged success over 10 tasks ×50 held-out environment seeds per suite/perturbation. For each task, Aspire evolve on seeds 1–10 and evaluates o on seeds 11–50 without any skills or FG update}
+%     \label{fig:libero_results}
+% \end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{LIBERO-Pro 评估各模型在 Object, Goal, Spatial 任务下的 Success Rate (\%)}
+\label{tab:libero_pro_results}
+% 适当拉开行高，让上下居中更自然美观
+\renewcommand{\arraystretch}{1.2}
+% 使用 \resizebox 将表格缩放到 \textwidth 宽度
+\resizebox{\textwidth}{!}{%
+% 将列定义全部改为 c (居中)
+\begin{tabular}{cccccccccc}
+\toprule
+\textbf{Category} & \textbf{Task Type} & \textbf{OpenVLA} & \textbf{$\pi_0$} & \textbf{$\pi_{0.5}$} & \textbf{CaP-Agent0} & \textbf{ASPIRE} & \textbf{Playful / RATS} & \textbf{\shortstack{META-Robot\\(DeepSeek V4.1-flash)}} & \textbf{\shortstack{META-Robot\\(GPT6)}} \\
+\midrule
+% \multirow{行数}{*}{\textbf{内容}}
+\multirow{2}{*}{\textbf{Object}} 
+  & Pos  & 0 & 0 & 17 & 22 & 98 & 61 & 98 & 99.6 \\
+  & Task & 0 & 0 & 1  & 18 & 95 & 63 & 88.6 & 99 \\
+\midrule
+\multirow{2}{*}{\textbf{Goal}} 
+  & Pos  & 0 & 0 & 38 & 26 & 81 & 43 & 72.2 & 85.8 \\
+  & Task & 0 & 0 & 0  & 17 & 45 & 36 & 64.6 & 69.8 \\
+\midrule
+\multirow{2}{*}{\textbf{Spatial}} 
+  & Pos  & 0 & 0 & 20 & 12 & 51 & 29 & 83 & 89.25 \\
+  & Task & 0 & 0 & 1  & 14 & 60 & 31 & 88.4 & 95.8 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+
+\subsection{Success rate on real machine}
+%。Figure~\ref{fig:real-machine}。
+
+Fig.~\ref{fig:real_world_results} reports META-Robot's performance across seven real-world tasks (with eight trials per task) was as follows: the system succeeded in 44 out of 56 total trials (a success rate of 78.6\%). Specifically, the tennis ball pick-and-place, instruction-guided cup stacking, and weight comparison tasks all achieved a 100\% success rate, while the "Put-General" task had a success rate of 87.5\%. The success rates for towel folding and breakfast preparation dropped to 62.5\% (notably, due to the thin, soft, brittle, and slippery nature of towels and cookies, the success rate for these two tasks was 0\% without proprioceptive feedback, but improved significantly once such feedback was incorporated; see the appendix for a detailed analysis). The plug insertion task proved the most challenging, with a success rate of only 37.5\%. These results indicate that while the robot excels at tasks such as pick-and-place, instruction following, and weight comparison, manipulating deformable objects and achieving precise contact alignment remain its primary limitations. 
+
+%\begin{table}
+%    \centering
+%    \caption{Real-world performance on the Galaxea R1 Lite.
+%    Each task is evaluated over eight trials.}
+%    \label{tab:real_world_results}
+%    \begin{tabular}{lcc}
+%        \toprule
+%        Task & Successful trials & Success rate (\%) \\
+%        \midrule
+%        Tennis-ball pick-and-place & 8/8 & 100.0 \\
+%        Put-General                & 7/8 & 87.5  \\
+%        Towel folding              & 5/8 & 62.5  \\
+%        Instruction-guided cup stacking & 8/8 & 100.0 \\
+%        Plug insertion             & 3/8 & 37.5  \\
+%        Weight comparison          & 8/8 & 100.0 \\
+%        \midrule
+%        Overall                    & 44/56 & 78.6 \\
+%        \bottomrule
+%    \end{tabular}
+%\end{table}
+
+% \begin{figure}[htbp]
+% \centering
+% \begin{tikzpicture}
+% \begin{axis}[
+%     xbar,
+%     bar width=14pt,
+%     width=0.85\textwidth,
+%     height=8cm,
+%     xmin=0, xmax=115,
+%     xlabel={Success rate (\%)},
+%     % 【关键修正】：必须写在同一行，逗号后面绝不要加空格或换行
+%     symbolic y coords={Weight comparison,Plug insertion,Instruction-guided cup stacking,Towel folding,Put-General,Tennis-ball pick-and-place,Overall},
+%     ytick=data,
+%     nodes near coords,
+%     nodes near coords align={horizontal},
+%     every node near coord/.append style={
+%         font=\bfseries\small,
+%         xshift=2pt
+%     },
+%     axis line@x/.style={draw=none},
+%     axis line@y/.style={draw=none},
+%     xmajorgrids=true,
+%     grid style={line width=0.5pt, draw=gridgray},
+%     tick align=outside,
+%     tick pos=left,
+%     enlarge y limits=0.1,
+%     xtick={0, 20, 40, 60, 80, 100},
+%     ylabel style={font=\small},
+%     xlabel style={font=\small},
+%     tick label style={font=\small}
+% ]
+
+% % 绘制常规 Task
+% \addplot+[
+%     color=mainbar,
+%     fill=mainbar,
+%     draw=none
+% ] coordinates {
+%     (100.0,Weight comparison)
+%     (37.5,Plug insertion)
+%     (100.0,Instruction-guided cup stacking)
+%     (62.5,Towel folding)
+%     (87.5,Put-General)
+%     (100.0,Tennis-ball pick-and-place)
+% };
+
+% % 绘制 Overall 汇总柱
+% \addplot+[
+%     color=overallbar,
+%     fill=overallbar,
+%     draw=none
+% ] coordinates {
+%     (78.6,Overall)
+% };
+
+% \end{axis}
+% \end{tikzpicture}
+% \caption{Real-world performance on the Galaxea R1 Lite. Each task is evaluated over eight trials.}
+% \label{fig:real_world_results}
+% \end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{real_world_task_success.png}
+\caption{Real-world performance on the Galaxea R1 Lite. Each task is evaluated over eight trials.}
+\label{fig:real_world_results}
+\end{figure}
+
+
+
+
+
+
+\subsection{Zero-Shot Transfer to Unseen Tasks}
+
+% r 表示放在右侧，0.45\textwidth 为图片占用的宽度
+\begin{wrapfigure}{r}{0.45\textwidth}
+  \centering
+  \vspace{-10pt} % 【可选】微调图片顶部与上方的垂直间距，使其对齐段落首行
+  \includegraphics[width=\linewidth]{long_transfer_retention.png}
+  \caption{Zero-shot transfer to LIBERO-Pro Long under different library retention ratios. Success rates are averaged over ten tasks, without additional debugging or library updates.}
+  \label{fig:long_transfer_chart}
+  \vspace{-10pt} % 【可选】微调图片下方与排版文字的垂直间距
+\end{wrapfigure}
+
+We evaluated transfer performance to the LIBERO-Pro Long tasks using fixed FG and skill libraries, without additional process updates or adjust, just shown in Fig. ~\ref{fig:long_transfer_chart}. We randomly remained the skills and their corresponding FGs, retaining proportions of \{25\%, 50\%, 75\%, 100\%\}. With only 25\% of the information retained, the agent fails across all subtasks, resulting in a mean success rate of 0.0\%. Increasing the retention ratio to 50\% substantially improves performance to 31.8\%, while retaining 75\% further raises the average success rate to 40.2\%. Interestingly, retaining the full information does not yield additional gains and instead slightly reduces performance to 37.0\%. This non-monotonic trend suggests that successful execution depends not only on the amount of available information, but also on its relevance: aggressive filtering removes critical task cues, whereas retaining all information may introduce redundant or distracting context that interferes with decision making. The 75\% setting therefore provides a better balance between preserving task-relevant evidence and suppressing unnecessary context. We also observe substantial variation across subtasks, with improvements concentrated on a subset of tasks such as T01, T02, and T08, indicating that different tasks exhibit different sensitivity to information retention.
+
+\subsection{Ablation Studies}
+
+
+\subsubsection{FG Ablation Test}
+\noindent
+\begin{minipage}[c]{0.51\textwidth} % 左侧文字微调为 51% 宽度
+As shown in Tab.\ref{tab:libero_pro_fg_ablation} we evaluate the FG value by removing FG across all six reported LIBERO-Pro splits. On task perturbations, success falls from 99\% to 85\% for Object, 69.8\% to 56\% for Goal, and 88.4\% to 76\% for Spatial. On swap perturbations, it falls from 98\% to 91\%, 79.8\% to 69\%, and 89.25\% to 72\%, respectively. These results suggest that FG-based execution assessment contributes to task success. The Spatial-Swap comparison warrants caution because the full-system result covers only eight available tasks.
+\end{minipage}% 注意：此处的 % 绝不能漏掉，防止引入额外的段落空格
+\hfill%
+\begin{minipage}[c]{0.46\textwidth} % 右侧表格占 46% 宽度
+\centering
+\captionof{table}{Ablation Study of Fine-Grained (FG) Module across Different Tasks on LIBERO-Pro}
+\label{tab:libero_pro_fg_ablation}
+\vspace{0.3em}
+
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llcc}
+\toprule
+\textbf{Category} & \textbf{Task Type} & \textbf{Full META-Robot (\%)} & \textbf{Without Predicate (\%)} \\
+\midrule
+\multirow{2}{*}{\textbf{Object}} 
+  & Task & 99.0 & 85.0 \\
+  & Swap & 98.0 & 91.0 \\
+\midrule
+\multirow{2}{*}{\textbf{Goal}} 
+  & Task & 69.8 & 56.0 \\
+  & Swap & 79.8 & 69.0 \\
+\midrule
+\multirow{2}{*}{\textbf{Spatial}} 
+  & Task & 88.4 & 76.0 \\
+  & Swap & 89.25* & 72.0 \\
+\bottomrule
+\end{tabular}%
+}
+
+\vspace{0.3em}
+\begin{minipage}{\linewidth}
+\footnotesize
+% \textit{Note}: * The full-system Spatial-Swap result covers eight available tasks; the other full-system splits cover ten.
+\end{minipage}
+\end{minipage}
+
+
+
+
+\subsubsection{Proprioception Ablation test}
+Libero-Pro lacks tasks that heavily rely on proprioceptive signals. Therefore, we specifically designed a new simulation task involving the grasping of a rigid, thin object for ablation testing; the success rate was 50\% without proprioceptive signals and 78\% with them, as shown in Fig.~\ref{fig:META-Robot_Proprioceptive_Ablation}.
+
+The whole process can be divided into 4 steps: 1. The gripper positions itself and approaches the sheet; 2. it descends slowly to locate the point of contact; 3. it uses internal feedback to determine whether the gripper has made contact with the sheet or the tabletop and adjusts the grasping position; 4. closes the gripper, lifts the sheet, and verifies the success of the grasp. Since the sheet lies flat against the tabletop, the contact point is difficult to determine based on visual data alone; therefore, this process requires assistance from internal system signals. Besides, we conducted a comparative analysis between the biscuit-grasping task performed during the real-world breakfast-making scenario and the task at hand; please refer to the appendix for further analysis and illustrations regarding this ablation study.
+
+
+\section{Conclusion}
+This paper presented META-Robot, a training-free robotic agent that jointly improves task execution and the mechanisms used to observe and evaluate it. Predicate state-transition traces support failure diagnosis and targeted repair, coupled Predicate and skill libraries consolidate reusable criteria and procedures, and proprioceptive signal orchestration incorporates physical evidence beyond vision. Experiments on LIBERO-Pro and the Galaxea R1 Lite demonstrate the value of these components for manipulation and transfer to long-horizon tasks without additional debugging. Transfer performance varies across tasks and library retention ratios, highlighting that knowledge accumulation alone does not guarantee better generalization. These findings motivate robotic self-evolution through the coordinated refinement of execution skills, evidence acquisition, and verification criteria. Future work will focus on reliable knowledge selection and broader validation across tasks and embodiments.
+\label{headings}
+\bibliographystyle{iclr2027_conference}
+\bibliography{iclr2027_conference}
+
+\newpage
+\section{Appendix}
+\subsection{The analysis ot each real machine task}
+\label{app:The analysis ot each real machine task}
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{分析 抓网球.png}
+    \captionof{figure}{tennis-ball pick-and-place}
+    \label{fig:tennis-ball pick-and-place}
+\end{center}
+We validate the pick-and-place ability of Meta-robot on a real-world Galaxea R1 Lite. A yellow tennis ball and an open cardboard box sit on the table; only the right arm moves. The operator names neither a grasp nor a drop point.\par
+Meta-robot decomposes the task into locate, plan, pinch, carry, and verify. Head-left RGB-D and SAM3 recover the box and the ball; the ball center is the stereo surface plus the 3.4 cm radius. The drop pose is 10 cm above the box center. The agent then selects a grabbing position which first passes the IK harness with the smallest joint motion. The arm goes to pre-grasp, then grasp, and closes. Agent accepts the pinch only if the gripper gap is neither empty-closed nor fully open. The loaded arm lifts 18 cm, crosses at a safe height, and opens at the drop pose. After that, it checks that the ball lies within the box.\par
+We find that Meta-robot can pick and place from two live object poses rather than from a saved trajectory or large training data.
+\begin{center}
+    \includegraphics[width=0.85\linewidth]{分析 三个物体.png}
+    \captionof{figure}{put-general}
+    \label{fig:put-general}
+\end{center}
+We validate the long-horizon task of Meta-robot on a real-world Galaxea R1 Lite. A peach, a tennis ball, an apple, and an open cardboard box sit on the table; only the right arm moves. This demo uses the fixed order of tennis, then apple, then peach. No object is pre-assigned a slot beyond that permutation.\par
+Meta-robot decomposes the task into read-order, perceive, grasp, carry, and SAM3-release, repeated three times. One head-left RGB-D frame and SAM3 recover the three objects and the box. Each phase pinches the next object, verifies a retained gripper gap, and carries it over the box. After the third drop, all three objects sit in that same region.\par
+ 
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{分析 叠杯子.png}
+    \captionof{figure}{Instruction-guided cup stacking}
+    \label{fig:Instruction-guided cup stacking}
+\end{center}
+We validate the order-followed ability of meta-robot on a real-world Galaxea R1 Lite using three inverted plastic cups of the same size—orange, purple, and green. The cups already sit rim-down, so they nest rather than pile. We specifies a unique color order (first, second, base): the first cup is placed onto the base, then the second cup is placed onto the same base. The initial position of the three caps are put randomly in a line. Each time we input a order of the three colors.\par
+Meta-robot decomposes the task into read-order, perceive, grasp, transfer, and gravity-release. Head-left RGB-D and SAM3, gated by HSV, recover each inverted cup; the upward base is measured from stereo depth, and the downward rim is inferred from the known cup height. After compilation, phase 1 is first-on-base and phase 2 is second-on-base; both releases target the original base X-Y, because nested inverted cups keep the same rim height.\par
+The grabbing, shifting and release are not the core of this task, we focus on its to follow the order we input. By this real-world task, we can find the strong generalization ability to our different order.\par
+
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{分析 叠毛巾.png}
+    \captionof{figure}{Towel folding}
+    \label{fig:Towel folding}
+\end{center}
+
+We validate the ability of Meta-robot to fold a soft object on a real-world Galaxea R1 Lite using one flat purple cloth on the table. Meta-robot gives the plan: a bimanual first fold that turns the square into a half-width rectangle, then a right-arm second fold that turns that rectangle into a quarter. Both arms move in the first half; only the right arm moves in the second. The first episode makes the half-fold; the second episode makes the quarter.\par
+The Meta-robot decomposes the task into perceive-corners, bimanual-grasp, first-fold, reperceive, and second-fold. Head-left RGB and SAM3 recover the largest towel mask; a fitted rectangle’s four corners are projected onto the real external contour, ranked by XY distance to the robot base, and the nearest pair becomes the left and right grasps. After the first episode, the cloth has changed shape, the first corner pair is discarded. A fresh head frame re-segments the half-fold; Meta-robot now treats it as a new rectangle and samples grasp candidates only on the current right edge, not the original four corners.\par
+The core of this task is to verify its ability to deal with soft and thin object, which requires the power of perception. One other important thing is to accurately grasp the edge of the towel and ensure there are no small areas of folding meanwhile. Meta-robot uses the signal of joint torques to assist in determining the appropriate contact between the gripper and the table surface.\par
+
+\begin{center}
+    \centering
+    \includegraphics[width=0.9\linewidth]{分析 早餐.png}
+    \captionof{figure}{Breakfast preparation}
+    \label{fig:Breakfast preparation}
+\end{center}
+
+We validate the breakfast task of Meta-robot on a real-world Galaxea R1 Lite. A brown toast slice, a small black Oreo, and a pretzel sit on the table; only one arm moves. We uses a fixed two-layer order: Oreo onto the bread, then pretzel on top of that stack.\par
+Meta-robot decomposes the task into perceive, grasp, place-on-support, and verify, once per layer. One RGB frame and SAM3 recover the bread, the Oreo, and the pretzel to detect their position. The first phase pinches the black Oreo and places it onto the toast. After a fresh reperception, the second phase pinches the pretzel and places it on top of the Oreo.\par
+
+In fact, the sub-task of grasping a cookie for breakfast shares similarities with the thin-wafer grasping task we simulated; the challenge in both cases lies in determining how to grasp objects whose grasp points are difficult to pinpoint using vision alone. While both tasks rely on detecting contact between the gripper and the table surface, grasping a cookie introduces the additional requirement of controlling the gripper's closing force.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{META-Robot_Proprioceptive_Ablation.pdf}
+    \caption{Effect of Proprioceptive Feedback on Manipulation Success:(a) shows the execution process during the simulation, while (b) displays the success rates before and after the ablation of the agent's signals.}
+    \label{fig:META-Robot_Proprioceptive_Ablation}
+\end{figure}
+
+\begin{center}
+    \includegraphics[width=0.95\linewidth]{分析 称重.png}
+    \captionof{figure}{Weight comparison}
+    \label{fig:Weight comparison}
+\end{center}
+
+We validate the weighting function of meta-robot on a real-world Galaxea R1 Lite using three visually identical plastic bottles whose fill levels—empty, half, and full—cannot be recovered from RGB appearance. Agent sets a The operator specifies the desired fill in a Current Status window; Enter submits empty, half, or full and starts motion. No bottle is labeled, and the prompt provides no spatial hint for which slot is lightest.\par
+By its proprioceptive signal orchestration mechanism, Meta-robot decomposes the task into perceive, weigh, rank, and relocate. SAM3 segments the standing bottles from the head-left camera; slots are assigned left-to-right in the robot base, while the right arm weighs them from right to left.\par
+The key is the signal of joint torques. Each weigh cycle pinches the cap, lifts, and estimates table-normal force from joint effort via $\tau \approx J^\mathrm{T} F$. The meta-robot then gets load score: $|F\cdot n|_{\text{loaded}} - |F\cdot n|_{\text{empty}}$. After three measurements, meta-robot generates three functions: it first sorts the bottles from empty to full, then maps the operator token onto that ranking from empty to the lightest, half to the middle, full to the heaviest, after that it shifts that bottle 5 cm along robot-reverse, which corresponds to the selection order.\par
+
+\begin{center}
+    \includegraphics[width=0.95\linewidth]{分析 插座.png}
+    \captionof{figure}{Plug insertion}
+    \label{fig:Plug insertion}
+\end{center}
+
+We validate the precise angle proprioceptive task of meta-robot on a real-world Galaxea R1 Lite. A small three-pin plug and a white power strip lie on the table randomly. \par
+Meta-robot decomposes the task into perceive, grasp, transfer, align, and insert. SAM3 first segments the strip and the compact plug. The outward face normal comes from the plane of the detected power strip. The target is the robot-right first hole, inset from the right end of the strip.\par
+After grasping the plug at its angle, the arm lifts, then streams with free orientation to the hole. Near the target hole of the power strip, meta-robot adjusts the angle of the gripper to make sure the plug is perpendicular to the surface normal of the power strip in the opposite direction. The angle alignment is the most difficult part. Meta-robot aligns the plug’s pin with the hole based on the initially identified position by SAM3. The Insertion then steps along that axis until the pin standoff, opens the gripper, and returns home.\par
+\subsection{subtask analysis of zero-shot transfer}
+\label{app:subtask analysis of zero-shot transfer}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Rader.pdf}
+    \caption{Zero-shot transfer to Libero pro long task: we evaluate ten representative manipulation tasks under 25\%, 50\%, 75\%, and 100\% information retention. The tasks include T01 soup-and-sauce placement, T02 cheese-and-butter placement, T03 stove/moka-pot interaction, T04 bowl-in-drawer placement, T05 mug-to-plate placement, T06 book-to-caddy placement, T07 mug-and-pudding arrangement, T08 soup-and-cheese placement, T09 moka-pot placement, and T10 mug-in-microwave placement. Each radar plot reports per-task success rates, with the mean success rate shown below.}
+    \label{fig:placeholder}
+\end{figure}
+\subsection{API choice}
+\label{app:API choice}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{cap_bench_extension.pdf}
+    \caption{We extend the base model comparison shown in CaP-X\cite{fu2026cap}with DeepSeek V4.1-Flash and GPT-6 Astra, reporting task success rates of 31\% and 45\%, respectively.}
+    \label{fig:placeholder}
+\end{figure}
+
+GPT-6 Astra reaches 45\%, above the highest historical point shown in the figure, Gemini 3 Pro at about 32\%. DeepSeek V4.1-Flash reaches 31\%, close to that earlier result. The added evaluations therefore show a clear gain for GPT-6 Astra, while DeepSeek V4-Flash performs at a similar level to the strongest model highlighted in the original plot.
+\subsection{Skill library \& Predicate library Algorithm}
+\label{Skill library \&Predicate library Algorithm}
+\begin{algorithm}[t]
+\caption{Coupled Skill and Predicate Library Consolidation}
+\label{alg:skill_fg_consolidation}
+\begin{algorithmic}[1]
+\Require Skill forest $\mathcal{L}_{S}$, FG Library $\mathcal{F}$,
+         associations $\Gamma$, validated repair $\rho$, evidence $\mathcal{D}$
+\Ensure Updated $\mathcal{L}_{S}$, $\mathcal{F}$, and $\Gamma$
+
+\If{$\neg\operatorname{Validated}(\rho,\mathcal{D})$}
+    \State \Return $(\mathcal{L}_{S},\mathcal{F},\Gamma)$
+\EndIf
+
+\State $(\hat{s},\widehat{\mathcal{F}})
+       \gets\operatorname{Distill}(\rho,\mathcal{D})$
+\State $\mathcal{V}_{\mathrm{rel}}
+       \gets\operatorname{RetrieveRelated}(\hat{s},\mathcal{L}_{S})$
+\State $(\mathcal{L}'_{S},v)
+       \gets\operatorname{UpdateSkillTree}
+       (\hat{s},\mathcal{V}_{\mathrm{rel}},\mathcal{L}_{S})$
+
+\If{$\operatorname{NeedsValidation}(\mathcal{L}'_{S},v)$
+    and $\neg\operatorname{ValidateSkillUpdate}(\mathcal{L}'_{S},v)$}
+    \State \Return $(\mathcal{L}_{S},\mathcal{F},\Gamma)$
+\EndIf
+
+\State $\mathcal{F}'\gets\mathcal{F}$;
+       $\Gamma'\gets\Gamma$
+\For{$\hat{\phi}\in\widehat{\mathcal{F}}$}
+    \State $\phi\gets\operatorname{FindEquivalentFG}(\hat{\phi},\mathcal{F}')$
+    \If{no equivalent predicate exists}
+        \If{$\neg\operatorname{ValidateFG}(\hat{\phi},\mathcal{D})$}
+            \State \textbf{continue}
+        \EndIf
+        \State $\phi\gets\hat{\phi}$;
+               $\mathcal{F}'\gets\mathcal{F}'\cup\{\phi\}$
+    \EndIf
+    \State Update $\Gamma'(v)$ with $\phi$ and its evaluation metadata
+\EndFor
+
+\State Reindex FG predicates under the updated skill hierarchy
+\State \Return $(\mathcal{L}'_{S},\mathcal{F}',\Gamma')$
+\end{algorithmic}
+\end{algorithm}
+\newpage
+\subsection{Skill and Action Level Primitive details analysis}
+% 我们罗列了在libero pro测试中最常见的六种skill,和他们对应的FG,我们接下来将逐一进行介绍
+\label{app:Skill and Predicate details analysis}
+\textbf{Localization}
+The localization skill converts open-vocabulary RGB-D observations into task-bound entities before physical execution. Candidate masks are obtained using task-relevant prompt variants, filtered according to geometric consistency, and projected into the robot’s world frame. The action predicates visible, localized, and role bound represent progressively stronger claims: detecting an object does not imply that its metric pose is known, and estimating its pose does not yet establish its role in the current task. Relational predicates such as inside and at target pose are evaluated only after this binding step, preventing a semantically plausible but geometrically incorrect detection from propagating to downstream skills.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{01_Localization.pdf}
+    \caption{Localization}
+    \label{fig:placeholder}
+\end{figure}
+
+\textbf{Grasp\_and\_Acquisition}
+Grasp execution is represented as a transaction consisting of approach, one committed physical close, and a post-close endpoint classification. The predicates aligned, contact, and closed describe intermediate physical conditions, whereas held by denotes verified acquisition by the gripper. These predicates remain separate because finger closure or transient contact alone does not establish a successful grasp. Transport is admitted only when the endpoint is classified as TARGET\_HELD, using post-close visual and proprioceptive evidence. This transaction boundary prevents downstream skills from inheriting an unverified grasp or reusing stale observations collected before the closing action.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{02_Grasp_and_Acquisition.pdf}
+    \caption{Grasp\_and\_Acquisition}
+    \label{fig:placeholder}
+\end{figure}
+
+\textbf{Proprioception\_and\_Dynamic\_Action Predicates}
+Dynamic action predicates are evaluated from event-aligned sensor evidence rather than from isolated observations. For each relevant action, the system freezes a bounded evidence window containing visual observations, gripper state, joint measurements, and available torque signals. Temporal verification then resolves predicates such as contact, held by, aligned, inside, and at target pose. Only predicates supported by sufficient evidence are committed to the execution state. When the available evidence is insufficient, the system requests an active probe or a fresh observation instead of assigning an uncertain result. This mechanism allows action predicates to remain physically interpretable while supporting closed-loop verification under partial observability.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{03_Proprioception_and_Action_Predicates.pdf}
+    \caption{Proprioception\_and\_Dynamic\_Action\_Predicates}
+    \label{fig:placeholder}
+\end{figure}
+
+\textbf{Transport\_with\_Recovery}
+The transport skill inherits the verified acquisition state and admits motion only when held by remains satisfied. The inherited predicate avoids duplicating grasp verification while preserving a strict dependency between acquisition and transport. During transit, predicates such as aligned, at target pose, contact, and inside are updated at explicit observation boundaries. If the acquisition endpoint does not support transport, the controller selects a bounded recovery route, such as inverse ingress followed by fresh observation, rather than continuing optimistically. Consequently, each transport attempt either proceeds from a verified object-held state or terminates through a finite recovery transition.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{04_Transport_with_Recovery.pdf}
+    \caption{Transport\_with\_Recovery}
+    \label{fig:placeholder}
+\end{figure}
+
+\textbf{Manipulation\_and\_ReleaseReady}
+Manipulation and release are separated by an explicit ReleaseReady gate. In the illustrated drawer task, open describes the articulated state of the receptacle, while held by, inside, on, and contact characterize the evolving relation between the object, gripper, and destination. Importantly, the placement frame denotes a pre-release configuration: the target remains held while its over-receptacle geometry and intended placement relation are evaluated. The gripper is opened only after the required action predicates jointly satisfy ReleaseReady. This fail-closed design prevents premature release and distinguishes geometric placement readiness from the irreversible act of releasing the object.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{05_Manipulation_and_ReleaseReady.pdf}
+    \caption{Manipulation\_and\_ReleaseReady}
+    \label{fig:placeholder}
+\end{figure}
+
+\textbf{Long\_Horizon\_Closure}
+Long-horizon execution is evaluated against a revisioned action-predicate specification containing milestone, terminal, and invariant conditions. Task-dependent predicates such as on, inside, inserted, stacked on, and activated provide a common interface for evaluating heterogeneous manipulation outcomes. The Finish Gate admits completion only when the latest evidence satisfies all required predicates and execution milestones. Successful traces are then packaged with their action-predicate states, provenance, and evidence hashes before being proposed for reuse. A proposal cannot directly modify the canonical skill library; promotion requires an additional review gate, separating task completion from the stronger claim that an execution pattern is reliable and reusable.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{06_Long_Horizon_Closure.pdf}
+    \caption{Long\_Horizon\_Closure}
+    \label{fig:placeholder}
+\end{figure}
+\end{document}

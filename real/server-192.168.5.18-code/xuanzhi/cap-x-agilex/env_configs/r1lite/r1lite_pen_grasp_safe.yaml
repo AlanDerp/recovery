@@ -1,0 +1,136 @@
+# Usage:
+#   source /opt/ros/humble/setup.bash
+#   uv run --no-sync --active capx/envs/launch.py \
+#     --config-path env_configs/r1lite/r1lite_pen_grasp_safe.yaml \
+#     --use-oracle-code
+#
+# This config is intentionally joint-space only.  Do not expose direct
+# /motion_target/target_pose_arm_right commands until R1 Lite EE control mode
+# and interpolation are validated.
+
+env:
+  _target_: capx.envs.tasks.base.CodeExecutionEnvBase
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: capx.envs.simulators.r1lite_real.R1LiteRealLowLevel
+      arm_target_topic: /capx/motion_target/target_joint_state_arm_right
+      gripper_target_topic: /capx/motion_target/target_position_gripper_right
+      safe_joint_home: [0.010470, 0.222985, -0.022772, 0.008466, 0.035299, 0.006095]
+      safe_joint_home_feedback: [0.027234, 0.448298, -0.005745, 0.028936, 0.058085, 0.032340]
+      gripper_open_position: 14.5
+      gripper_close_position: 5.5
+      max_joint_step: 0.03
+      publish_rate_hz: 20.0
+      command_duration_s: 3.0
+      feedback_timeout_s: 5.0
+      wrist_rgb_topic: /hdas/camera_wrist_right/color/image_raw
+      wrist_depth_topic: /hdas/camera_wrist_right/aligned_depth_to_color/image_raw
+      wrist_camera_info_topic: /hdas/camera_wrist_right/color/camera_info
+      head_left_rgb_topic: /hdas/camera_head/left_raw/image_raw_color/compressed
+      head_right_rgb_topic: /hdas/camera_head/right_raw/image_raw_color/compressed
+      visual_feedback_max_width: 640
+      sam3_service_url: http://127.0.0.1:8114
+      sam3_pen_prompt: blue pen
+      graspnet_service_url: http://127.0.0.1:8115
+      graspnet_forward_passes: 1
+      graspnet_max_retries: 7
+      graspnet_local_regions: true
+      graspnet_filter_grasps: false
+      graspnet_max_full_points: 20000
+      graspnet_max_segment_points: 10000
+      graspnet_min_segment_points: 30
+      graspnet_depth_range: [0.05, 2.0]
+      head_plane_calibration_path: outputs/r1lite/head_plane_calibration.json
+      head_stereo_rectified_calibration_path: outputs/r1lite/head_stereo_rectified_plane_calibration.json
+      workspace_x_limits: [0.05, 0.75]
+      workspace_y_limits: [-0.65, 0.05]
+      workspace_z_limits: [0.4, 1.6]
+      relaxed_ik_probe_enabled: false
+      depth_scale: 0.001
+    privileged: false
+    apis:
+      - R1LiteControlApi
+    task_only_prompt: "Use the R1 Lite right arm to safely grasp a pen."
+    prompt: |
+      You are controlling a real Galaxea/Xinghaitu R1 Lite right arm.
+      The only safe arm motion API currently available is move_joints_safe(),
+      which accepts a 6D right-arm joint target in radians and internally
+      interpolates small joint-space steps.
+
+      Do not call or publish any ROS 2 end-effector target pose.
+      Do not use /motion_target/target_pose_arm_right.
+      Keep all joint changes small unless explicitly instructed by the human.
+
+      For the gripper:
+      - open_gripper() uses approximately 14.5.
+      - close_gripper() uses approximately 5.5.
+
+      Vision:
+      - get_head_rgb("left") returns the head-left RGB image. This is the
+        global scene view and is the Cap-X primary visual feedback image.
+      - save_head_rgb(path, camera="left") saves the head camera image.
+      - get_wrist_rgbd() returns the right wrist RGB image, depth image in meters,
+        and camera intrinsics. Use it for close-range alignment.
+      - save_wrist_rgb(path) saves the latest wrist RGB frame for debugging.
+      - The Cap-X harness includes the initial head-left image as the primary
+        image and the right-wrist image as an extra wrist-camera image when
+        use_visual_feedback and use_wrist_camera are enabled.
+
+      High-level grasp helpers:
+      - locate_pen_head() detects the current pen candidate in the head-left image.
+        It uses the local SAM3 segmentation service first with prompt "blue pen",
+        then safely falls back to blue-color detection if SAM3 is unavailable.
+      - pixel_to_base_on_plane(pixel) maps a head-left pixel to a calibrated
+        base-frame plane point. It requires outputs/r1lite/head_plane_calibration.json.
+      - plan_pen_pregrasp() detects the pen, maps it to the calibrated plane,
+        and tries to produce a validated pregrasp plan. It does not move.
+      - plan_pen_graspnet_candidates() uses head SAM3/global detection plus
+        wrist RGB-D local segmentation to call Contact-GraspNet. It returns
+        grasp candidates in the wrist-camera frame only; do not execute them
+        until wrist-to-base calibration and IK safety validation are available.
+      - execute_grasp_sequence(plan, execute=True) may move only if the plan is
+        validated as safe_to_execute.
+
+      Task:
+      - Use locate_pen_head() and plan_pen_pregrasp() rather than writing your
+        own detector.
+      - If plan_pen_pregrasp() reports a missing calibration, unsafe IK, or
+        unsafe joint delta, save both head and wrist RGB images, print the
+        reason, and do not attempt motion.
+      - Only call execute_grasp_sequence(plan, execute=True) if plan["ok"] and
+        plan["safe_to_execute"] are true.
+      Import numpy as np if needed.
+    oracle_code: |
+      import time
+
+      obs = get_observation()
+      print("Initial observation:", obs)
+
+      # Confirm the validated safe joint-space control path.
+      safe = [0.001534, 0.017453, -0.017453, -0.001534, 0.079767, -0.024544]
+      move_joints_safe(safe, max_step=0.03, duration_s=3.0)
+      saved_head = save_head_rgb("outputs/r1lite/latest_head_left_rgb.png")
+      saved_wrist = save_wrist_rgb("outputs/r1lite/latest_wrist_rgb.png")
+      print("Saved head RGB:", saved_head)
+      print("Saved wrist RGB:", saved_wrist)
+      detection = locate_pen_head()
+      print("Pen detection:", detection)
+      graspnet = plan_pen_graspnet_candidates(save_debug=True)
+      print("GraspNet candidates:", graspnet)
+      plan = plan_pen_pregrasp(save_debug=True)
+      print("Pregrasp plan:", plan)
+      result = execute_grasp_sequence(plan, execute=False)
+      print("Validation result:", result)
+
+record_video: false
+output_dir: ./outputs/r1lite_pen_grasp_safe
+debug: true
+web_ui: false
+use_visual_feedback: true
+use_wrist_camera: true
+
+trials: 1
+total_trials: 1
+num_workers: 1
+use_oracle_code: false

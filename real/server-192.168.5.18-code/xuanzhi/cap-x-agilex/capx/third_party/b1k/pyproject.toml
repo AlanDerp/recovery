@@ -1,0 +1,10 @@
+[project]
+name = "b1k"
+version = "0.0.1"
+description = "BEHAVIOR-1K workspace stub"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,463 @@
+/calib/head_left/camera_info:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/calib/head_right/camera_info:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/calib/arm_left/camera_info:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/calib/arm_right/camera_info:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/calib/joint_bias:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/tf_static:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/left_acu_motor_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+  
+/hdas/left_acu_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+  
+/hdas/right_acu_motor_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+  
+/hdas/right_acu_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+  
+/hdas/tcu_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+  
+/hdas/vcu_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+  
+/hdas/ccu_version:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_head/left_raw/image_raw_color/compressed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_head/right_raw/image_raw_color/compressed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_head/depth/depth_registered:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_wrist_left/color/image_raw/compressed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_wrist_left/color/image_rect_raw/compressed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_wrist_left/aligned_depth_to_color/image_raw:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_wrist_right/color/image_raw/compressed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_wrist_right/color/image_rect_raw/compressed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/camera_wrist_right/aligned_depth_to_color/image_raw:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_gripper_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_gripper_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/controller:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/bms:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_arm_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_arm_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_chassis:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_status_arm_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_status_arm_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_status_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/imu_chassis:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/imu_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/chassis_speed:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_arm_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_arm_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_chassis:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_gripper_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_gripper_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/pose_ee_arm_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/pose_ee_arm_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/pose_floating_base:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/pose_floating_base_planning:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/pose_ee_arm_left_planning:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/pose_ee_arm_right_planning:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/position_control_gripper_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/position_control_gripper_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/brake_mode:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/chassis_acc_limit:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_joint_state_arm_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_joint_state_arm_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_joint_state_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_pose_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_pose_arm_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_pose_arm_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_speed_chassis:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_speed_torso:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_position_gripper_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_position_gripper_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_force_gripper_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_target/target_force_gripper_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/tf_static:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/vr_pose:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/vr_ip:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/problem_diagnosis_status:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/localization/localization_results:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile  
+
+/efm/diagnosis:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile  
+
+
+/sysmgr/task_takeover_status:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile  
+
+# wrench and hand topics
+/hdas/feedback_left_arm_wrench:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_right_arm_wrench:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_hand_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/hdas/feedback_hand_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_hand_left:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile
+
+/motion_control/control_hand_right:
+  reliability: best_effort
+  history: keep_last
+  depth: 1
+  durability: volatile

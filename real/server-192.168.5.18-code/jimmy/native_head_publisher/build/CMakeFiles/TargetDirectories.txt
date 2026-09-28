@@ -1,0 +1,6 @@
+/home/nvidia/jimmy/native_head_publisher/build/CMakeFiles/uninstall.dir
+/home/nvidia/jimmy/native_head_publisher/build/CMakeFiles/jimmy_native_head_publisher_uninstall.dir
+/home/nvidia/jimmy/native_head_publisher/build/CMakeFiles/jimmy_compressed_publisher.dir
+/home/nvidia/jimmy/native_head_publisher/build/CMakeFiles/test.dir
+/home/nvidia/jimmy/native_head_publisher/build/CMakeFiles/edit_cache.dir
+/home/nvidia/jimmy/native_head_publisher/build/CMakeFiles/rebuild_cache.dir

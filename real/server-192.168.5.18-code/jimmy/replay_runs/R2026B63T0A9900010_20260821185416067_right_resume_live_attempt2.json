@@ -1,0 +1,152 @@
+{
+  "arm_selection": "right",
+  "armed_at": "2026-08-21T19:37:09+08:00",
+  "completed_at": "2026-08-21T19:37:54+08:00",
+  "created_at": "2026-08-21T19:37:04+08:00",
+  "elapsed_recorded_seconds": 38.81,
+  "elapsed_wall_seconds": 40.04,
+  "mode": "live",
+  "published_messages": {
+    "/motion_target/target_joint_state_arm_right": 2228
+  },
+  "runtime_parameters": {
+    "config_file": "/home/nvidia/galaxea/install/moca_adapter/share/moca_adapter/config/moca_main_r1lite.toml",
+    "robot_description_file": "/home/nvidia/galaxea/install/r1lite_urdf/share/r1lite_urdf/urdf/r1lite_2026.urdf",
+    "robot_name": "r1lite"
+  },
+  "safety_config": "/home/nvidia/jimmy/r1_episode_replay_r1lite_2026_limits.json",
+  "schema_version": 1,
+  "source_mcap": "/home/nvidia/GalaxeaDataset/20260821/R2026B63T0A9900010_20260821185416067_RAW/R2026B63T0A9900010_20260821185416067_RAW.mcap",
+  "start_convergence_final_error_rad": {
+    "/motion_target/target_joint_state_arm_right": 0.34202212692323464
+  },
+  "start_convergence_published_messages": 0,
+  "start_pose_max_error_rad": {
+    "/motion_target/target_joint_state_arm_right": 0.34202212692323464
+  },
+  "status": "completed_live",
+  "summary": {
+    "duration_seconds": 39.814847211,
+    "rejected_topic_classes": [
+      "/motion_control/*",
+      "/controller",
+      "feedback",
+      "camera",
+      "service/action traffic"
+    ],
+    "robot_name": "r1lite",
+    "robot_serial": "R2026B63T0A9900010",
+    "safety_config": "/home/nvidia/jimmy/r1_episode_replay_r1lite_2026_limits.json",
+    "schedule": {
+      "max_resampled_step": {
+        "/motion_target/target_joint_state_arm_right": [
+          0.020462466031476334,
+          0.03928554240851995,
+          0.024494687633858758,
+          0.009636632680751357,
+          0.042294050853276685,
+          0.018127512185384387
+        ]
+      },
+      "rate_hz": 50.0,
+      "speed": 0.25,
+      "start_offset_seconds": 28.8,
+      "tick_count": 2204,
+      "wall_duration_seconds": 44.059388844
+    },
+    "source_mcap": "/home/nvidia/GalaxeaDataset/20260821/R2026B63T0A9900010_20260821185416067_RAW/R2026B63T0A9900010_20260821185416067_RAW.mcap",
+    "source_sha256": "c72cf524921b7ae7054ce8b5d0d77aad150ceed757edcb0409adc0d72c78a52c",
+    "source_size_bytes": 982714275,
+    "topic_stats": {
+      "/motion_target/target_joint_state_arm_right": {
+        "count": 7582,
+        "first_time_ns": 1787309658077483419,
+        "last_time_ns": 1787309697892330630,
+        "max_adjacent_step": [
+          0.023009711818284373,
+          0.04755340442445499,
+          0.04448544284868361,
+          0.036815538909255485,
+          0.05522330836388267,
+          0.021475731030397682
+        ],
+        "max_gap_seconds": 0.042803122,
+        "max_normalization_rad": [
+          0.0,
+          0.02745329252,
+          0.02745329252,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum": [
+          0.5982525072753999,
+          2.7412236679516404,
+          -0.02745329252,
+          0.47246608266877765,
+          0.03834951969714062,
+          0.48627190975974877
+        ],
+        "messages_with_names": 0,
+        "messages_with_velocity": 0,
+        "minimum": [
+          -0.013805827090970446,
+          0.02745329252,
+          -1.7778837331594581,
+          -0.2485048876374738,
+          -0.3880971393350672,
+          -0.046019423636568746
+        ],
+        "normalized_sample_count": 1982,
+        "source_maximum": [
+          0.5982525072753999,
+          2.7412236679516404,
+          0.0,
+          0.47246608266877765,
+          0.03834951969714062,
+          0.48627190975974877
+        ],
+        "source_minimum": [
+          -0.013805827090970446,
+          -0.0,
+          -1.7778837331594581,
+          -0.2485048876374738,
+          -0.3880971393350672,
+          -0.046019423636568746
+        ]
+      }
+    },
+    "whitelisted_topics": [
+      "/motion_target/target_joint_state_arm_right"
+    ],
+    "workspace_envelopes": {
+      "/motion_target/target_joint_state_arm_right": {
+        "enforced_maximum": [
+          0.563866490376902,
+          -0.017103374242667738,
+          1.2430004520950906
+        ],
+        "enforced_minimum": [
+          -0.032059491133790335,
+          -0.4083417808067748,
+          0.7778418205390483
+        ],
+        "frame_id": "base_link",
+        "margin_m": 0.05,
+        "pose_topic": "/motion_control/pose_ee_arm_right",
+        "recorded_maximum": [
+          0.5138664903769019,
+          -0.06710337424266774,
+          1.1930004520950905
+        ],
+        "recorded_minimum": [
+          0.017940508866209667,
+          -0.3583417808067748,
+          0.8278418205390483
+        ],
+        "sample_count": 7628
+      }
+    }
+  },
+  "updated_at": "2026-08-21T19:37:54+08:00"
+}

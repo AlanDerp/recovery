@@ -1,0 +1,1712 @@
+{
+  "candidates": [
+    {
+      "alpha_id": "ZYEJ7q7x",
+      "events": [
+        {
+          "at": "2026-08-17T03:33:22.050231+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:33:27.865161+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2lE3U8cjI4txaxg11l3jr8aK",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:33:27.869337+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2lE3U8cjI4txaxg11l3jr8aK",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "ZYEJ7q7x",
+          "at": "2026-08-17T03:34:55.880133+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 22) - ts_rank(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "3e4e6b46177c0c0d24ec8aad333e492abd565ccd01f91d3993c3d4bcec40385d",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4)"
+      ],
+      "ordinal": 1,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2lE3U8cjI4txaxg11l3jr8aK",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "O0G37wW7",
+      "events": [
+        {
+          "at": "2026-08-17T03:33:22.055445+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:33:23.599620+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/1okqtAasD4mz8ShpQUEW9c0",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:33:23.602693+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/1okqtAasD4mz8ShpQUEW9c0",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "O0G37wW7",
+          "at": "2026-08-17T03:34:38.766509+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 22) - ts_rank(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "886e7b128fe6a6bdb6a93ffbb3f6b066a42d34836d40e06f5b527a019c67d78f",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4)"
+      ],
+      "ordinal": 2,
+      "progress_url": "https://api.worldquantbrain.com/simulations/1okqtAasD4mz8ShpQUEW9c0",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "E5GdlYoK",
+      "events": [
+        {
+          "at": "2026-08-17T03:33:22.058274+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:33:23.588302+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/Eq7at2aP5gf9zoRIk4sxJP",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:33:23.593298+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/Eq7at2aP5gf9zoRIk4sxJP",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "E5GdlYoK",
+          "at": "2026-08-17T03:34:49.252241+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 22) - ts_rank(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "db79da4b570425cc4fd928ed01982afa92f88214fa82e383941fbeeb38dd6f21",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4)"
+      ],
+      "ordinal": 3,
+      "progress_url": "https://api.worldquantbrain.com/simulations/Eq7at2aP5gf9zoRIk4sxJP",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "ak1p7Wp9",
+      "events": [
+        {
+          "at": "2026-08-17T03:34:38.771638+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:34:39.135102+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/7f77V4Hf4JU9dFMTjZLqdu",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:34:39.137513+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/7f77V4Hf4JU9dFMTjZLqdu",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "ak1p7Wp9",
+          "at": "2026-08-17T03:36:04.658634+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 22) - ts_rank(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "00dfe16a4edbd4f700101bdcef6d93b8a0b8661d7c1e1053076a85704aa4b0ba",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4)"
+      ],
+      "ordinal": 4,
+      "progress_url": "https://api.worldquantbrain.com/simulations/7f77V4Hf4JU9dFMTjZLqdu",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "YPve72pW",
+      "events": [
+        {
+          "at": "2026-08-17T03:34:49.257480+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:34:49.680604+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3EEU47a8t4uM9mAXV5Pufxb",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:34:49.685710+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3EEU47a8t4uM9mAXV5Pufxb",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "YPve72pW",
+          "at": "2026-08-17T03:36:15.357740+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 22) - ts_rank(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "f6238b0158da3eb2f079a2b7a990cc3f89c3509fccdbd367b04bb551a25d672a",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4)"
+      ],
+      "ordinal": 5,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3EEU47a8t4uM9mAXV5Pufxb",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "d5ZGjEww",
+      "events": [
+        {
+          "at": "2026-08-17T03:34:55.885280+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:34:56.204340+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/41ohScgRZ54D9ej1ehT5tzPi",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:34:56.206942+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/41ohScgRZ54D9ej1ehT5tzPi",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "d5ZGjEww",
+          "at": "2026-08-17T03:36:11.644733+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 22) - ts_rank(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "9cc15210b2c69f3df3b2e84aa178d3d121708a6cae778e7c06487540743deea4",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4)"
+      ],
+      "ordinal": 6,
+      "progress_url": "https://api.worldquantbrain.com/simulations/41ohScgRZ54D9ej1ehT5tzPi",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "YPve701o",
+      "events": [
+        {
+          "at": "2026-08-17T03:36:04.664225+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:36:05.154003+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/4omgQhgAD4zFbDCTER9gkq0",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:36:05.159619+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/4omgQhgAD4zFbDCTER9gkq0",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "YPve701o",
+          "at": "2026-08-17T03:38:00.974671+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 22) - ts_rank(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "e59e292d7df25074dd9e68f83cc2eb4440e6532ad90caa2f6c98d5b2a4933f5a",
+      "inputs": [
+        "winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4)"
+      ],
+      "ordinal": 7,
+      "progress_url": "https://api.worldquantbrain.com/simulations/4omgQhgAD4zFbDCTER9gkq0",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "O0G37prp",
+      "events": [
+        {
+          "at": "2026-08-17T03:36:11.650171+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:36:11.971327+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/131Jm6b4FIcITcDjyTRO",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:36:11.976764+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/131Jm6b4FIcITcDjyTRO",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "O0G37prp",
+          "at": "2026-08-17T03:37:43.150674+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_rank(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 22) - ts_rank(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 120)",
+      "family": "multi_timeframe",
+      "fingerprint": "ba45bc1b6f2b5680ce2ea1a22ddcd3df16511eea72a8ea18a989e2330c23c958",
+      "inputs": [
+        "winsorize(ts_backfill(adj_net_income_avg, 120), std=4)"
+      ],
+      "ordinal": 8,
+      "progress_url": "https://api.worldquantbrain.com/simulations/131Jm6b4FIcITcDjyTRO",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "RRmg7p6e",
+      "events": [
+        {
+          "at": "2026-08-17T03:36:15.362964+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:36:15.803051+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/rP6GobNB4LMcxEI0oZK9AJ",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:36:15.808796+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/rP6GobNB4LMcxEI0oZK9AJ",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "RRmg7p6e",
+          "at": "2026-08-17T03:37:44.031983+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "log(1 + abs(ts_zscore(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 22))) * sign(ts_zscore(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 22))",
+      "family": "nonlinear_robust",
+      "fingerprint": "fabc869d6366033d4c6a37c8c46421a39eb680fa5be02340e24cca077386e8ad",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4)"
+      ],
+      "ordinal": 9,
+      "progress_url": "https://api.worldquantbrain.com/simulations/rP6GobNB4LMcxEI0oZK9AJ",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "LLGQ773L",
+      "events": [
+        {
+          "at": "2026-08-17T03:37:43.155193+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:37:43.480706+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/YsjuX5eh4sabuL12gFTlY68",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:37:43.483970+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/YsjuX5eh4sabuL12gFTlY68",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "LLGQ773L",
+          "at": "2026-08-17T03:39:09.679091+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "signed_power(ts_zscore(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 66), 0.5)",
+      "family": "nonlinear_robust",
+      "fingerprint": "79a418b0e82d43e401e8e8268ca898af2f0f9991a46da2673a6ecfc4e4973ec3",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4)"
+      ],
+      "ordinal": 10,
+      "progress_url": "https://api.worldquantbrain.com/simulations/YsjuX5eh4sabuL12gFTlY68",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "YPve77xA",
+      "events": [
+        {
+          "at": "2026-08-17T03:37:44.035232+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:37:44.374871+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2Kj8iz6Mp5e58HBwX6YrVin",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:37:44.378685+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2Kj8iz6Mp5e58HBwX6YrVin",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "YPve77xA",
+          "at": "2026-08-17T03:39:04.775734+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "log(1 + abs(ts_zscore(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 22))) * sign(ts_zscore(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 22))",
+      "family": "nonlinear_robust",
+      "fingerprint": "86ae075629940243b268de260dacd644c7881ad9df0019f658c280df547ec8ea",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4)"
+      ],
+      "ordinal": 11,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2Kj8iz6Mp5e58HBwX6YrVin",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "j267j3YE",
+      "events": [
+        {
+          "at": "2026-08-17T03:38:00.979155+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:38:01.378480+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/EWplXcbR4Rj9HThGXqEC6U",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:38:01.383159+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/EWplXcbR4Rj9HThGXqEC6U",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "j267j3YE",
+          "at": "2026-08-17T03:39:27.318434+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "signed_power(ts_zscore(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 66), 0.5)",
+      "family": "nonlinear_robust",
+      "fingerprint": "9fce3686a0cf269c94c3d5fdd17238e06c833d811ab60a98de66ad92fa5349db",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4)"
+      ],
+      "ordinal": 12,
+      "progress_url": "https://api.worldquantbrain.com/simulations/EWplXcbR4Rj9HThGXqEC6U",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "RRmg7AWz",
+      "events": [
+        {
+          "at": "2026-08-17T03:39:04.780211+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:39:05.115216+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/8eSNI6jA4uNbLO2VhTenEQ",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:39:05.119356+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/8eSNI6jA4uNbLO2VhTenEQ",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "RRmg7AWz",
+          "at": "2026-08-17T03:40:19.892111+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "log(1 + abs(ts_zscore(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 22))) * sign(ts_zscore(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 22))",
+      "family": "nonlinear_robust",
+      "fingerprint": "f0989491de61c1c645c868a841b30ffa3ce41318e597432be120c77b2dd0596c",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4)"
+      ],
+      "ordinal": 13,
+      "progress_url": "https://api.worldquantbrain.com/simulations/8eSNI6jA4uNbLO2VhTenEQ",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "d5ZGjWXE",
+      "events": [
+        {
+          "at": "2026-08-17T03:39:09.682854+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:39:10.018426+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/Y3Bbh56y4vlaDpXT9WUdNJ",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:39:10.022328+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/Y3Bbh56y4vlaDpXT9WUdNJ",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "d5ZGjWXE",
+          "at": "2026-08-17T03:40:36.114200+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "signed_power(ts_zscore(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 66), 0.5)",
+      "family": "nonlinear_robust",
+      "fingerprint": "19f7f03e98820584f53f56aee9a8e652d79801a671702b7c16b8df8d4be1dcca",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4)"
+      ],
+      "ordinal": 14,
+      "progress_url": "https://api.worldquantbrain.com/simulations/Y3Bbh56y4vlaDpXT9WUdNJ",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "e73jzGM6",
+      "events": [
+        {
+          "at": "2026-08-17T03:39:27.321645+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:39:27.698852+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3zcDzw9on4E2byHkFnIkmvk",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:39:27.703581+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3zcDzw9on4E2byHkFnIkmvk",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "e73jzGM6",
+          "at": "2026-08-17T03:42:29.584406+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "log(1 + abs(ts_zscore(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 22))) * sign(ts_zscore(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 22))",
+      "family": "nonlinear_robust",
+      "fingerprint": "9c117ef7d9ec98be0da9f2b89d2e0845e2df78ecc864040af3d2e855f52f6f5b",
+      "inputs": [
+        "winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4)"
+      ],
+      "ordinal": 15,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3zcDzw9on4E2byHkFnIkmvk",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "kqPAjvGg",
+      "events": [
+        {
+          "at": "2026-08-17T03:40:19.896879+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:40:20.230896+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/PKIF58Bj579aTN1c6Vy6rFl",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:40:20.235321+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/PKIF58Bj579aTN1c6Vy6rFl",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "kqPAjvGg",
+          "at": "2026-08-17T03:41:45.944754+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "signed_power(ts_zscore(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 66), 0.5)",
+      "family": "nonlinear_robust",
+      "fingerprint": "45d41e312f59d95f708c3b8a8955a0852c385ef79a3819d8f34ad3edadf4625e",
+      "inputs": [
+        "winsorize(ts_backfill(adj_net_income_avg, 120), std=4)"
+      ],
+      "ordinal": 16,
+      "progress_url": "https://api.worldquantbrain.com/simulations/PKIF58Bj579aTN1c6Vy6rFl",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "JjG971gE",
+      "events": [
+        {
+          "at": "2026-08-17T03:40:36.118446+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:40:36.473798+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/zN2vj9oB54Ccbb14mnyaUvA",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:40:36.477933+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/zN2vj9oB54Ccbb14mnyaUvA",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "JjG971gE",
+          "at": "2026-08-17T03:42:40.114545+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(cashflow, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "7a8c40e488a0d67a063b2cf40525a650e4c80f2cab69155eca40247aa38a10da",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4)",
+        "winsorize(ts_backfill(cashflow, 120), std=4)"
+      ],
+      "ordinal": 17,
+      "progress_url": "https://api.worldquantbrain.com/simulations/zN2vj9oB54Ccbb14mnyaUvA",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "QPG87oe5",
+      "events": [
+        {
+          "at": "2026-08-17T03:41:45.949675+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:41:46.287638+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/4yYFJA37k4yxbXBSLTpsCPh",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:41:46.292446+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/4yYFJA37k4yxbXBSLTpsCPh",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "QPG87oe5",
+          "at": "2026-08-17T03:43:14.213584+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(fnd6_cipen, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "bc4f1e3e8827e679bc4395adab654a968957879a6a711e3e8e40b3f822c21cc7",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4)",
+        "winsorize(ts_backfill(fnd6_cipen, 120), std=4)"
+      ],
+      "ordinal": 18,
+      "progress_url": "https://api.worldquantbrain.com/simulations/4yYFJA37k4yxbXBSLTpsCPh",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "9qpnXObo",
+      "events": [
+        {
+          "at": "2026-08-17T03:42:29.589063+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:42:29.980729+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3wBQTXc8c4ZibvMVrr9Igth",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:42:29.985875+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3wBQTXc8c4ZibvMVrr9Igth",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "9qpnXObo",
+          "at": "2026-08-17T03:44:01.494312+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(fnd6_aqc, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "256dd16f0c551efc7394b6bbce56c898e99e35463ad246d9f8f782e26dc3b665",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4)",
+        "winsorize(ts_backfill(fnd6_aqc, 120), std=4)"
+      ],
+      "ordinal": 19,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3wBQTXc8c4ZibvMVrr9Igth",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "1YpMw8nQ",
+      "events": [
+        {
+          "at": "2026-08-17T03:42:40.118114+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:42:40.625957+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3fnLe02RF4XG8C4m9Jyn5iv",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:42:40.628962+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3fnLe02RF4XG8C4m9Jyn5iv",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "1YpMw8nQ",
+          "at": "2026-08-17T03:44:42.232407+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "53cebbb9adf8226b340579808a3cf2d5f0e5a14475fb20c0333e8846bf258409",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4)",
+        "winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4)"
+      ],
+      "ordinal": 20,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3fnLe02RF4XG8C4m9Jyn5iv",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "qMNRjaEA",
+      "events": [
+        {
+          "at": "2026-08-17T03:43:14.217447+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:43:14.726163+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3QyFlo8iT5g3csoWzGeD2xY",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:43:14.730937+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3QyFlo8iT5g3csoWzGeD2xY",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "qMNRjaEA",
+          "at": "2026-08-17T03:44:46.426710+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(vec_avg(fnd6_caxts), 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "7a050b411ede7487e8e8e46f80d90c16dbed10dec0bde2002a6c6d7fcf204915",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4)",
+        "winsorize(ts_backfill(vec_avg(fnd6_caxts), 120), std=4)"
+      ],
+      "ordinal": 21,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3QyFlo8iT5g3csoWzGeD2xY",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "O0G3r0eg",
+      "events": [
+        {
+          "at": "2026-08-17T03:44:01.498586+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:44:01.862818+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/bc0byeNs4X0cxb12UXGJ8Gg",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:44:01.869691+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/bc0byeNs4X0cxb12UXGJ8Gg",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "O0G3r0eg",
+          "at": "2026-08-17T03:46:01.228782+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(fnd6_ciother, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "8e07898712f7b6f75becab14312b561c23c97450c0305cdfc603b786b6af4c4d",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4)",
+        "winsorize(ts_backfill(fnd6_ciother, 120), std=4)"
+      ],
+      "ordinal": 22,
+      "progress_url": "https://api.worldquantbrain.com/simulations/bc0byeNs4X0cxb12UXGJ8Gg",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "omNd68M6",
+      "events": [
+        {
+          "at": "2026-08-17T03:44:42.239555+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:44:42.790335+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/Hs5eOb8w4JyaQxmif3A3c1",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:44:42.796744+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/Hs5eOb8w4JyaQxmif3A3c1",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "omNd68M6",
+          "at": "2026-08-17T03:46:15.975976+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(fnd6_ch, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "d9590f38afcef9d3f880960b32911512e21f411e0f16737dcf1ce256995e46b8",
+      "inputs": [
+        "winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4)",
+        "winsorize(ts_backfill(fnd6_ch, 120), std=4)"
+      ],
+      "ordinal": 23,
+      "progress_url": "https://api.worldquantbrain.com/simulations/Hs5eOb8w4JyaQxmif3A3c1",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "gJ82QkxK",
+      "events": [
+        {
+          "at": "2026-08-17T03:44:46.431852+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:44:46.783796+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/12eQ6E9r85iIaRnlf4qXauQ",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:44:46.791373+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/12eQ6E9r85iIaRnlf4qXauQ",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "gJ82QkxK",
+          "at": "2026-08-17T03:46:24.087420+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 22) * ts_zscore(winsorize(ts_backfill(eps, 120), std=4), 66)",
+      "family": "cross_dataset",
+      "fingerprint": "ba160f8ebf5c05f196842ab3c017d0285d9604c7ca42272abb1dcb81120de56a",
+      "inputs": [
+        "winsorize(ts_backfill(adj_net_income_avg, 120), std=4)",
+        "winsorize(ts_backfill(eps, 120), std=4)"
+      ],
+      "ordinal": 24,
+      "progress_url": "https://api.worldquantbrain.com/simulations/12eQ6E9r85iIaRnlf4qXauQ",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "vRNQkMA3",
+      "events": [
+        {
+          "at": "2026-08-17T03:46:01.236614+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:46:01.585579+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3dHUNpd1O4vJbIMKDqAsnE0",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:46:01.593708+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3dHUNpd1O4vJbIMKDqAsnE0",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "vRNQkMA3",
+          "at": "2026-08-17T03:47:38.053382+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 22)) - rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 120))",
+      "family": "momentum_reversal",
+      "fingerprint": "ef11808b92305573fdc36894db778ed39c847767d9618d45eaf4c2c23df778e4",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4)"
+      ],
+      "ordinal": 25,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3dHUNpd1O4vJbIMKDqAsnE0",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "1YpMxbRJ",
+      "events": [
+        {
+          "at": "2026-08-17T03:46:15.983842+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:46:16.487069+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/1cWdUn9Uu59q92DWnVwiVxx",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:46:16.492153+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/1cWdUn9Uu59q92DWnVwiVxx",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "1YpMxbRJ",
+          "at": "2026-08-17T03:47:36.968036+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_delta(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 22) - ts_delta(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 44)",
+      "family": "momentum_reversal",
+      "fingerprint": "e815872280d950a0803c24466520b2d4de67861996b21b87107a037f2f6a54c1",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4)"
+      ],
+      "ordinal": 26,
+      "progress_url": "https://api.worldquantbrain.com/simulations/1cWdUn9Uu59q92DWnVwiVxx",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "omNd6Ma6",
+      "events": [
+        {
+          "at": "2026-08-17T03:46:24.096498+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:46:24.468996+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/45nK2h9904A8cGoBGFk9l0U",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:46:24.474565+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/45nK2h9904A8cGoBGFk9l0U",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "omNd6Ma6",
+          "at": "2026-08-17T03:47:55.802561+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_delta(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 22)) - rank(ts_delta(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 120))",
+      "family": "momentum_reversal",
+      "fingerprint": "5e768e2caada144599af689ca74884505cdd116ded3fdafc34de7cf996bc781f",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4)"
+      ],
+      "ordinal": 27,
+      "progress_url": "https://api.worldquantbrain.com/simulations/45nK2h9904A8cGoBGFk9l0U",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "RRmgV0Z1",
+      "events": [
+        {
+          "at": "2026-08-17T03:47:36.975264+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:47:37.365148+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2AGlW29O45amcauq20GPvox",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:47:37.369860+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2AGlW29O45amcauq20GPvox",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "RRmgV0Z1",
+          "at": "2026-08-17T03:49:08.423771+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_delta(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 22) - ts_delta(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 44)",
+      "family": "momentum_reversal",
+      "fingerprint": "30eea4c9e564f8c20ed0904f4be9e1478b33c80f9b15e153f355d87065c0ba17",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4)"
+      ],
+      "ordinal": 28,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2AGlW29O45amcauq20GPvox",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "VkGW6wQ8",
+      "events": [
+        {
+          "at": "2026-08-17T03:47:38.058751+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:47:38.400193+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2l35EVfBi4C1bzAwqnnn3Ye",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:47:38.405605+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2l35EVfBi4C1bzAwqnnn3Ye",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "VkGW6wQ8",
+          "at": "2026-08-17T03:49:47.274373+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 22)) - rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 120))",
+      "family": "momentum_reversal",
+      "fingerprint": "0e0111d650a6d2a0d974015def2796a6f02f726faa9e19e5df44e93b6ead6e4f",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4)"
+      ],
+      "ordinal": 29,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2l35EVfBi4C1bzAwqnnn3Ye",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "xANZYXYg",
+      "events": [
+        {
+          "at": "2026-08-17T03:47:55.808758+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:47:56.225146+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/1WM7xtfXg5eUcJUwx7GhJa3",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:47:56.232700+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/1WM7xtfXg5eUcJUwx7GhJa3",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "xANZYXYg",
+          "at": "2026-08-17T03:49:19.430670+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_delta(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 22) - ts_delta(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 44)",
+      "family": "momentum_reversal",
+      "fingerprint": "84f6c5d40bd61ab07b19ab272ab93e631a3c2b2dfb82c92f972dbc0c25de8b61",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4)"
+      ],
+      "ordinal": 30,
+      "progress_url": "https://api.worldquantbrain.com/simulations/1WM7xtfXg5eUcJUwx7GhJa3",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "JjG9xXGm",
+      "events": [
+        {
+          "at": "2026-08-17T03:49:08.429931+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:49:08.774360+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2wwrmg4K44NmaciR4thv4ZX",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:49:08.780514+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2wwrmg4K44NmaciR4thv4ZX",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "JjG9xXGm",
+          "at": "2026-08-17T03:50:39.676215+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_delta(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 22)) - rank(ts_delta(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 120))",
+      "family": "momentum_reversal",
+      "fingerprint": "ddee2779e61280ba89c8cfa56f3eac47f690a710a73ca1f9154f010602aafe8c",
+      "inputs": [
+        "winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4)"
+      ],
+      "ordinal": 31,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2wwrmg4K44NmaciR4thv4ZX",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "6XpkrRxY",
+      "events": [
+        {
+          "at": "2026-08-17T03:49:19.437845+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:49:19.767693+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3DvfLXh194BT9zcqNvNTmTa",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:49:19.774878+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3DvfLXh194BT9zcqNvNTmTa",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "6XpkrRxY",
+          "at": "2026-08-17T03:51:33.617954+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_delta(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 22) - ts_delta(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 44)",
+      "family": "momentum_reversal",
+      "fingerprint": "00f7c2f36b38666b8281275e35ad33a87b3f52524dd58b46b7ee062d8d34fab9",
+      "inputs": [
+        "winsorize(ts_backfill(adj_net_income_avg, 120), std=4)"
+      ],
+      "ordinal": 32,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3DvfLXh194BT9zcqNvNTmTa",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "1YpMxnKK",
+      "events": [
+        {
+          "at": "2026-08-17T03:49:47.282468+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:49:47.638094+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/GP4U3cRA5gUa46ETtkixWC",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:49:47.644756+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/GP4U3cRA5gUa46ETtkixWC",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "1YpMxnKK",
+          "at": "2026-08-17T03:51:05.769718+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(cashflow, 120), std=4), 22) * (1 - rank(ts_std_dev(winsorize(ts_backfill(cashflow, 120), std=4), 66)))",
+      "family": "regime_adaptive",
+      "fingerprint": "0d705463dad7004b8eefd1112946cd363ea97e79ae2a1c29191d122c83509519",
+      "inputs": [
+        "winsorize(ts_backfill(cashflow, 120), std=4)"
+      ],
+      "ordinal": 33,
+      "progress_url": "https://api.worldquantbrain.com/simulations/GP4U3cRA5gUa46ETtkixWC",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "Xgo0W13x",
+      "events": [
+        {
+          "at": "2026-08-17T03:50:39.684575+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:50:40.041349+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2xbL1d3FR4EO94b5XGizltf",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:50:40.048046+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2xbL1d3FR4EO94b5XGizltf",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "Xgo0W13x",
+          "at": "2026-08-17T03:52:07.995541+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_std_dev(winsorize(ts_backfill(fnd6_cipen, 120), std=4), 66)) * (-ts_delta(winsorize(ts_backfill(fnd6_cipen, 120), std=4), 120)) + (1 - rank(ts_std_dev(winsorize(ts_backfill(fnd6_cipen, 120), std=4), 66))) * ts_delta(winsorize(ts_backfill(fnd6_cipen, 120), std=4), 22)",
+      "family": "regime_adaptive",
+      "fingerprint": "4d6d50041b45b0eef8d3eb1a8e739109a01bf9063cd93e83d17c9b67c6b2effd",
+      "inputs": [
+        "winsorize(ts_backfill(fnd6_cipen, 120), std=4)"
+      ],
+      "ordinal": 34,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2xbL1d3FR4EO94b5XGizltf",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "3qpN97g6",
+      "events": [
+        {
+          "at": "2026-08-17T03:51:05.775607+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:51:06.119823+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/hMKDp5Z855saEiRZDI2ooa",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:51:06.123884+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/hMKDp5Z855saEiRZDI2ooa",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "3qpN97g6",
+          "at": "2026-08-17T03:52:37.090246+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(fnd6_aqc, 120), std=4), 22) * (1 - rank(ts_std_dev(winsorize(ts_backfill(fnd6_aqc, 120), std=4), 66)))",
+      "family": "regime_adaptive",
+      "fingerprint": "fcddee5ef9133ecfd68ad7629aacad0eab009c0c6950cd256d398fc62b439feb",
+      "inputs": [
+        "winsorize(ts_backfill(fnd6_aqc, 120), std=4)"
+      ],
+      "ordinal": 35,
+      "progress_url": "https://api.worldquantbrain.com/simulations/hMKDp5Z855saEiRZDI2ooa",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "QPG83VJK",
+      "events": [
+        {
+          "at": "2026-08-17T03:51:33.625794+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:51:33.974275+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/48bDN35mB4Z3bhLOjCnVTAW",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:51:33.982301+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/48bDN35mB4Z3bhLOjCnVTAW",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "QPG83VJK",
+          "at": "2026-08-17T03:52:59.601950+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_std_dev(winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4), 66)) * (-ts_delta(winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4), 120)) + (1 - rank(ts_std_dev(winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4), 66))) * ts_delta(winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4), 22)",
+      "family": "regime_adaptive",
+      "fingerprint": "b9a2cadcd64b8acfb1e43b4b911fbcbac3cbd37b242947d0d7089ed30aa65c87",
+      "inputs": [
+        "winsorize(ts_backfill(fnd6_acqgdwl, 120), std=4)"
+      ],
+      "ordinal": 36,
+      "progress_url": "https://api.worldquantbrain.com/simulations/48bDN35mB4Z3bhLOjCnVTAW",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "leWm8WAA",
+      "events": [
+        {
+          "at": "2026-08-17T03:52:08.001175+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:52:08.438223+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/46v8u19Or59HaGHCKwoCe4l",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:52:08.444481+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/46v8u19Or59HaGHCKwoCe4l",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "leWm8WAA",
+          "at": "2026-08-17T03:53:45.515085+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(vec_avg(fnd6_caxts), 120), std=4), 22) * (1 - rank(ts_std_dev(winsorize(ts_backfill(vec_avg(fnd6_caxts), 120), std=4), 66)))",
+      "family": "regime_adaptive",
+      "fingerprint": "0397b7b33f1abbadbd35712b7a695c44e9a57d7b66213a1b149e1352c77c2873",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(fnd6_caxts), 120), std=4)"
+      ],
+      "ordinal": 37,
+      "progress_url": "https://api.worldquantbrain.com/simulations/46v8u19Or59HaGHCKwoCe4l",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "E5Gdvlbr",
+      "events": [
+        {
+          "at": "2026-08-17T03:52:37.096776+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:52:37.455903+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2nNHnnfkD4LPb4u1cGYBEFPS",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:52:37.465644+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2nNHnnfkD4LPb4u1cGYBEFPS",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "E5Gdvlbr",
+          "at": "2026-08-17T03:53:58.225236+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_std_dev(winsorize(ts_backfill(fnd6_ciother, 120), std=4), 66)) * (-ts_delta(winsorize(ts_backfill(fnd6_ciother, 120), std=4), 120)) + (1 - rank(ts_std_dev(winsorize(ts_backfill(fnd6_ciother, 120), std=4), 66))) * ts_delta(winsorize(ts_backfill(fnd6_ciother, 120), std=4), 22)",
+      "family": "regime_adaptive",
+      "fingerprint": "b73ad3bdae1a800cf12f7115d78c8f952629bfe33f170ca08feb960cc9d362a0",
+      "inputs": [
+        "winsorize(ts_backfill(fnd6_ciother, 120), std=4)"
+      ],
+      "ordinal": 38,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2nNHnnfkD4LPb4u1cGYBEFPS",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "O0G3rNKg",
+      "events": [
+        {
+          "at": "2026-08-17T03:52:59.607475+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:53:00.027845+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/3qbUjJaUn4MX9vE1e3OGehxr",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:53:00.035575+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/3qbUjJaUn4MX9vE1e3OGehxr",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "O0G3rNKg",
+          "at": "2026-08-17T03:54:40.145768+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "ts_zscore(winsorize(ts_backfill(fnd6_ch, 120), std=4), 22) * (1 - rank(ts_std_dev(winsorize(ts_backfill(fnd6_ch, 120), std=4), 66)))",
+      "family": "regime_adaptive",
+      "fingerprint": "66c5f93dcdf8755979b1b5061878ae6626997096fc458bdb7b5af4f396b4fcb1",
+      "inputs": [
+        "winsorize(ts_backfill(fnd6_ch, 120), std=4)"
+      ],
+      "ordinal": 39,
+      "progress_url": "https://api.worldquantbrain.com/simulations/3qbUjJaUn4MX9vE1e3OGehxr",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "zqNVYbx8",
+      "events": [
+        {
+          "at": "2026-08-17T03:53:45.521270+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:53:46.026918+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/VrSiNdxJ4vyabJ1eU7h7gtt",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:53:46.034426+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/VrSiNdxJ4vyabJ1eU7h7gtt",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "zqNVYbx8",
+          "at": "2026-08-17T03:55:12.269112+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "rank(ts_std_dev(winsorize(ts_backfill(eps, 120), std=4), 66)) * (-ts_delta(winsorize(ts_backfill(eps, 120), std=4), 120)) + (1 - rank(ts_std_dev(winsorize(ts_backfill(eps, 120), std=4), 66))) * ts_delta(winsorize(ts_backfill(eps, 120), std=4), 22)",
+      "family": "regime_adaptive",
+      "fingerprint": "90e1a58acde025ae2bc8a83a6a05aabecce8004e718d616063d5968343db4447",
+      "inputs": [
+        "winsorize(ts_backfill(eps, 120), std=4)"
+      ],
+      "ordinal": 40,
+      "progress_url": "https://api.worldquantbrain.com/simulations/VrSiNdxJ4vyabJ1eU7h7gtt",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "6XpkrAe7",
+      "events": [
+        {
+          "at": "2026-08-17T03:53:58.231604+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:53:58.569638+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/4yRFWMa7w5148zuZbrQOXVH",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:53:58.576033+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/4yRFWMa7w5148zuZbrQOXVH",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "6XpkrAe7",
+          "at": "2026-08-17T03:55:30.093315+00:00",
+          "message": null,
+          "state": "warning"
+        }
+      ],
+      "expression": "trade_when(ts_mean(volume, 10) > ts_mean(volume, 60), rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4), 22)), abs(returns) > 0.1)",
+      "family": "event_driven",
+      "fingerprint": "d6aacc8e72e2a16f3e519318a6769a28ea11ebabd8d62ef3cd977ada226e2c7c",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ady_pu), 120), std=4)"
+      ],
+      "ordinal": 41,
+      "progress_url": "https://api.worldquantbrain.com/simulations/4yRFWMa7w5148zuZbrQOXVH",
+      "state": "warning"
+    },
+    {
+      "alpha_id": "vRNQkYrw",
+      "events": [
+        {
+          "at": "2026-08-17T03:54:40.152125+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:54:40.505323+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/4Fdv9JekJ4U1a48LkxYyckJ",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:54:40.512270+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/4Fdv9JekJ4U1a48LkxYyckJ",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "vRNQkYrw",
+          "at": "2026-08-17T03:56:33.230027+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "trade_when(ts_arg_max(volume, 5) == 0, rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4), 22)), -1)",
+      "family": "event_driven",
+      "fingerprint": "0fa30b999c57eb055a1eefa5fe32e153b73aa9219100f2ed6451430d42d0c149",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_mean), 120), std=4)"
+      ],
+      "ordinal": 42,
+      "progress_url": "https://api.worldquantbrain.com/simulations/4Fdv9JekJ4U1a48LkxYyckJ",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "N1bZQKgq",
+      "events": [
+        {
+          "at": "2026-08-17T03:55:12.277081+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:55:12.631038+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/bY026gQn4KPbFpEbA5u0rn",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:55:12.637891+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/bY026gQn4KPbFpEbA5u0rn",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "N1bZQKgq",
+          "at": "2026-08-17T03:56:29.355946+00:00",
+          "message": null,
+          "state": "warning"
+        }
+      ],
+      "expression": "trade_when(ts_std_dev(returns, 5) > ts_std_dev(returns, 20), rank(ts_delta(winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4), 22)), abs(returns) > 0.1)",
+      "family": "event_driven",
+      "fingerprint": "24c49fb0dbadbbbb74475fdfb87e63206b27b33c041f1714a0615f282d079daf",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ady_low), 120), std=4)"
+      ],
+      "ordinal": 43,
+      "progress_url": "https://api.worldquantbrain.com/simulations/bY026gQn4KPbFpEbA5u0rn",
+      "state": "warning"
+    },
+    {
+      "alpha_id": "ak1pLev9",
+      "events": [
+        {
+          "at": "2026-08-17T03:55:30.099747+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:55:30.476233+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/1GgW5t4YB52IbrSmDiMa4Rw",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:55:30.482600+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/1GgW5t4YB52IbrSmDiMa4Rw",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "ak1pLev9",
+          "at": "2026-08-17T03:56:45.917370+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "trade_when(ts_arg_max(close, 20) == 0, rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4), 22)), -1)",
+      "family": "event_driven",
+      "fingerprint": "b922b1685a8f14ba39af549b3d72efe892cc32543ec9d31348c119b56cb0ad10",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_adxqfv110_median), 120), std=4)"
+      ],
+      "ordinal": 44,
+      "progress_url": "https://api.worldquantbrain.com/simulations/1GgW5t4YB52IbrSmDiMa4Rw",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "MPGr1Vjz",
+      "events": [
+        {
+          "at": "2026-08-17T03:56:29.363609+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:56:29.699265+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/2RszU5bcz4G7bcit9de3KfL",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:56:29.706738+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/2RszU5bcz4G7bcit9de3KfL",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "MPGr1Vjz",
+          "at": "2026-08-17T03:58:06.627569+00:00",
+          "message": null,
+          "state": "warning"
+        }
+      ],
+      "expression": "trade_when(ts_mean(volume, 10) > ts_mean(volume, 60), rank(ts_delta(winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4), 22)), abs(returns) > 0.1)",
+      "family": "event_driven",
+      "fingerprint": "cf932bf6449870a7d6f326794d176e39c13bc37de49a4c293a2d72219df57cbe",
+      "inputs": [
+        "winsorize(ts_backfill(vec_avg(anl4_ads1detailafv110_bk), 120), std=4)"
+      ],
+      "ordinal": 45,
+      "progress_url": "https://api.worldquantbrain.com/simulations/2RszU5bcz4G7bcit9de3KfL",
+      "state": "warning"
+    },
+    {
+      "alpha_id": "omNd6Zlb",
+      "events": [
+        {
+          "at": "2026-08-17T03:56:33.238162+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:56:33.659192+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/1OqyHo2HL4L58IL13btpHk8g",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:56:33.667248+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/1OqyHo2HL4L58IL13btpHk8g",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "omNd6Zlb",
+          "at": "2026-08-17T03:58:16.521304+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "trade_when(ts_arg_max(volume, 5) == 0, rank(ts_delta(winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4), 22)), -1)",
+      "family": "event_driven",
+      "fingerprint": "70db8cd84a990c799ce7541b316a5adf4a883fe2c9586a27ed3f6491b829e0f0",
+      "inputs": [
+        "winsorize(ts_backfill(vec_sum(anl4_ads1detailafv110_prevval), 120), std=4)"
+      ],
+      "ordinal": 46,
+      "progress_url": "https://api.worldquantbrain.com/simulations/1OqyHo2HL4L58IL13btpHk8g",
+      "state": "complete"
+    },
+    {
+      "alpha_id": "QPG836PW",
+      "events": [
+        {
+          "at": "2026-08-17T03:56:45.923940+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:56:46.354368+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/EZdYB5dF5ih9pA1g6meWXh5",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:56:46.361539+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/EZdYB5dF5ih9pA1g6meWXh5",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "QPG836PW",
+          "at": "2026-08-17T03:58:07.665664+00:00",
+          "message": null,
+          "state": "warning"
+        }
+      ],
+      "expression": "trade_when(ts_std_dev(returns, 5) > ts_std_dev(returns, 20), rank(ts_delta(winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4), 22)), abs(returns) > 0.1)",
+      "family": "event_driven",
+      "fingerprint": "555356215e65fccb9c2c01b7bbf3bbf47e6e7adbabfd55c331fa58cadd2cac25",
+      "inputs": [
+        "winsorize(ts_backfill(actual_eps_value_quarterly, 120), std=4)"
+      ],
+      "ordinal": 47,
+      "progress_url": "https://api.worldquantbrain.com/simulations/EZdYB5dF5ih9pA1g6meWXh5",
+      "state": "warning"
+    },
+    {
+      "alpha_id": "P0GVZRQw",
+      "events": [
+        {
+          "at": "2026-08-17T03:58:06.636008+00:00",
+          "state": "posting"
+        },
+        {
+          "at": "2026-08-17T03:58:07.150824+00:00",
+          "http_status": 201,
+          "progress_url": "https://api.worldquantbrain.com/simulations/1ecgM44dh56R98Rj4SlQZBE",
+          "state": "posted"
+        },
+        {
+          "at": "2026-08-17T03:58:07.158599+00:00",
+          "progress_url": "https://api.worldquantbrain.com/simulations/1ecgM44dh56R98Rj4SlQZBE",
+          "state": "polling"
+        },
+        {
+          "alpha_id": "P0GVZRQw",
+          "at": "2026-08-17T03:59:45.127657+00:00",
+          "message": null,
+          "state": "complete"
+        }
+      ],
+      "expression": "trade_when(ts_arg_max(close, 20) == 0, rank(ts_delta(winsorize(ts_backfill(adj_net_income_avg, 120), std=4), 22)), -1)",
+      "family": "event_driven",
+      "fingerprint": "9ff124f5fa5c6b970f85084b119b46d994b8ac83b58a07befc3fec90c45b93f6",
+      "inputs": [
+        "winsorize(ts_backfill(adj_net_income_avg, 120), std=4)"
+      ],
+      "ordinal": 48,
+      "progress_url": "https://api.worldquantbrain.com/simulations/1ecgM44dh56R98Rj4SlQZBE",
+      "state": "complete"
+    }
+  ],
+  "created_at": "2026-08-16T08:39:59.316163+00:00",
+  "manifest_hash": "7ee6101850856fe288a78d12b180e20c643c925636e89a70117c697e6f232328",
+  "schema_version": 1,
+  "seed": "new-alpha-ideas-2026-08-16",
+  "settings": {
+    "decay": 6,
+    "delay": 1,
+    "instrumentType": "EQUITY",
+    "language": "FASTEXPR",
+    "nanHandling": "ON",
+    "neutralization": "SUBINDUSTRY",
+    "pasteurization": "ON",
+    "region": "USA",
+    "testPeriod": "P0Y",
+    "truncation": 0.08,
+    "unitHandling": "VERIFY",
+    "universe": "TOP3000",
+    "visualization": false
+  },
+  "settings_hash": "469608c2daab338b93a70084c614a7328b2b9ac9d5fcff4ed6fd24228f6c85b1"
+}

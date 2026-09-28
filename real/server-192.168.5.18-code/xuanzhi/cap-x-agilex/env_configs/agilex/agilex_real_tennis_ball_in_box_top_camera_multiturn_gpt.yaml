@@ -1,0 +1,203 @@
+# Usage: bash scripts/run_agilex_tennis_top_camera_multiturn_pipeline.sh
+# Multi-turn GPT pipeline: execution errors (stderr) are sent back to the LLM for REGENERATE retries.
+
+env:
+  _target_: capx.envs.tasks.base.CodeExecutionEnvBase
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: capx.envs.simulators.agilex_real.AgilexRealLowLevel
+      control_backend: ros
+      master_joint_topic: /master/joint_left
+      puppet_joint_topic: /puppet/joint_left
+      camera_backend: ros
+      host: 0.0.0.0
+      port: 9010
+      start_server: false
+      wait_for_observation: true
+      arm_channel: can_left
+      bitrate: 1000000
+      robot: piper
+      speed_pct: 50
+      max_linear_vel: 1.0
+      max_angular_vel: 0.1
+      max_linear_acc: 0.4
+      max_angular_acc: 0.05
+      gripper_max_width: 0.1
+      gripper_force: 1.0
+      # Top camera only. The one-click script launches camera_h with dabai.launch.
+      img_front_topic: /camera_h/color/image_raw
+      img_front_depth_topic: /camera_h/depth/image_raw
+      img_front_camera_info_topic: /camera_h/color/camera_info
+      # Side camera is used as a correction aid (snapshots + pre-grasp checks).
+      img_side_topic: /camera_ugreen/color/image_raw
+      img_side_camera_info_topic: /camera_ugreen/color/camera_info
+      side_camera_height_above_table_m: 0.2
+      side_camera_save_during_task: true
+      side_camera_output_dir: outputs/agilex_side_camera/task
+      use_depth_image: true
+      ros_sync_wait_timeout: 0.5
+      camera_pose_mats:
+        main:
+          - [-0.063841281, -0.772649043, 0.631615189, -0.013553373]
+          - [-0.997957752, 0.048065154, -0.042072146, -0.287303356]
+          - [0.002148322, -0.633011215, -0.774139643, 0.401346266]
+          - [0.000000000, 0.000000000, 0.000000000, 1.000000000]
+      agilex_ik_urdf_path: capx/envs/assets/agilex/piper_ik_clean.urdf
+      agilex_ik_target_link_name: link6_tcp
+      base_pose_wxyz_xyz: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      agilex_tcp_offset: [0.0, 0.0, 0.0]
+      sam3_service_url: http://127.0.0.1:8114
+      sam3_checkpoint_path: /home/agilex/checkpoints/sam3
+      sam3_device: cuda
+      graspnet_service_url: http://127.0.0.1:8115
+      use_graspnet_grasp_pose: false
+      graspnet_frame_offset: [0.0, 0.0, 0.0]
+      graspnet_world_offset: [0.0, 0.0, 0.0]
+      graspnet_rotation_correction_rpy: [0.0, 0.0, 0.0]
+      graspnet_prefer_top_down: True
+      graspnet_approach_axis: z
+      graspnet_top_down_threshold: 0.65
+      graspnet_forward_passes: 1
+      graspnet_max_retries: 7
+      graspnet_local_regions: true
+      graspnet_filter_grasps: false
+      graspnet_fallback_to_topdown: false
+      graspnet_max_full_points: 20000
+      graspnet_max_segment_points: 10000
+      object_depth_clip_range: [0.05, 2.0]
+      object_min_points: 50
+      default_grasp_quaternion_wxyz: [0.0, 0.0, 1.0, 0.0]
+      grasp_z_offset: 0.04
+      grasp_ik_z_offsets: [0.0, 0.03, 0.06, 0.1, 0.14, 0.18, 0.22]
+      grasp_quaternion_yaw_offsets: [0.0, 0.785398, -0.785398, 1.570796, -1.570796, 3.141593]
+      grasp_quaternion_tilt_offsets_rpy:
+        - [0.0, 0.0, 0.0]
+        - [0.261799, 0.0, 0.0]
+        - [-0.261799, 0.0, 0.0]
+        - [0.0, 0.261799, 0.0]
+        - [0.0, -0.261799, 0.0]
+        - [0.523599, 0.0, 0.0]
+        - [-0.523599, 0.0, 0.0]
+        - [0.0, 0.523599, 0.0]
+        - [0.0, -0.523599, 0.0]
+      joint_limit_margin: 0.03
+      ik_rest_cost_weight: 0.2
+      ik_soft_limit_margin_rad: 0.04
+      ik_soft_limit_weight: 3.0
+      max_single_joint_delta: 1.1
+      safe_z_clearance: 0.2
+      max_joint_step: 0.02
+      reset_on_env_reset: true
+      reset_joint_positions: [0.0, 1.0, -0.9, 0.0, 0.5, 0.0]
+      reset_gripper_width: 0.05
+      reset_interpolation_steps: 50
+      reset_joint_tolerance: 0.03
+      auto_complete_on_clean_run: false
+    privileged: false
+    apis:
+      - AgilexControlApi
+    task_only_prompt: "Pick up one tennis ball and place it into the cardboard box."
+    prompt: |
+      You are controlling a single Agilex/Piper robot arm with the API described below.
+      Goal: pick up one tennis ball and place it into the cardboard box.
+      The robot has six joint dimensions plus one gripper command.
+      The robot provides one RGB-D top camera named main.
+      Import numpy as np and time.
+
+      Phase 0 - perceive the box BEFORE moving (the ball and the box must still be visible):
+      - Call open_gripper() first.
+      - Call box_pos, _ = get_object_pose("cardboard box") immediately, while the arm is still at home.
+      - Compute drop_pos = box_pos + np.array([0.0, 0.0, 0.12])
+      - Do NOT call get_object_pose("cardboard box") again during the task; reuse box_pos and drop_pos.
+      - In a regenerated attempt after a failure, the real arm may have disturbed the tennis ball or box. Treat all old object positions and grasp poses as stale; perceive the current box and current tennis ball again at the start of the regenerated program.
+
+      Pick-and-place sequence:
+      1. grasp_pos, grasp_quat = sample_grasp_pose("tennis ball")
+      2. pre_grasp_pos = grasp_pos + np.array([0.0, 0.0, 0.12])
+      3. Descend vertically in at least 10 small steps to grasp_pos, changing ONLY Z each step.
+      4. close_gripper(), then time.sleep(1.0)
+      5. lift_pos = grasp_pos + np.array([0.0, 0.0, 0.18]); goto_pose(lift_pos, grasp_quat, gripper=0.0)
+      6. safe_z = max(lift_pos[2], drop_pos[2] + 0.12)
+      7. goto_pose(np.array([lift_pos[0], lift_pos[1], safe_z]), grasp_quat, gripper=0.0)
+      8. goto_pose(np.array([drop_pos[0], drop_pos[1], safe_z]), grasp_quat, gripper=0.0)  # XY only at safe_z
+      9. pre_drop_pos = drop_pos + np.array([0.0, 0.0, 0.10]); goto_pose(pre_drop_pos, grasp_quat, gripper=0.0)
+      10. Descend vertically in at least 10 small steps to drop_pos, changing ONLY Z each step; keep gripper=0.0
+      11. open_gripper(), time.sleep(0.5)
+      12. Retreat: goto_pose(drop_pos + np.array([0.0, 0.0, 0.15]), grasp_quat)
+
+      Rules:
+      - Pick and place exactly one tennis ball total.
+      - Do NOT loop over multiple objects.
+      - Do NOT call sample_grasp_pose("tennis ball") more than once within one generated program. If regenerating after a failed execution, call it again because the tennis ball may have moved.
+      - In regenerated code, do not reuse old variables from prior failed code blocks such as box_pos, drop_pos, grasp_pos, grasp_quat, lift_pos, or pre_drop_pos. Recompute them from current perception.
+      - After reset the arm starts from a raised ready pose, not all-zero joints; the first motion should still use pre_grasp + vertical descent.
+      - NEVER move diagonally from lift_pos directly to pre_drop_pos in one goto_pose.
+      - NEVER change X and Y while descending.
+      - NEVER call get_object_pose after the task has started moving.
+      - Keep grasp_quat from sample_grasp_pose() until the tennis ball is released.
+      - Use gripper=0.0 on every goto_pose while carrying the tennis ball.
+
+      Write one complete executable Python program for this task.
+      Output ONLY executable Python. Do not include explanations, Markdown, or prose before/after the code. The first line must be a valid Python line such as import numpy as np, from ..., # comment, def ..., or an API call.
+      After this code executes, you will receive console stdout/stderr and may be asked to REGENERATE fixed code if execution failed.
+      You may write python code comments for reasoning but ONLY write the executable Python code and do not write it in code fences.
+      The functions below are already imported to the environment. If you want to use numpy, you need to import it explicitly.
+
+    multi_turn_prompt: |
+      The following code blocks were just executed:
+      ```python
+      {executed_code}
+      ```
+      The current console stdout is:
+      ```
+      {console_stdout}
+      ```
+      The current console stderr is:
+      ```
+      {console_stderr}
+      ```
+      If stderr is non-empty or execution failed, you MUST analyze the traceback and respond with REGENERATE plus a complete corrected Python program.
+      Important real-robot state note: a failed execution may physically move the tennis ball, box, or arm. Any previous object coordinates or grasp quaternion may now be wrong. In regenerated code, start from the current scene: open the gripper if safe, re-perceive the cardboard box, recompute drop_pos, call sample_grasp_pose("tennis ball") again, and then plan from the current robot/object state.
+      Common Agilex/Piper failures to fix:
+      - RuntimeError: goto_pose refusing large joint jump -> use smaller steps, safe_z waypoints, or fewer diagonal moves
+      - RuntimeError: No IK-reachable top-down grasp -> adjust approach height or reuse sample_grasp_pose once
+      - TimeoutError: arm did not converge -> reduce per-step motion or split goto_pose into smaller segments
+      - Perception errors -> call get_object_pose only before moving; reuse cached box_pos/drop_pos
+      If execution succeeded with empty stderr and the tennis ball appears placed in the box, respond FINISH.
+      Please respond with EXACTLY ONE of the following:
+      - The word 'REGENERATE' followed immediately by new Python code in a fenced code block (```python...```) if you want to modify the code. Inside the fence, include only executable Python, with no prose.
+      - The word 'FINISH' if the task appears complete and stderr is empty
+
+api_servers:
+  - _target_: capx.serving.launch_sam3_server.main
+    device: cuda
+    port: 8114
+    host: 127.0.0.1
+    checkpoint_path: /home/agilex/checkpoints/sam3
+
+  - _target_: capx.serving.launch_contact_graspnet_server.main
+    device: cuda
+    port: 8115
+    host: 127.0.0.1
+
+record_video: true
+output_dir: ./outputs/gpt_agilex_real_tennis_ball_top_camera_multiturn
+# Generate a fixed plan first, then generate and execute one STEER-constrained
+# code block per stage. A failed grasp gate aborts before any carrying motion.
+agilex_staged_tennis_execution: true
+agilex_success_memory_enabled: false
+agilex_success_memory_path: ./outputs/agilex_tennis_ball_top_camera_success_memory.json
+agilex_failure_vision_enabled: true
+agilex_failure_vision_max_frames: 4
+agilex_strategy_shift_enabled: false
+agilex_strategy_shift_after_failures: 2
+use_img_differencing: false
+save_multiturn_prompts: true
+debug: true
+web_ui: false
+agilex_visual_success_check: true
+agilex_success_backend: geometric
+
+trials: 1
+num_workers: 1

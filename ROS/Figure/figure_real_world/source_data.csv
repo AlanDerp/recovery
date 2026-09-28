@@ -1,0 +1,8 @@
+task,successful_trials,total_trials,success_rate_percent
+Tennis-ball pick-and-place,8,8,100.0
+Put-General,7,8,87.5
+Towel folding,5,8,62.5
+Instruction-guided cup stacking,8,8,100.0
+Plug insertion,3,8,37.5
+Weight comparison,8,8,100.0
+Overall,44,56,78.6

@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "description": "Machine-readable registry of alpha candidates and submissions for this account. Never store credentials, emails, phone numbers, tokens, or raw API auth payloads here \u2014 reference the source script/run instead.",
+  "account": {
+    "user_id": "AT90350",
+    "tier": "TUTORIAL",
+    "level": "BRONZE",
+    "capabilities": {
+      "instrument_types": [
+        "EQUITY"
+      ],
+      "regions": [
+        "USA"
+      ],
+      "delays": [
+        1,
+        0
+      ],
+      "universes": [
+        "TOP3000",
+        "TOP2000",
+        "TOP1000",
+        "TOP500",
+        "TOP200",
+        "TOPSP500"
+      ],
+      "neutralizations": [
+        "NONE",
+        "MARKET",
+        "SECTOR",
+        "INDUSTRY",
+        "SUBINDUSTRY"
+      ],
+      "alpha_types": [
+        "REGULAR"
+      ],
+      "multi_simulation": false
+    }
+  },
+  "status_values": [
+    "simulated",
+    "rejected",
+    "passed_checks",
+    "submitted"
+  ],
+  "submission_gate": {
+    "min_sharpe": 1.25,
+    "min_fitness": 1.0,
+    "turnover_range": [
+      0.01,
+      0.7
+    ],
+    "self_correlation_target_max": 0.7,
+    "note": "rK28jvqE submitted with selfCorrelation=0.8005 while the platform's own /check response listed limit=0.7 and still returned PASS. Cause undocumented on our side. Do not treat this as evidence the 0.70 target is soft \u2014 future candidates should still target <=0.70."
+  },
+  "alphas": [
+    {
+      "record_id": "alpha_0001",
+      "candidate_name": "liab_momentum",
+      "alpha_id": "rK28jvqE",
+      "status": "submitted",
+      "platform_status": "ACTIVE",
+      "stage": "OS",
+      "expression": "0.7 * rank(liabilities / assets) + 0.3 * rank(-ts_zscore(ts_delta(close, 5), 30))",
+      "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 0,
+        "neutralization": "SUBINDUSTRY",
+        "truncation": 0.08,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "OFF",
+        "maxTrade": "OFF",
+        "maxPosition": "OFF",
+        "language": "FASTEXPR"
+      },
+      "is_metrics": {
+        "sharpe": 2.28,
+        "fitness": 1.57,
+        "turnover": 0.2824,
+        "returns": 0.1336,
+        "margin": 0.000946,
+        "drawdown": 0.0538,
+        "longCount": 1440,
+        "shortCount": 1533,
+        "selfCorrelation": 0.8005,
+        "prodCorrelation": 0.0
+      },
+      "is_checks": [
+        {
+          "name": "LOW_SHARPE",
+          "result": "PASS",
+          "value": 2.28,
+          "limit": 1.25
+        },
+        {
+          "name": "LOW_FITNESS",
+          "result": "PASS",
+          "value": 1.57,
+          "limit": 1.0
+        },
+        {
+          "name": "LOW_TURNOVER",
+          "result": "PASS",
+          "value": 0.2824,
+          "limit": 0.01
+        },
+        {
+          "name": "HIGH_TURNOVER",
+          "result": "PASS",
+          "value": 0.2824,
+          "limit": 0.7
+        },
+        {
+          "name": "CONCENTRATED_WEIGHT",
+          "result": "PASS",
+          "value": null,
+          "limit": null
+        },
+        {
+          "name": "LOW_SUB_UNIVERSE_SHARPE",
+          "result": "PASS",
+          "value": 1.52,
+          "limit": 0.99
+        },
+        {
+          "name": "SELF_CORRELATION",
+          "result": "PASS",
+          "value": 0.8005,
+          "limit": 0.7
+        },
+        {
+          "name": "MATCHES_COMPETITION",
+          "result": "PASS",
+          "value": null,
+          "limit": null
+        }
+      ],
+      "date_created": "2026-08-14T21:53:20-04:00",
+      "date_submitted": "2026-08-14T21:59:23-04:00",
+      "hypothesis_source": "reverse-engineered from this account's own 202 prior IS alphas, not from external literature",
+      "hypothesis": "Dominant leg reuses the only fundamental structure (liabilities/assets, a book-leverage ratio) verifiably clearing all checks on this account historically. Minor leg adds an economically distinct, faster short-horizon reversal signal on close price to reduce self-correlation with the account's two prior liabilities/assets submissions.",
+      "doc": "research/alpha_0001_liab_momentum.md",
+      "platform_url": "https://platform.worldquantbrain.com/alpha/rK28jvqE"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "candidate_name": "liab_assets",
+      "expression": "liabilities / assets",
+      "sharpe": 1.54,
+      "fitness": 1.33,
+      "blocking": [
+        "SELF_CORRELATION(0.9681>0.7)"
+      ]
+    },
+    {
+      "candidate_name": "debt_assets",
+      "expression": "debt / assets",
+      "sharpe": 1.42,
+      "fitness": 1.18,
+      "blocking": [
+        "SELF_CORRELATION(0.8837>0.7)"
+      ]
+    },
+    {
+      "candidate_name": "grp_debt_assets",
+      "expression": "group_rank(debt / assets, subindustry)",
+      "sharpe": 1.3,
+      "fitness": 0.91,
+      "blocking": [
+        "LOW_FITNESS"
+      ]
+    },
+    {
+      "candidate_name": "value3",
+      "expression": "composite of book/market, earnings yield, cashflow yield ranks",
+      "sharpe": 0.66,
+      "fitness": 0.49,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS"
+      ]
+    },
+    {
+      "candidate_name": "ev_yield",
+      "expression": "composite of cfo/EV, ebit/EV ranks",
+      "sharpe": 0.39,
+      "fitness": 0.25,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "qual_grp",
+      "expression": "group_rank composite of cfo/assets, ebit/assets, sales/assets",
+      "sharpe": 0.3,
+      "fitness": 0.14,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "accruals",
+      "expression": "-rank((income - cashflow_op) / assets)",
+      "sharpe": 0.34,
+      "fitness": 0.17,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "qual_accr",
+      "expression": "quality/accruals blend",
+      "sharpe": 0.25,
+      "fitness": 0.12,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "qual_z",
+      "expression": "zscore composite of cfo/assets, ebit/assets, sales/assets",
+      "sharpe": 0.18,
+      "fitness": 0.08,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "assets_liab",
+      "expression": "assets / liabilities",
+      "sharpe": -0.21,
+      "fitness": -0.1,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "CONCENTRATED_WEIGHT"
+      ]
+    },
+    {
+      "candidate_name": "grp_cfo_assets",
+      "expression": "group_rank(cashflow_op / assets, subindustry)",
+      "sharpe": 0.2,
+      "fitness": 0.08,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "grp_ebit_assets",
+      "expression": "group_rank(ebit / assets, subindustry)",
+      "sharpe": 0.08,
+      "fitness": 0.02,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ]
+    },
+    {
+      "candidate_name": "quality3",
+      "expression": "rank-composite of cfo/assets, ebit/assets, sales/assets",
+      "sharpe": null,
+      "fitness": null,
+      "blocking": [
+        "COMPILE_ERROR: Found unused variables \"ni\""
+      ]
+    },
+    {
+      "candidate_name": "qual_value",
+      "expression": "quality+value blend",
+      "sharpe": null,
+      "fitness": null,
+      "blocking": [
+        "COMPILE_ERROR: Found unused variables \"ni\""
+      ]
+    },
+    {
+      "candidate_name": "ivol_total",
+      "alpha_id": "ZYE9E9Nj",
+      "expression": "-rank(ts_std_dev(returns, 22))",
+      "sharpe": 0.15,
+      "fitness": 0.07,
+      "sub_universe_sharpe": -0.01,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ],
+      "citation": "AHXZ 2006 JF 61(1) 259-299 DOI 10.3386/w10852",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "ivol_lagged",
+      "alpha_id": "mL5N5QxE",
+      "expression": "-rank(ts_delay(ts_std_dev(returns, 22), 22))",
+      "sharpe": 0.09,
+      "fitness": 0.03,
+      "sub_universe_sharpe": -0.01,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ],
+      "citation": "AHXZ 2006, 1/1/1 lagged variant",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "ivol_grp",
+      "alpha_id": "XgoxoeM0",
+      "expression": "-group_rank(ts_std_dev(returns, 22), subindustry)",
+      "sharpe": 0.04,
+      "fitness": 0.01,
+      "sub_universe_sharpe": -0.06,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ],
+      "citation": "AHXZ 2006 JF 61(1) 259-299",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "asset_growth",
+      "alpha_id": "6XpQlVzE",
+      "expression": "-rank(assets / ts_delay(assets, 240) - 1)",
+      "sharpe": 0.36,
+      "fitness": 0.15,
+      "sub_universe_sharpe": 0.18,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS"
+      ],
+      "citation": "Cooper/Gulen/Ion 2024 JFE 151:103746 DOI 10.1016/j.jfineco.2023.103746",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "inv_rec_grp",
+      "alpha_id": "O0Gj7Enb",
+      "expression": "-group_rank(d_inv + d_rec, subindustry) on inventory+receivable scaled by assets",
+      "sharpe": 0.23,
+      "fitness": 0.06,
+      "sub_universe_sharpe": 0.2,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS"
+      ],
+      "citation": "Cooper/Gulen/Ion 2024 (inventory+receivables result)",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "inv_rec_growth",
+      "alpha_id": "9qp3X1zq",
+      "expression": "-rank(d_inv + d_rec) on inventory+receivable scaled by assets",
+      "sharpe": 0.02,
+      "fitness": 0.0,
+      "sub_universe_sharpe": -0.04,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS",
+        "LOW_SUB_UNIVERSE_SHARPE"
+      ],
+      "citation": "Cooper/Gulen/Ion 2024 (inventory+receivables result)",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "liab_ag_30",
+      "alpha_id": "GrGNdrqZ",
+      "expression": "0.7*rank(liabilities/assets) + 0.3*rank(-(assets/ts_delay(assets,240)-1))",
+      "sharpe": 1.13,
+      "fitness": 0.87,
+      "sub_universe_sharpe": 0.7,
+      "blocking": [
+        "LOW_SHARPE",
+        "LOW_FITNESS"
+      ],
+      "citation": "blend: leverage + Cooper/Gulen/Ion 2024 asset growth",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "liab_ag_20",
+      "alpha_id": "WjAR72Md",
+      "expression": "0.8*rank(liabilities/assets) + 0.2*rank(-(assets/ts_delay(assets,240)-1))",
+      "sharpe": 1.25,
+      "fitness": 0.98,
+      "sub_universe_sharpe": 0.81,
+      "blocking": [
+        "LOW_FITNESS"
+      ],
+      "citation": "blend: leverage + Cooper/Gulen/Ion 2024 asset growth",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    },
+    {
+      "candidate_name": "liab_rev_ag",
+      "alpha_id": "qMNpjpa2",
+      "expression": "0.6*rank(liabilities/assets) + 0.2*rank(-ts_zscore(ts_delta(close,5),30)) + 0.2*rank(-(assets/ts_delay(assets,240)-1))",
+      "sharpe": 1.8,
+      "fitness": 1.29,
+      "sub_universe_sharpe": 1.22,
+      "blocking": [
+        "SELF_CORRELATION(0.9257>0.7)"
+      ],
+      "citation": "blend: leverage + reversal + Cooper/Gulen/Ion 2024 asset growth",
+      "round": 2,
+      "settings_note": "USA/TOP3000/d1/SUBINDUSTRY/decay0/trunc0.08"
+    }
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "date": "2026-08-15",
+      "approach": "literature-driven: primary sources verified from paper text, not recollection",
+      "papers": [
+        "Ang/Hodrick/Xing/Zhang 2006, J.Finance 61(1) 259-299, DOI 10.3386/w10852",
+        "Cooper/Gulen/Ion 2024, J.Financial Economics 151:103746, DOI 10.1016/j.jfineco.2023.103746"
+      ],
+      "candidates_simulated": 9,
+      "submitted": 0,
+      "outcome": "No candidate cleared all gates. All 6 standalone literature factors flat (Sharpe 0.02-0.36). Best blend liab_rev_ag reached Sharpe 1.80 / fitness 1.29 but FAILED SELF_CORRELATION at 0.9257 vs limit 0.7.",
+      "key_finding": "This account's leverage-signal family is saturated; any candidate reusing it hits the self-correlation ceiling. The clean 0.9257 FAIL is evidence the 0.70 limit is real and rK28jvqE's PASS at 0.8005 was anomalous.",
+      "doc": "research/papers/README.md"
+    }
+  ]
+}
